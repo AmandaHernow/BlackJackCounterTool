@@ -1,80 +1,125 @@
-# Blackjack Counter Tool
+# Counter Tool
 
-A browser-based blackjack card counting tool for tracking and practicing multiple counting systems in one simple interface.
+> A self-contained offline blackjack card counting tool — single HTML file, no dependencies, no internet required.
 
-## Features
-
-- Multiple counting systems in one tool:
-  - Hi-Lo
-  - KO
-  - Red 7
-  - Hi-Opt I
-  - Hi-Opt II
-  - Zen Count
-  - Omega II
-  - Wong Halves
-- Running count display
-- True count display for balanced systems
-- Key count handling for unbalanced systems
-- Ace side count tracking for supported systems
-- Betting suggestion panel
-- Cards played and cards remaining tracking
-- Undo, clear, and new shoe controls
-- Built-in help panels for usage, systems, betting, expert notes, and disclaimer
-- Offline single-file HTML app
-- No external dependencies
-
-## About
-
-This project is a lightweight browser tool made to help learn, practice, and use different blackjack card counting systems in one place. It includes both beginner-friendly and more advanced systems, along with true count or key count guidance depending on the selected method.
+---
 
 ## Supported Systems
 
+| System | Type | Level | Ace Side Count |
+|---|---|---|---|
+| Hi-Lo | Balanced | Level 1 | No |
+| KO (Knock-Out) | Unbalanced | Level 1 | No |
+| Red 7 | Unbalanced | Level 1 | No |
+| Hi-Opt I | Balanced | Level 1 | Yes |
+| Hi-Opt II | Balanced | Level 2 | Yes |
+| Zen Count | Balanced | Level 2 | No |
+| Omega II | Balanced | Level 2 | Yes |
+| Wong Halves | Balanced | Fractional | No |
+
+---
+
+## Features
+
+**Counting**
+- Running count displayed prominently at all times
+- True count (running ÷ decks remaining) for all balanced systems
+- Key count tracking and threshold comparison for unbalanced systems (KO, Red 7)
+- Ace side count with density tracking for Hi-Opt I, Hi-Opt II, and Omega II
+- Correct IRC (initial running count) for unbalanced systems based on shoe size
+
+**Interface**
+- Configurable shoe size from 1 to 7 decks
+- System-specific button layouts that change per counting method
+- Betting suggestion panel with visual ramp tied to true count or running count
+- Ace density indicator — rich, poor, or neutral — for ace side count systems
+- Action log with 24-hour timestamps for every card counted
+- Undo, New Shoe, and Clear controls
+- Built-in help modal covering usage, all systems, betting logic, expert notes, and disclaimer
+
+**Technical**
+- Single `.html` file — open directly in any browser, no install needed
+- Strict CSP header blocking all outbound connections
+- No external scripts, fonts, or stylesheets
+- No data stored, no network requests made
+
+---
+
+## Usage
+
+1. Open `BJCounterTool.html` in any modern browser
+2. Select the number of decks in the shoe
+3. Click the counting system tab you want to use
+4. Press the buttons as cards are dealt
+5. Read the true count or key count status and the betting suggestion
+6. Hit **New Shoe** when the shoe is shuffled and restarted
+7. Use **Undo** to step back one action at a time
+
+The full built-in help panel (accessible via the `?` button) covers each system's card values, the betting ramp, expert-level notes on index plays and deck estimation, and a disclaimer.
+
+---
+
+## System Reference
+
 ### Balanced systems
-- Hi-Lo
-- Hi-Opt I
-- Hi-Opt II
-- Zen Count
-- Omega II
-- Wong Halves
+Balanced systems start at 0 and return to 0 after a full deck — the true count is calculated as running count ÷ decks remaining.
+
+| System | Values used |
+|---|---|
+| Hi-Lo | +1 / 0 / −1 |
+| Hi-Opt I | +1 / 0 / −1 + ace side count |
+| Hi-Opt II | +2 / +1 / 0 / −2 + ace side count |
+| Zen Count | +2 / +1 / 0 / −1 / −2 |
+| Omega II | +2 / +1 / 0 / −1 / −2 + ace side count |
+| Wong Halves | +1.5 / +1 / +0.5 / 0 / −0.5 / −1 |
 
 ### Unbalanced systems
-- KO
-- Red 7
+Unbalanced systems do not return to 0 — they start at a negative IRC and use a key count threshold instead of true count conversion.
 
-## How to Use
+| System | IRC (6 decks) | Key count (6 decks) |
+|---|---|---|
+| KO | −20 | −5 |
+| Red 7 | −12 | 0 |
 
-1. Select the number of decks in the shoe.
-2. Choose the counting system you want to use.
-3. Press the matching buttons as cards are played.
-4. Watch the running count and displayed count metric update.
-5. Use **New Shoe** when a fresh shoe starts.
-6. Use **Undo** to reverse the last action.
-7. Use **Clear** to reset the current shoe tracking.
+---
 
-## Notes
+## Betting Suggestion Ramp
 
-- Balanced systems use a true count style calculation.
-- Unbalanced systems use running count and key count logic.
-- Some systems include separate ace side counting.
-- Betting suggestions are practical guidance only and not a professional bankroll model.
+| True Count | Suggestion |
+|---|---|
+| +4 and above | Max |
+| +3 | High |
+| +2 | Raise |
+| +1 | Slight Increase |
+| 0 | Standard |
+| −1 | Minimum |
+| −2 or worse | Sit Out / Minimum |
+
+> For KO and Red 7, the ramp is based on running count vs the key count threshold rather than true count.
+
+---
 
 ## Tech
 
-This project is built as a single-file app using:
+Built with plain HTML, CSS, and JavaScript. No frameworks, no build tools, no package manager.
 
-- HTML
-- CSS
-- JavaScript
+```
+BJCounterTool.html   ← the entire application
+```
+
+---
 
 ## Status
 
-Private project for now. May be expanded or published later.
+Private repository. May be published at a later date.
+
+---
 
 ## Disclaimer
 
-This tool is for educational and reference purposes only. It does not guarantee results and should not be treated as professional gambling advice.
+Card counting is not illegal in most jurisdictions but casinos are private property and may restrict or remove players they suspect of counting. This tool is for personal practice and reference only. It does not guarantee any outcome and is not professional gambling advice.
 
-## Author
+---
 
-Amanda Hernow
+© 2026 Amanda Hernow — All rights reserved.  
+Unauthorised copying, modification, or distribution of this software is prohibited.
