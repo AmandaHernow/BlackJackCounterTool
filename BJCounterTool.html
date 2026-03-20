@@ -11,7 +11,6 @@
   <title>Blackjack Counter Tool</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iIzAwMDAwMCIvPgogIDxyZWN0IHg9IjEiIHk9IjEiIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgcng9IjMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2IzMDAwMCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8cGF0aCBkPSJNMTYgNSBDMTYgNSwgNyAxMSwgNyAxNyBDNyAyMC41IDkuNSAyMiAxMiAyMSBDMTEgMjMgMTAgMjUgOCAyNiBMMjQgMjYgQzIyIDI1IDIxIDIzIDIwIDIxIEMyMi41IDIyIDI1IDIwLjUgMjUgMTcgQzI1IDExIDE2IDUgMTYgNSBaIiBmaWxsPSIjZmZmZmZmIi8+CiAgPHJlY3QgeD0iMTQiIHk9IjI0IiB3aWR0aD0iNCIgaGVpZ2h0PSIzIiByeD0iMSIgZmlsbD0iI2ZmZmZmZiIvPgo8L3N2Zz4=">
   <style>
-    /* ══ THEME VARIABLES ══ */
     :root {
       --bg-app:     #000000;
       --bg-surface: #0a0a0a;
@@ -24,13 +23,11 @@
       --bg-infobox: #0d0000;
       --bg-tblhdr:  #180000;
       --bg-step:    #1a0000;
-
       --brd-main:   #b30000;
       --brd-btn:    #ff2a2a;
       --brd-sep:    #3a0000;
       --brd-card:   #2a0000;
       --brd-row:    #1a0000;
-
       --txt-main:   #ffffff;
       --txt-sub:    #d6d6d6;
       --txt-muted:  #bbbbbb;
@@ -51,13 +48,11 @@
       --bg-infobox: #fff7f7;
       --bg-tblhdr:  #ffeaea;
       --bg-step:    #fff0f0;
-
       --brd-main:   #b30000;
       --brd-btn:    #aa1111;
       --brd-sep:    #ddc8c8;
       --brd-card:   #ead5d5;
       --brd-row:    #f2e5e5;
-
       --txt-main:   #111111;
       --txt-sub:    #444444;
       --txt-muted:  #555555;
@@ -67,555 +62,107 @@
     }
 
     * { box-sizing: border-box; }
-
-    html, body {
-      margin: 0;
-      height: 100%;
-      font-family: 'Segoe UI', sans-serif;
-      background: var(--bg-app);
-      color: var(--txt-main);
-    }
-
+    html, body { margin: 0; height: 100%; font-family: 'Segoe UI', sans-serif; background: var(--bg-app); color: var(--txt-main); }
     body { overflow: hidden; }
     button, select { font-family: inherit; }
 
-    .window {
-      border: 1px solid var(--brd-main);
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      background: var(--bg-app);
-    }
+    .window { border: 1px solid var(--brd-main); display: flex; flex-direction: column; height: 100vh; background: var(--bg-app); }
 
-    .titlebar {
-      display: flex;
-      align-items: center;
-      background: var(--bg-tab);
-      border-bottom: 1px solid var(--brd-main);
-      height: 40px;
-      padding: 0 6px;
-      user-select: none;
-      flex-shrink: 0;
-    }
-
-    .titlebar .icon {
-      width: 24px;
-      height: 24px;
-      margin-right: 8px;
-      border: 1px solid var(--brd-main);
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 700;
-      background: #1a1a1a;
-      flex-shrink: 0;
-    }
-
-    .titlebar .title {
-      flex: 1;
-      color: var(--txt-main);
-      font-weight: bold;
-      font-size: 14px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
+    .titlebar { display: flex; align-items: center; background: var(--bg-tab); border-bottom: 1px solid var(--brd-main); height: 40px; padding: 0 6px; user-select: none; flex-shrink: 0; }
+    .titlebar .icon { width: 24px; height: 24px; margin-right: 8px; border: 1px solid var(--brd-main); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; background: #1a1a1a; flex-shrink: 0; }
+    .titlebar .title { flex: 1; color: var(--txt-main); font-weight: bold; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .titlebar-buttons { display: flex; gap: 4px; }
-
-    .titlebar button {
-      background: var(--bg-tab);
-      border: 1px solid var(--brd-main);
-      color: var(--txt-main);
-      cursor: pointer;
-      width: 32px;
-      height: 28px;
-      font-size: 14px;
-      line-height: 1;
-    }
-
+    .titlebar button { background: var(--bg-tab); border: 1px solid var(--brd-main); color: var(--txt-main); cursor: pointer; width: 32px; height: 28px; font-size: 14px; line-height: 1; }
     .titlebar button:hover { background: var(--brd-main); color: #fff; }
     .titlebar button:active { transform: scale(0.98); }
 
-    /* System/help tabs and modal close: themed */
-    .system-tab,
-    .help-tab,
-    #helpClose {
-      background: var(--bg-tab);
-      border: 1px solid var(--brd-main);
-      color: var(--txt-main);
-      cursor: pointer;
-    }
+    .system-tab, .help-tab, #helpClose { background: var(--bg-tab); border: 1px solid var(--brd-main); color: var(--txt-main); cursor: pointer; }
+    .counter-buttons button, .clear-button, .undo-button, .new-shoe-button { background: var(--bg-btn); border: 1px solid var(--brd-btn); color: #fff; cursor: pointer; }
+    .system-tab:hover, .help-tab:hover, #helpClose:hover { background: var(--brd-main); color: #fff; }
+    .counter-buttons button:hover, .clear-button:hover, .undo-button:hover, .new-shoe-button:hover { background: var(--brd-main); }
+    .system-tab:active, .help-tab:active, #helpClose:active, .counter-buttons button:active, .clear-button:active, .undo-button:active, .new-shoe-button:active { transform: scale(0.98); }
 
-    /* Counter and utility buttons: always red */
-    .counter-buttons button,
-    .clear-button,
-    .undo-button,
-    .new-shoe-button {
-      background: var(--bg-btn);
-      border: 1px solid var(--brd-btn);
-      color: #fff;
-      cursor: pointer;
-    }
+    .system-selector-row { display: flex; align-items: center; justify-content: flex-start; gap: 14px; margin: 10px 20px 0; color: var(--txt-main); flex-wrap: wrap; flex-shrink: 0; border-bottom: 1px solid var(--brd-sep); padding-bottom: 10px; }
+    .system-selector-label { font-size: 22px; font-weight: 700; min-width: 185px; }
+    .system-tabs { display: flex; justify-content: flex-start; gap: 8px; flex-wrap: wrap; align-items: flex-end; }
+    .system-tab { padding: 9px 16px; font-size: 14px; font-weight: 700; min-width: 110px; border: 1px solid var(--brd-main); border-bottom: 2px solid var(--brd-main); box-shadow: none; }
+    .system-tab.active, .help-tab.active { background: var(--bg-tab-act); border-bottom-color: var(--brd-btn); }
 
-    .system-tab:hover,
-    .help-tab:hover,
-    #helpClose:hover { background: var(--brd-main); color: #fff; }
-
-    .counter-buttons button:hover,
-    .clear-button:hover,
-    .undo-button:hover,
-    .new-shoe-button:hover { background: var(--brd-main); }
-
-    .system-tab:active,
-    .help-tab:active,
-    #helpClose:active,
-    .counter-buttons button:active,
-    .clear-button:active,
-    .undo-button:active,
-    .new-shoe-button:active { transform: scale(0.98); }
-
-    .system-selector-row {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 14px;
-      margin: 10px 20px 0;
-      color: var(--txt-main);
-      flex-wrap: wrap;
-      flex-shrink: 0;
-      border-bottom: 1px solid var(--brd-sep);
-      padding-bottom: 10px;
-    }
-
-    .system-selector-label {
-      font-size: 22px;
-      font-weight: 700;
-      min-width: 185px;
-    }
-
-    .system-tabs {
-      display: flex;
-      justify-content: flex-start;
-      gap: 8px;
-      flex-wrap: wrap;
-      align-items: flex-end;
-    }
-
-    .system-tab {
-      padding: 9px 16px;
-      font-size: 14px;
-      font-weight: 700;
-      min-width: 110px;
-      border: 1px solid var(--brd-main);
-      border-bottom: 2px solid var(--brd-main);
-      box-shadow: none;
-    }
-
-    .system-tab.active,
-    .help-tab.active {
-      background: var(--bg-tab-act);
-      border-bottom-color: var(--brd-btn);
-    }
-
-    .header-info {
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 10px 12px 6px;
-      color: var(--txt-main);
-      font-size: 12px;
-      line-height: 1.5;
-      flex-shrink: 0;
-    }
-
+    .header-info { display: flex; justify-content: space-between; gap: 18px; padding: 10px 12px 6px; color: var(--txt-main); font-size: 12px; line-height: 1.5; flex-shrink: 0; }
     .header-info-text { flex: 1; min-width: 0; }
-    .header-info-text > div {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+    .header-info-text > div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    .shoe-selector-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin: 4px 20px 0;
-      color: var(--txt-main);
-      font-size: 20px;
-      font-weight: 700;
-      flex-wrap: wrap;
-      flex-shrink: 0;
-    }
+    .shoe-selector-row { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 4px 20px 0; color: var(--txt-main); font-size: 20px; font-weight: 700; flex-wrap: wrap; flex-shrink: 0; }
+    .shoe-selector-row select { min-width: 90px; padding: 8px 12px; background: var(--bg-select); color: var(--txt-main); border: 1px solid var(--brd-btn); font-size: 18px; font-weight: 700; outline: none; cursor: pointer; }
 
-    .shoe-selector-row select {
-      min-width: 90px;
-      padding: 8px 12px;
-      background: var(--bg-select);
-      color: var(--txt-main);
-      border: 1px solid var(--brd-btn);
-      font-size: 18px;
-      font-weight: 700;
-      outline: none;
-      cursor: pointer;
-    }
+    .app-body { flex: 1; display: block; padding: 12px 20px 16px 20px; min-height: 0; overflow: auto; }
+    .main-panel { width: min(920px, 100%); margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 14px; min-width: 0; }
 
-    .app-body {
-      flex: 1;
-      display: block;
-      padding: 12px 20px 16px 20px;
-      min-height: 0;
-      overflow: auto;
-    }
-
-    .main-panel {
-      width: min(920px, 100%);
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 14px;
-      min-width: 0;
-    }
-
-    .side-panel {
-      position: fixed !important;
-      top: 116px !important;
-      right: 20px !important;
-      width: 320px !important;
-      height: calc(100vh - 182px) !important;
-      min-width: 0;
-      z-index: 999 !important;
-      display: block !important;
-    }
-
+    .side-panel { position: fixed !important; top: 116px !important; right: 20px !important; width: 320px !important; height: calc(100vh - 182px) !important; min-width: 0; z-index: 999 !important; display: block !important; }
     .side-panel > * { pointer-events: auto; }
 
-    .counter-area {
-      width: min(980px, 100%);
-      display: grid;
-      grid-template-columns: 120px minmax(0, 700px) 120px;
-      align-items: center;
-      justify-content: center;
-      column-gap: 14px;
-    }
-
+    .counter-area { width: min(980px, 100%); display: grid; grid-template-columns: 120px minmax(0, 700px) 120px; align-items: center; justify-content: center; column-gap: 14px; }
     .counter-display-spacer { width: 100%; min-height: 1px; }
+    .counter-display-wrap { width: 100%; display: flex; align-items: center; justify-content: center; }
+    .counter-display { width: 100%; min-height: 170px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--brd-main); background: var(--bg-surface); color: var(--txt-main); font-size: clamp(44px, 12vw, 100px); font-weight: 700; text-align: center; padding: 16px; overflow: hidden; word-break: break-word; }
 
-    .counter-display-wrap {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    .clear-button-wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; width: 100%; }
+    .clear-button, .undo-button, .new-shoe-button { padding: 12px 16px; min-height: 50px; font-weight: 700; font-size: 16px; flex-shrink: 0; border-radius: 0; width: 100%; }
 
-    .counter-display {
-      width: 100%;
-      min-height: 170px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid var(--brd-main);
-      background: var(--bg-surface);
-      color: var(--txt-main);
-      font-size: clamp(44px, 12vw, 100px);
-      font-weight: 700;
-      text-align: center;
-      padding: 16px;
-      overflow: hidden;
-      word-break: break-word;
-    }
+    .counter-buttons { width: min(920px, 100%); display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .counter-buttons.four-wide { grid-template-columns: repeat(4, 1fr) !important; }
+    .counter-buttons button { padding: 14px 10px; font-weight: 700; font-size: 20px; min-height: 54px; transition: background 0.15s ease, transform 0.05s ease; }
 
-    .clear-button-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 8px;
-      width: 100%;
-    }
+    .info-row { width: min(920px, 100%); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .true-count-box, .betting-box { border: 1px solid var(--brd-main); background: var(--bg-surface); text-align: center; padding: 14px 16px; min-height: 108px; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+    .true-count-label, .betting-label { font-size: 16px; font-weight: 700; color: var(--txt-main); }
+    .true-count-value, .betting-value { font-size: clamp(28px, 6vw, 42px); font-weight: 700; color: var(--txt-main); }
+    .betting-note { font-size: 13px; color: var(--txt-sub); min-height: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    .clear-button,
-    .undo-button,
-    .new-shoe-button {
-      padding: 12px 16px;
-      min-height: 50px;
-      font-weight: 700;
-      font-size: 16px;
-      flex-shrink: 0;
-      border-radius: 0;
-      width: 100%;
-    }
-
-    .counter-buttons {
-      width: min(920px, 100%);
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-
-    .counter-buttons.four-wide {
-      grid-template-columns: repeat(4, 1fr) !important;
-    }
-
-    .counter-buttons button {
-      padding: 14px 10px;
-      font-weight: 700;
-      font-size: 20px;
-      min-height: 54px;
-      transition: background 0.15s ease, transform 0.05s ease;
-    }
-
-    .info-row {
-      width: min(920px, 100%);
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      align-items: stretch;
-    }
-
-    .true-count-box,
-    .betting-box {
-      border: 1px solid var(--brd-main);
-      background: var(--bg-surface);
-      text-align: center;
-      padding: 14px 16px;
-      min-height: 108px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 6px;
-    }
-
-    .true-count-label,
-    .betting-label { font-size: 16px; font-weight: 700; color: var(--txt-main); }
-
-    .true-count-value,
-    .betting-value { font-size: clamp(28px, 6vw, 42px); font-weight: 700; color: var(--txt-main); }
-
-    .betting-note {
-      font-size: 13px;
-      color: var(--txt-sub);
-      min-height: 18px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .stats-grid {
-      width: min(920px, 100%);
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: nowrap;
-    }
-
-    .stat-box {
-      border: 1px solid var(--brd-main);
-      background: var(--bg-surface);
-      text-align: center;
-      padding: 12px 14px;
-      flex: 1 1 0;
-      max-width: 220px;
-    }
-
-    .stat-label {
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 6px;
-      color: var(--txt-main);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
+    .stats-grid { width: min(920px, 100%); display: flex; justify-content: center; gap: 10px; flex-wrap: nowrap; }
+    .stat-box { border: 1px solid var(--brd-main); background: var(--bg-surface); text-align: center; padding: 12px 14px; flex: 1 1 0; max-width: 220px; }
+    .stat-label { font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--txt-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .stat-value { font-size: clamp(24px, 5vw, 34px); font-weight: 700; color: var(--txt-main); }
 
-    .action-log {
-      border: 1px solid var(--brd-main);
-      background: var(--bg-deep);
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .action-log-header {
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--brd-sep);
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--txt-main);
-      background: var(--bg-raised);
-    }
-
-    .action-log-body {
-      flex: 1;
-      padding: 10px 12px;
-      overflow-y: auto;
-      overflow-x: hidden;
-      font-family: Consolas, Monaco, monospace;
-      font-size: 13px;
-      color: var(--txt-log);
-      line-height: 1.5;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
+    .action-log { border: 1px solid var(--brd-main); background: var(--bg-deep); height: 100%; display: flex; flex-direction: column; overflow: hidden; }
+    .action-log-header { padding: 12px 14px; border-bottom: 1px solid var(--brd-sep); font-size: 16px; font-weight: 700; color: var(--txt-main); background: var(--bg-raised); }
+    .action-log-body { flex: 1; padding: 10px 12px; overflow-y: auto; overflow-x: hidden; font-family: Consolas, Monaco, monospace; font-size: 13px; color: var(--txt-log); line-height: 1.5; white-space: pre-wrap; word-break: break-word; }
     .action-line { margin-bottom: 6px; color: var(--txt-log); }
+    .log-button-tag { display: inline-block; border: 1px solid var(--brd-main); padding: 0 6px; margin: 0 4px; color: var(--txt-main); background: var(--bg-tab); }
 
-    .log-button-tag {
-      display: inline-block;
-      border: 1px solid var(--brd-main);
-      padding: 0 6px;
-      margin: 0 4px;
-      color: var(--txt-main);
-      background: var(--bg-tab);
-    }
+    .footer { text-align: center; font-size: 12px; color: var(--txt-main); padding: 10px 12px; border-top: 1px solid var(--brd-sep); flex-shrink: 0; }
 
-    .footer {
-      text-align: center;
-      font-size: 12px;
-      color: var(--txt-main);
-      padding: 10px 12px;
-      border-top: 1px solid var(--brd-sep);
-      flex-shrink: 0;
-    }
-
-    /* ══ HELP MODAL ══ */
-    #helpModal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.78);
-      z-index: 9999;
-      padding: 24px;
-    }
-
-    #helpBox {
-      width: min(1040px, 100%);
-      max-height: calc(100vh - 48px);
-      margin: 0 auto;
-      background: var(--bg-deep);
-      border: 2px solid var(--brd-main);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    #helpHeader {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      border-bottom: 1px solid var(--brd-sep);
-      padding: 10px 12px;
-      background: var(--bg-raised);
-      flex-wrap: wrap;
-    }
-
+    #helpModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.78); z-index: 9999; padding: 24px; }
+    #helpBox { width: min(1040px, 100%); max-height: calc(100vh - 48px); margin: 0 auto; background: var(--bg-deep); border: 2px solid var(--brd-main); display: flex; flex-direction: column; overflow: hidden; }
+    #helpHeader { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--brd-sep); padding: 10px 12px; background: var(--bg-raised); flex-wrap: wrap; }
     #helpTabs { display: flex; gap: 8px; flex-wrap: wrap; }
-
-    .help-tab,
-    #helpClose { padding: 8px 14px; font-size: 14px; font-weight: 700; }
-
+    .help-tab, #helpClose { padding: 8px 14px; font-size: 14px; font-weight: 700; }
     .help-panel { display: none; }
     .help-panel.active { display: block; }
+    #helpContent { padding: 20px 22px; overflow: auto; line-height: 1.5; font-size: 14px; }
 
-    #helpContent {
-      padding: 20px 22px;
-      overflow: auto;
-      line-height: 1.5;
-      font-size: 14px;
-    }
-
-    /* ── Help redesign ── */
-    .help-section-title {
-      font-size: 17px;
-      font-weight: 700;
-      color: #ff4d4d;
-      border-bottom: 1px solid var(--brd-sep);
-      padding-bottom: 8px;
-      margin: 0 0 18px;
-      letter-spacing: 0.03em;
-    }
-
+    .help-section-title { font-size: 17px; font-weight: 700; color: #ff4d4d; border-bottom: 1px solid var(--brd-sep); padding-bottom: 8px; margin: 0 0 18px; letter-spacing: 0.03em; }
     .step-list { display: flex; flex-direction: column; gap: 10px; margin: 0 0 18px; }
-
     .step-item { display: flex; gap: 12px; align-items: flex-start; }
-
-    .step-num {
-      min-width: 28px;
-      height: 28px;
-      border: 1px solid var(--brd-main);
-      background: var(--bg-step);
-      color: #ff4d4d;
-      font-weight: 700;
-      font-size: 13px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
+    .step-num { min-width: 28px; height: 28px; border: 1px solid var(--brd-main); background: var(--bg-step); color: #ff4d4d; font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .step-text { padding-top: 5px; font-size: 14px; color: var(--txt-muted); }
     .step-text strong { color: var(--txt-main); }
-
-    .info-box {
-      border: 1px solid var(--brd-sep);
-      background: var(--bg-infobox);
-      padding: 12px 14px;
-      margin: 0 0 12px;
-      font-size: 13px;
-      color: var(--txt-muted);
-      line-height: 1.6;
-    }
-
+    .info-box { border: 1px solid var(--brd-sep); background: var(--bg-infobox); padding: 12px 14px; margin: 0 0 12px; font-size: 13px; color: var(--txt-muted); line-height: 1.6; }
     .info-box strong { color: var(--txt-main); }
-    .info-box.muted  { color: var(--txt-dim); }
+    .info-box.muted { color: var(--txt-dim); }
 
-    /* System cards */
-    .sys-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 14px;
-      margin-bottom: 10px;
-    }
-
+    .sys-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; margin-bottom: 10px; }
     .sys-card { border: 1px solid var(--brd-card); background: var(--bg-surface); padding: 14px 16px; }
-
-    .sys-card-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 12px;
-      flex-wrap: wrap;
-    }
-
+    .sys-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
     .sys-card-name { font-size: 15px; font-weight: 700; color: var(--txt-main); }
-
     .sys-tags { display: flex; gap: 5px; flex-wrap: wrap; }
-
-    .sys-tag {
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 7px;
-      border: 1px solid;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
+    .sys-tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border: 1px solid; letter-spacing: 0.04em; text-transform: uppercase; }
     .sys-tag.balanced   { border-color: #005500; color: #55cc55; }
     .sys-tag.unbalanced { border-color: #885500; color: #ffaa44; }
     .sys-tag.ace-side   { border-color: #440077; color: #bb77ff; }
     .sys-tag.lvl1       { border-color: #444;    color: #999;    }
     .sys-tag.lvl2       { border-color: #555;    color: #aaa;    }
     .sys-tag.frac       { border-color: #005566; color: #44bbcc; }
-
-    /* Light theme adjustments for tags */
     [data-theme="light"] .sys-tag.lvl1 { border-color: #aaa; color: #555; }
     [data-theme="light"] .sys-tag.lvl2 { border-color: #999; color: #444; }
 
@@ -623,18 +170,7 @@
     .val-table tr + tr td { border-top: 1px solid var(--brd-row); }
     .val-table td { padding: 5px 8px; font-size: 13px; vertical-align: middle; }
     .val-table td:first-child { width: 58px; }
-
-    .val-badge {
-      display: inline-block;
-      min-width: 46px;
-      text-align: center;
-      padding: 3px 8px;
-      font-weight: 700;
-      font-family: Consolas, Monaco, monospace;
-      font-size: 13px;
-      border: 1px solid;
-    }
-
+    .val-badge { display: inline-block; min-width: 46px; text-align: center; padding: 3px 8px; font-weight: 700; font-family: Consolas, Monaco, monospace; font-size: 13px; border: 1px solid; }
     .val-badge.p2  { background: #002800; border-color: #00bb00; color: #66ff66; }
     .val-badge.p15 { background: #002000; border-color: #009900; color: #55ee55; }
     .val-badge.p1  { background: #001a00; border-color: #007700; color: #44cc44; }
@@ -644,83 +180,30 @@
     .val-badge.n1  { background: #220000; border-color: #880000; color: #ff4444; }
     .val-badge.n2  { background: #2a0000; border-color: #aa0000; color: #ff6666; }
     .val-badge.ace { background: #110022; border-color: #660099; color: #cc77ff; }
-
     .val-cards { color: var(--txt-muted); }
     .sys-note  { margin-top: 10px; font-size: 12px; color: var(--txt-note); }
 
-    /* Betting ramp — semantic colours stay fixed */
     .bet-ramp { display: flex; flex-direction: column; gap: 5px; margin: 0 0 18px; }
-
-    .bet-row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 9px 14px;
-      border: 1px solid var(--brd-card);
-      background: var(--bg-surface);
-    }
-
+    .bet-row { display: flex; align-items: center; gap: 14px; padding: 9px 14px; border: 1px solid var(--brd-card); background: var(--bg-surface); }
     .bet-count { min-width: 100px; font-family: Consolas, Monaco, monospace; font-size: 13px; color: var(--txt-note); }
     .bet-label-cell { font-size: 14px; font-weight: 700; min-width: 130px; }
     .bet-bar { flex: 1; height: 4px; background: var(--brd-row); }
     .bet-bar-fill { height: 100%; }
+    .bet-row.r-max  { border-color: #00aa00; background: #002800; } .bet-row.r-max  .bet-label-cell { color: #55ff55; } .bet-row.r-max  .bet-bar-fill { background: #55ff55; width: 100%; }
+    .bet-row.r-high { border-color: #558800; background: #1a2600; } .bet-row.r-high .bet-label-cell { color: #aadd44; } .bet-row.r-high .bet-bar-fill { background: #aadd44; width: 80%; }
+    .bet-row.r-raise { border-color: #887700; background: #1a1800; } .bet-row.r-raise .bet-label-cell { color: #ddcc44; } .bet-row.r-raise .bet-bar-fill { background: #ddcc44; width: 60%; }
+    .bet-row.r-slight { border-color: #775500; background: #141000; } .bet-row.r-slight .bet-label-cell { color: #ddaa44; } .bet-row.r-slight .bet-bar-fill { background: #ddaa44; width: 40%; }
+    .bet-row.r-std  .bet-label-cell { color: var(--txt-dim); } .bet-row.r-std  .bet-bar-fill { background: var(--txt-dim); width: 20%; }
+    .bet-row.r-min  { border-color: #660000; background: #150000; } .bet-row.r-min  .bet-label-cell { color: #cc4444; } .bet-row.r-min  .bet-bar-fill { background: #cc4444; width: 10%; }
+    .bet-row.r-out  { border-color: #aa0000; background: #1a0000; } .bet-row.r-out  .bet-label-cell { color: #ff4444; } .bet-row.r-out  .bet-bar-fill { background: #ff4444; width: 5%; }
 
-    .bet-row.r-max  { border-color: #00aa00; background: #002800; }
-    .bet-row.r-max  .bet-label-cell { color: #55ff55; }
-    .bet-row.r-max  .bet-bar-fill   { background: #55ff55; width: 100%; }
-
-    .bet-row.r-high { border-color: #558800; background: #1a2600; }
-    .bet-row.r-high .bet-label-cell { color: #aadd44; }
-    .bet-row.r-high .bet-bar-fill   { background: #aadd44; width: 80%; }
-
-    .bet-row.r-raise { border-color: #887700; background: #1a1800; }
-    .bet-row.r-raise .bet-label-cell { color: #ddcc44; }
-    .bet-row.r-raise .bet-bar-fill   { background: #ddcc44; width: 60%; }
-
-    .bet-row.r-slight { border-color: #775500; background: #141000; }
-    .bet-row.r-slight .bet-label-cell { color: #ddaa44; }
-    .bet-row.r-slight .bet-bar-fill   { background: #ddaa44; width: 40%; }
-
-    .bet-row.r-std  .bet-label-cell { color: var(--txt-dim); }
-    .bet-row.r-std  .bet-bar-fill   { background: var(--txt-dim); width: 20%; }
-
-    .bet-row.r-min  { border-color: #660000; background: #150000; }
-    .bet-row.r-min  .bet-label-cell { color: #cc4444; }
-    .bet-row.r-min  .bet-bar-fill   { background: #cc4444; width: 10%; }
-
-    .bet-row.r-out  { border-color: #aa0000; background: #1a0000; }
-    .bet-row.r-out  .bet-label-cell { color: #ff4444; }
-    .bet-row.r-out  .bet-bar-fill   { background: #ff4444; width: 5%; }
-
-    /* Expert compare grid */
-    .compare-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
     .compare-box { border: 1px solid var(--brd-card); background: var(--bg-surface); padding: 14px 16px; }
-
-    .compare-box h4 {
-      margin: 0 0 10px;
-      font-size: 14px;
-      color: #ff4d4d;
-      border-bottom: 1px solid var(--brd-card);
-      padding-bottom: 6px;
-    }
-
+    .compare-box h4 { margin: 0 0 10px; font-size: 14px; color: #ff4d4d; border-bottom: 1px solid var(--brd-card); padding-bottom: 6px; }
     .compare-box ul { margin: 0; padding-left: 16px; color: var(--txt-sub); font-size: 13px; line-height: 1.8; }
 
-    @media (max-width: 700px) {
-      .sys-grid      { grid-template-columns: 1fr; }
-      .compare-grid  { grid-template-columns: 1fr; }
-    }
-
-    @media (min-height: 1150px) {
-      .window { zoom: 0.75; }
-    }
-
+    @media (max-width: 700px) { .sys-grid { grid-template-columns: 1fr; } .compare-grid { grid-template-columns: 1fr; } }
+    @media (min-height: 1150px) { .window { zoom: 0.75; } }
     @media (max-width: 640px) {
       .system-selector-label { font-size: 18px; min-width: 100%; }
       .header-info { flex-direction: column; }
@@ -853,10 +336,9 @@
       </div>
     </div>
 
-    <div class="footer">© 2026 Amanda Hernow. All rights reserved. Version 1.1</div>
+    <div class="footer">© 2026 Amanda Hernow. All rights reserved. Web Version 2.0</div>
   </div>
 
-  <!-- ══════════════════ HELP MODAL ══════════════════ -->
   <div id="helpModal" aria-hidden="true">
     <div id="helpBox" role="dialog" aria-modal="true">
       <div id="helpHeader">
@@ -869,665 +351,143 @@
         </div>
         <button id="helpClose" title="Close help">Close</button>
       </div>
-
       <div id="helpContent">
-
-        <!-- USAGE -->
         <div id="usagePanel" class="help-panel active">
           <p class="help-section-title">How to Use the Counter</p>
           <div class="step-list">
-            <div class="step-item">
-              <div class="step-num">1</div>
-              <div class="step-text"><strong>Select shoe size</strong> — choose how many decks are in the shoe. This affects true count calculation and unbalanced system starting counts.</div>
-            </div>
-            <div class="step-item">
-              <div class="step-num">2</div>
-              <div class="step-text"><strong>Choose a system</strong> — click the tab for the counting system you want to use. The buttons and display update automatically.</div>
-            </div>
-            <div class="step-item">
-              <div class="step-num">3</div>
-              <div class="step-text"><strong>Press buttons as cards are dealt</strong> — each button adjusts the running count by its value. The large number in the centre is always the current running count.</div>
-            </div>
-            <div class="step-item">
-              <div class="step-num">4</div>
-              <div class="step-text"><strong>Read the True Count box</strong> — for balanced systems this shows running count ÷ decks remaining. For KO and Red 7 it shows your position relative to the key count instead.</div>
-            </div>
-            <div class="step-item">
-              <div class="step-num">5</div>
-              <div class="step-text"><strong>Ace button (where shown)</strong> — in Hi-Opt I, Hi-Opt II, and Omega II, aces are tracked separately. Pressing Ace does not change the running count but updates the ace density stats.</div>
-            </div>
-            <div class="step-item">
-              <div class="step-num">6</div>
-              <div class="step-text"><strong>New Shoe</strong> — resets the count to the correct starting value for the selected system and shoe size. Use this at the start of each new shoe.</div>
-            </div>
-            <div class="step-item">
-              <div class="step-num">7</div>
-              <div class="step-text"><strong>Undo / Clear</strong> — Undo steps back one action at a time. Clear resets the entire shoe, same as New Shoe.</div>
-            </div>
-            <div class="step-item">
-              <div class="step-num">8</div>
-              <div class="step-text"><strong>Theme toggle</strong> — the ☀ button in the top right switches between dark and light mode. Your preference is saved automatically.</div>
-            </div>
+            <div class="step-item"><div class="step-num">1</div><div class="step-text"><strong>Select shoe size</strong> — choose how many decks are in the shoe. This affects true count calculation and unbalanced system starting counts.</div></div>
+            <div class="step-item"><div class="step-num">2</div><div class="step-text"><strong>Choose a system</strong> — click the tab for the counting system you want to use. The buttons and display update automatically.</div></div>
+            <div class="step-item"><div class="step-num">3</div><div class="step-text"><strong>Press buttons as cards are dealt</strong> — each button adjusts the running count by its value. The large number in the centre is always the current running count.</div></div>
+            <div class="step-item"><div class="step-num">4</div><div class="step-text"><strong>Read the True Count box</strong> — for balanced systems this shows running count ÷ decks remaining. For KO and Red 7 it shows your position relative to the key count instead.</div></div>
+            <div class="step-item"><div class="step-num">5</div><div class="step-text"><strong>Ace button (where shown)</strong> — in Hi-Opt I, Hi-Opt II, and Omega II, aces are tracked separately. Pressing Ace does not change the running count but updates the ace density stats.</div></div>
+            <div class="step-item"><div class="step-num">6</div><div class="step-text"><strong>New Shoe</strong> — resets the count to the correct starting value for the selected system and shoe size. Use this at the start of each new shoe.</div></div>
+            <div class="step-item"><div class="step-num">7</div><div class="step-text"><strong>Undo / Clear</strong> — Undo steps back one action at a time. Clear resets the entire shoe, same as New Shoe.</div></div>
+            <div class="step-item"><div class="step-num">8</div><div class="step-text"><strong>Theme toggle</strong> — the ☀ button in the top right switches between dark and light mode. Your preference is saved automatically.</div></div>
           </div>
-          <div class="info-box">
-            <strong>Ace density:</strong> in systems with ace side counting, the betting note shows <em>Aces rich</em>, <em>Aces poor</em>, or <em>Aces neutral</em>. A rich shoe has more aces remaining than expected and slightly favours the player beyond what the count alone shows.
-          </div>
-          <div class="info-box">
-            <strong>True Count vs Running Count:</strong> the true count normalises the running count for decks remaining. A running count of +6 in a 6-deck shoe is much weaker than the same count with one deck left. Unbalanced systems (KO, Red 7) skip this step and use the running count against fixed key thresholds.
-          </div>
+          <div class="info-box"><strong>Ace density:</strong> in systems with ace side counting, the betting note shows <em>Aces rich</em>, <em>Aces poor</em>, or <em>Aces neutral</em>. A rich shoe has more aces remaining than expected and slightly favours the player beyond what the count alone shows.</div>
+          <div class="info-box"><strong>True Count vs Running Count:</strong> the true count normalises the running count for decks remaining. A running count of +6 in a 6-deck shoe is much weaker than the same count with one deck left. Unbalanced systems (KO, Red 7) skip this step and use the running count against fixed key thresholds.</div>
         </div>
 
-        <!-- SYSTEMS -->
         <div id="systemsPanel" class="help-panel">
           <p class="help-section-title">Counting Systems</p>
           <div class="sys-grid">
-
-            <div class="sys-card">
-              <div class="sys-card-header">
-                <div class="sys-card-name">Hi-Lo</div>
-                <div class="sys-tags">
-                  <span class="sys-tag balanced">Balanced</span>
-                  <span class="sys-tag lvl1">Level 1</span>
-                </div>
-              </div>
-              <table class="val-table">
-                <tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 4, 5, 6</td></tr>
-                <tr><td><span class="val-badge z">0</span></td><td class="val-cards">7, 8, 9</td></tr>
-                <tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K, A</td></tr>
-              </table>
-            </div>
-
-            <div class="sys-card">
-              <div class="sys-card-header">
-                <div class="sys-card-name">KO (Knock-Out)</div>
-                <div class="sys-tags">
-                  <span class="sys-tag unbalanced">Unbalanced</span>
-                  <span class="sys-tag lvl1">Level 1</span>
-                </div>
-              </div>
-              <table class="val-table">
-                <tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 4, 5, 6, 7</td></tr>
-                <tr><td><span class="val-badge z">0</span></td><td class="val-cards">8, 9</td></tr>
-                <tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K, A</td></tr>
-              </table>
-              <div class="sys-note">No true count needed. Compare running count to the key count threshold shown in the app.</div>
-            </div>
-
-            <div class="sys-card">
-              <div class="sys-card-header">
-                <div class="sys-card-name">Red 7</div>
-                <div class="sys-tags">
-                  <span class="sys-tag unbalanced">Unbalanced</span>
-                  <span class="sys-tag lvl1">Level 1</span>
-                </div>
-              </div>
-              <table class="val-table">
-                <tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 4, 5, 6 and red 7</td></tr>
-                <tr><td><span class="val-badge z">0</span></td><td class="val-cards">Black 7, 8, 9</td></tr>
-                <tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K, A</td></tr>
-              </table>
-              <div class="sys-note">Red sevens count +1, black sevens count 0. Use the separate 7 Red and 7 Black buttons.</div>
-            </div>
-
-            <div class="sys-card">
-              <div class="sys-card-header">
-                <div class="sys-card-name">Hi-Opt I</div>
-                <div class="sys-tags">
-                  <span class="sys-tag balanced">Balanced</span>
-                  <span class="sys-tag lvl1">Level 1</span>
-                  <span class="sys-tag ace-side">Ace Side Count</span>
-                </div>
-              </div>
-              <table class="val-table">
-                <tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">3, 4, 5, 6</td></tr>
-                <tr><td><span class="val-badge z">0</span></td><td class="val-cards">2, 7, 8, 9</td></tr>
-                <tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K</td></tr>
-                <tr><td><span class="val-badge ace">Ace</span></td><td class="val-cards">A — tracked separately</td></tr>
-              </table>
-            </div>
-
-            <div class="sys-card">
-              <div class="sys-card-header">
-                <div class="sys-card-name">Hi-Opt II</div>
-                <div class="sys-tags">
-                  <span class="sys-tag balanced">Balanced</span>
-                  <span class="sys-tag lvl2">Level 2</span>
-                  <span class="sys-tag ace-side">Ace Side Count</span>
-                </div>
-              </div>
-              <table class="val-table">
-                <tr><td><span class="val-badge p2">+2</span></td><td class="val-cards">4, 5</td></tr>
-                <tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 6, 7</td></tr>
-                <tr><td><span class="val-badge z">0</span></td><td class="val-cards">8, 9</td></tr>
-                <tr><td><span class="val-badge n2">−2</span></td><td class="val-cards">10, J, Q, K</td></tr>
-                <tr><td><span class="val-badge ace">Ace</span></td><td class="val-cards">A — tracked separately</td></tr>
-              </table>
-            </div>
-
-            <div class="sys-card">
-              <div class="sys-card-header">
-                <div class="sys-card-name">Zen Count</div>
-                <div class="sys-tags">
-                  <span class="sys-tag balanced">Balanced</span>
-                  <span class="sys-tag lvl2">Level 2</span>
-                </div>
-              </div>
-              <table class="val-table">
-                <tr><td><span class="val-badge p2">+2</span></td><td class="val-cards">4, 5, 6</td></tr>
-                <tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 7</td></tr>
-                <tr><td><span class="val-badge z">0</span></td><td class="val-cards">8, 9</td></tr>
-                <tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">A</td></tr>
-                <tr><td><span class="val-badge n2">−2</span></td><td class="val-cards">10, J, Q, K</td></tr>
-              </table>
-              <div class="sys-note">Aces are included in the main count at −1. No separate side counting needed.</div>
-            </div>
-
-            <div class="sys-card">
-              <div class="sys-card-header">
-                <div class="sys-card-name">Omega II</div>
-                <div class="sys-tags">
-                  <span class="sys-tag balanced">Balanced</span>
-                  <span class="sys-tag lvl2">Level 2</span>
-                  <span class="sys-tag ace-side">Ace Side Count</span>
-                </div>
-              </div>
-              <table class="val-table">
-                <tr><td><span class="val-badge p2">+2</span></td><td class="val-cards">4, 5, 6</td></tr>
-                <tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 7</td></tr>
-                <tr><td><span class="val-badge z">0</span></td><td class="val-cards">8</td></tr>
-                <tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">9</td></tr>
-                <tr><td><span class="val-badge n2">−2</span></td><td class="val-cards">10, J, Q, K</td></tr>
-                <tr><td><span class="val-badge ace">Ace</span></td><td class="val-cards">A — tracked separately</td></tr>
-              </table>
-            </div>
-
-            <div class="sys-card">
-              <div class="sys-card-header">
-                <div class="sys-card-name">Wong Halves</div>
-                <div class="sys-tags">
-                  <span class="sys-tag balanced">Balanced</span>
-                  <span class="sys-tag frac">Fractional</span>
-                </div>
-              </div>
-              <table class="val-table">
-                <tr><td><span class="val-badge p15">+1.5</span></td><td class="val-cards">5</td></tr>
-                <tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">3, 4, 6</td></tr>
-                <tr><td><span class="val-badge p05">+0.5</span></td><td class="val-cards">2, 7</td></tr>
-                <tr><td><span class="val-badge z">0</span></td><td class="val-cards">8</td></tr>
-                <tr><td><span class="val-badge n05">−0.5</span></td><td class="val-cards">9</td></tr>
-                <tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K, A</td></tr>
-              </table>
-              <div class="sys-note">Highest accuracy of all systems here. Values can be doubled mentally to keep whole numbers if preferred.</div>
-            </div>
-
+            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Hi-Lo</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag lvl1">Level 1</span></div></div><table class="val-table"><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 4, 5, 6</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">7, 8, 9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K, A</td></tr></table></div>
+            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">KO (Knock-Out)</div><div class="sys-tags"><span class="sys-tag unbalanced">Unbalanced</span><span class="sys-tag lvl1">Level 1</span></div></div><table class="val-table"><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 4, 5, 6, 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">8, 9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K, A</td></tr></table><div class="sys-note">No true count needed. Compare running count to the key count threshold shown in the app.</div></div>
+            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Red 7</div><div class="sys-tags"><span class="sys-tag unbalanced">Unbalanced</span><span class="sys-tag lvl1">Level 1</span></div></div><table class="val-table"><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 4, 5, 6 and red 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">Black 7, 8, 9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K, A</td></tr></table><div class="sys-note">Red sevens count +1, black sevens count 0. Use the separate 7 Red and 7 Black buttons.</div></div>
+            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Hi-Opt I</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag lvl1">Level 1</span><span class="sys-tag ace-side">Ace Side Count</span></div></div><table class="val-table"><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">3, 4, 5, 6</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">2, 7, 8, 9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K</td></tr><tr><td><span class="val-badge ace">Ace</span></td><td class="val-cards">A — tracked separately</td></tr></table></div>
+            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Hi-Opt II</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag lvl2">Level 2</span><span class="sys-tag ace-side">Ace Side Count</span></div></div><table class="val-table"><tr><td><span class="val-badge p2">+2</span></td><td class="val-cards">4, 5</td></tr><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 6, 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">8, 9</td></tr><tr><td><span class="val-badge n2">−2</span></td><td class="val-cards">10, J, Q, K</td></tr><tr><td><span class="val-badge ace">Ace</span></td><td class="val-cards">A — tracked separately</td></tr></table></div>
+            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Zen Count</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag lvl2">Level 2</span></div></div><table class="val-table"><tr><td><span class="val-badge p2">+2</span></td><td class="val-cards">4, 5, 6</td></tr><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">8, 9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">A</td></tr><tr><td><span class="val-badge n2">−2</span></td><td class="val-cards">10, J, Q, K</td></tr></table><div class="sys-note">Aces are included in the main count at −1. No separate side counting needed.</div></div>
+            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Omega II</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag lvl2">Level 2</span><span class="sys-tag ace-side">Ace Side Count</span></div></div><table class="val-table"><tr><td><span class="val-badge p2">+2</span></td><td class="val-cards">4, 5, 6</td></tr><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">8</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">9</td></tr><tr><td><span class="val-badge n2">−2</span></td><td class="val-cards">10, J, Q, K</td></tr><tr><td><span class="val-badge ace">Ace</span></td><td class="val-cards">A — tracked separately</td></tr></table></div>
+            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Wong Halves</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag frac">Fractional</span></div></div><table class="val-table"><tr><td><span class="val-badge p15">+1.5</span></td><td class="val-cards">5</td></tr><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">3, 4, 6</td></tr><tr><td><span class="val-badge p05">+0.5</span></td><td class="val-cards">2, 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">8</td></tr><tr><td><span class="val-badge n05">−0.5</span></td><td class="val-cards">9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K, A</td></tr></table><div class="sys-note">Highest accuracy of all systems here. Values can be doubled mentally to keep whole numbers if preferred.</div></div>
           </div>
         </div>
 
-        <!-- BETTING -->
         <div id="bettingPanel" class="help-panel">
           <p class="help-section-title">Betting Suggestion Ramp</p>
           <div class="bet-ramp">
-            <div class="bet-row r-max">
-              <div class="bet-count">TC ≥ +4</div>
-              <div class="bet-label-cell">Max</div>
-              <div class="bet-bar"><div class="bet-bar-fill"></div></div>
-            </div>
-            <div class="bet-row r-high">
-              <div class="bet-count">TC = +3</div>
-              <div class="bet-label-cell">High</div>
-              <div class="bet-bar"><div class="bet-bar-fill"></div></div>
-            </div>
-            <div class="bet-row r-raise">
-              <div class="bet-count">TC = +2</div>
-              <div class="bet-label-cell">Raise</div>
-              <div class="bet-bar"><div class="bet-bar-fill"></div></div>
-            </div>
-            <div class="bet-row r-slight">
-              <div class="bet-count">TC = +1</div>
-              <div class="bet-label-cell">Slight Increase</div>
-              <div class="bet-bar"><div class="bet-bar-fill"></div></div>
-            </div>
-            <div class="bet-row r-std">
-              <div class="bet-count">TC = 0</div>
-              <div class="bet-label-cell">Standard</div>
-              <div class="bet-bar"><div class="bet-bar-fill"></div></div>
-            </div>
-            <div class="bet-row r-min">
-              <div class="bet-count">TC = −1</div>
-              <div class="bet-label-cell">Minimum</div>
-              <div class="bet-bar"><div class="bet-bar-fill"></div></div>
-            </div>
-            <div class="bet-row r-out">
-              <div class="bet-count">TC ≤ −2</div>
-              <div class="bet-label-cell">Sit Out / Minimum</div>
-              <div class="bet-bar"><div class="bet-bar-fill"></div></div>
-            </div>
+            <div class="bet-row r-max"><div class="bet-count">TC ≥ +4</div><div class="bet-label-cell">Max</div><div class="bet-bar"><div class="bet-bar-fill"></div></div></div>
+            <div class="bet-row r-high"><div class="bet-count">TC = +3</div><div class="bet-label-cell">High</div><div class="bet-bar"><div class="bet-bar-fill"></div></div></div>
+            <div class="bet-row r-raise"><div class="bet-count">TC = +2</div><div class="bet-label-cell">Raise</div><div class="bet-bar"><div class="bet-bar-fill"></div></div></div>
+            <div class="bet-row r-slight"><div class="bet-count">TC = +1</div><div class="bet-label-cell">Slight Increase</div><div class="bet-bar"><div class="bet-bar-fill"></div></div></div>
+            <div class="bet-row r-std"><div class="bet-count">TC = 0</div><div class="bet-label-cell">Standard</div><div class="bet-bar"><div class="bet-bar-fill"></div></div></div>
+            <div class="bet-row r-min"><div class="bet-count">TC = −1</div><div class="bet-label-cell">Minimum</div><div class="bet-bar"><div class="bet-bar-fill"></div></div></div>
+            <div class="bet-row r-out"><div class="bet-count">TC ≤ −2</div><div class="bet-label-cell">Sit Out / Minimum</div><div class="bet-bar"><div class="bet-bar-fill"></div></div></div>
           </div>
-          <div class="info-box">
-            <strong>Unbalanced systems (KO, Red 7):</strong> the ramp uses the running count relative to the key count threshold rather than true count. Once you are above the key, conditions are favourable. The further above the key, the stronger the advantage.
-          </div>
-          <div class="info-box">
-            <strong>Ace density modifier:</strong> in systems with ace side counting (Hi-Opt I, Hi-Opt II, Omega II), the betting note shows whether the shoe is ace-rich or ace-poor. Ace-rich shoes are slightly more favourable and may justify pushing a bet one level higher.
-          </div>
-          <div class="info-box muted">
-            This ramp is a practical training guide, not a bankroll-optimised professional spread. Real advantage play requires strict bet sizing discipline, risk-of-ruin calculations, and awareness of table bet limits.
-          </div>
+          <div class="info-box"><strong>Unbalanced systems (KO, Red 7):</strong> the ramp uses the running count relative to the key count threshold rather than true count. Once you are above the key, conditions are favourable. The further above the key, the stronger the advantage.</div>
+          <div class="info-box"><strong>Ace density modifier:</strong> in systems with ace side counting (Hi-Opt I, Hi-Opt II, Omega II), the betting note shows whether the shoe is ace-rich or ace-poor. Ace-rich shoes are slightly more favourable and may justify pushing a bet one level higher.</div>
+          <div class="info-box muted">This ramp is a practical training guide, not a bankroll-optimised professional spread. Real advantage play requires strict bet sizing discipline, risk-of-ruin calculations, and awareness of table bet limits.</div>
         </div>
 
-        <!-- EXPERT NOTES -->
         <div id="expertPanel" class="help-panel">
           <p class="help-section-title">What Changes at Expert Level</p>
           <div class="compare-grid">
-            <div class="compare-box">
-              <h4>Beginner — Hi-Lo</h4>
-              <ul>
-                <li>Three card groups only</li>
-                <li>All values are +1, 0, or −1</li>
-                <li>Balanced — starts and ends at 0</li>
-                <li>True count = running ÷ decks</li>
-                <li>No ace side count needed</li>
-                <li>Easiest to maintain under pressure</li>
-              </ul>
-            </div>
-            <div class="compare-box">
-              <h4>Advanced — Level 2 Systems</h4>
-              <ul>
-                <li>More card groups with different weights</li>
-                <li>Values of ±2 require separate mental tracking</li>
-                <li>Fractional steps in Wong Halves</li>
-                <li>Ace side counting adds a parallel track</li>
-                <li>Higher accuracy over many decks</li>
-                <li>Significantly harder to maintain error-free</li>
-              </ul>
-            </div>
+            <div class="compare-box"><h4>Beginner — Hi-Lo</h4><ul><li>Three card groups only</li><li>All values are +1, 0, or −1</li><li>Balanced — starts and ends at 0</li><li>True count = running ÷ decks</li><li>No ace side count needed</li><li>Easiest to maintain under pressure</li></ul></div>
+            <div class="compare-box"><h4>Advanced — Level 2 Systems</h4><ul><li>More card groups with different weights</li><li>Values of ±2 require separate mental tracking</li><li>Fractional steps in Wong Halves</li><li>Ace side counting adds a parallel track</li><li>Higher accuracy over many decks</li><li>Significantly harder to maintain error-free</li></ul></div>
           </div>
-          <div class="info-box">
-            <strong>Index plays:</strong> advanced players deviate from basic strategy at certain count thresholds (index numbers). For example, standing on 16 vs dealer 10 when the count is sufficiently positive. This app focuses on the count and betting signal only — index plays are not implemented.
-          </div>
-          <div class="info-box">
-            <strong>Deck estimation:</strong> true count accuracy depends on correctly estimating decks remaining. Expert players estimate to the nearest half-deck. An error of one full deck in a 6-deck shoe can shift the true count by a full point.
-          </div>
-          <div class="info-box">
-            <strong>System efficiency:</strong> systems are evaluated on Betting Correlation (BC), Playing Efficiency (PE), and Insurance Correlation (IC). Hi-Lo has solid BC. Hi-Opt II and Omega II score higher across all three but at the cost of mental complexity.
-          </div>
+          <div class="info-box"><strong>Index plays:</strong> advanced players deviate from basic strategy at certain count thresholds (index numbers). For example, standing on 16 vs dealer 10 when the count is sufficiently positive. This app focuses on the count and betting signal only — index plays are not implemented.</div>
+          <div class="info-box"><strong>Deck estimation:</strong> true count accuracy depends on correctly estimating decks remaining. Expert players estimate to the nearest half-deck. An error of one full deck in a 6-deck shoe can shift the true count by a full point.</div>
+          <div class="info-box"><strong>System efficiency:</strong> systems are evaluated on Betting Correlation (BC), Playing Efficiency (PE), and Insurance Correlation (IC). Hi-Lo has solid BC. Hi-Opt II and Omega II score higher across all three but at the cost of mental complexity.</div>
         </div>
 
-        <!-- DISCLAIMER -->
         <div id="disclaimerPanel" class="help-panel">
           <p class="help-section-title">Disclaimer</p>
-          <div class="info-box">
-            <strong>Legality:</strong> card counting using only your own brain is not illegal in most jurisdictions. Casinos are private property and may ask you to leave, restrict your bets, or ban you if they suspect counting. This varies by location.
-          </div>
-          <div class="info-box">
-            <strong>No guarantee of winnings:</strong> card counting shifts the mathematical edge slightly in your favour over a very large number of hands. It does not guarantee a win on any individual session or hand. Short-term variance can be severe even with a positive edge.
-          </div>
-          <div class="info-box">
-            <strong>What this tool does not replace:</strong> memorised basic strategy, proper bankroll management, game selection, bet spread discipline, and camouflage play. Using a count without solid basic strategy will not produce a meaningful advantage.
-          </div>
-          <div class="info-box muted">
-            This tool is for personal practice and training only. Use it responsibly and in accordance with the rules and policies of wherever you play.
-          </div>
+          <div class="info-box"><strong>Legality:</strong> card counting using only your own brain is not illegal in most jurisdictions. Casinos are private property and may ask you to leave, restrict your bets, or ban you if they suspect counting. This varies by location.</div>
+          <div class="info-box"><strong>No guarantee of winnings:</strong> card counting shifts the mathematical edge slightly in your favour over a very large number of hands. It does not guarantee a win on any individual session or hand. Short-term variance can be severe even with a positive edge.</div>
+          <div class="info-box"><strong>What this tool does not replace:</strong> memorised basic strategy, proper bankroll management, game selection, bet spread discipline, and camouflage play. Using a count without solid basic strategy will not produce a meaningful advantage.</div>
+          <div class="info-box muted">This tool is for personal practice and training only. Use it responsibly and in accordance with the rules and policies of wherever you play.</div>
         </div>
-
       </div>
     </div>
   </div>
 
   <script>
-    (function () {
-      /* ── Theme ── */
-      const root     = document.documentElement;
-      const btnTheme = document.getElementById('btnTheme');
-
-      function setTheme(theme) {
-        root.setAttribute('data-theme', theme);
-        btnTheme.textContent = theme === 'light' ? '☾' : '☀';
-        btnTheme.title       = theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode';
-        try { localStorage.setItem('bj-theme', theme); } catch (e) {}
-      }
-
-      btnTheme.addEventListener('click', function () {
-        setTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
-      });
-
-      try {
-        const saved = localStorage.getItem('bj-theme');
-        if (saved === 'light' || saved === 'dark') setTheme(saved);
-      } catch (e) {}
-
-      /* ── Counter logic ── */
-      let count       = 0;
-      let cardsPlayed = 0;
-      let acesPlayed  = 0;
-      let activeSystem = 'hilo';
-      const history   = [];
-
-      const systems = {
-        hilo:       { header: 'Hi-Lo system loaded — beginner-friendly balanced count',             details: 'Simple three-group system focused on running count and true count only',                             use: 'Use +1 for 2–6, 0 for 7–9, and -1 for 10–A',                                         aceSideCount: false, usesRunningCountOnly: false, buttons: [ { label: '-1', delta: -1 }, { label: '0', delta: 0 }, { label: '+1', delta: 1 } ] },
-        ko:         { header: 'KO system loaded — unbalanced beginner-friendly running count',      details: 'Use running count, but still keep deck count selected because KO key points depend on shoe size',  use: 'Use +1 for 2–7, 0 for 8–9, and -1 for 10–A',                                         aceSideCount: false, usesRunningCountOnly: true,  buttons: [ { label: '-1', delta: -1 }, { label: '0', delta: 0 }, { label: '+1', delta: 1 } ] },
-        red7:       { header: 'Red 7 system loaded — unbalanced count with red-7 bonus',           details: 'Use running count, and keep deck count selected because Red 7 key points depend on shoe size',     use: 'Use +1 for 2–6 and red 7, 0 for black 7,8,9, and -1 for 10–A',                       aceSideCount: false, usesRunningCountOnly: true,  buttons: [ { label: '-1', delta: -1 }, { label: '0', delta: 0 }, { label: '+1', delta: 1 }, { label: '7 Red', delta: 1 }, { label: '7 Black', delta: 0 } ] },
-        hiopt1:     { header: 'Hi-Opt I loaded — balanced bridge system before Hi-Opt II',         details: 'Balanced level-one count with separate ace tracking',                                               use: 'Use +1 for 3–6; 0 for 2,7,8,9; -1 for 10–K; Ace for A',                              aceSideCount: true,  usesRunningCountOnly: false, buttons: [ { label: '-1', delta: -1 }, { label: '0', delta: 0 }, { label: '+1', delta: 1 }, { label: 'Ace', delta: 0, ace: true } ] },
-        hiopt2:     { header: 'Hi-Opt II system loaded — advanced accuracy with ace side count',   details: 'More precise pro system with separate ace tracking and ace-remaining awareness',                   use: 'Use +1 for 2,3,6,7; +2 for 4,5; 0 for 8,9; -2 for 10–K; Ace for A; no -1 used',     aceSideCount: true,  usesRunningCountOnly: false, buttons: [ { label: '-2', delta: -2 }, { label: '+2', delta: 2 }, { label: '+1', delta: 1 }, { label: '0', delta: 0 }, { label: 'Ace', delta: 0, ace: true } ] },
-        zen:        { header: 'Zen Count loaded — stronger multi-level balanced count',            details: 'Higher precision than Hi-Lo; Aces count as -1 within the main count, no side counting needed',    use: 'Use +2 for 4,5,6; +1 for 2,3,7; 0 for 8,9; -1 for A; -2 for 10–K',                  aceSideCount: false, usesRunningCountOnly: false, buttons: [ { label: '-2', delta: -2 }, { label: '-1', delta: -1 }, { label: '0', delta: 0 }, { label: '+1', delta: 1 }, { label: '+2', delta: 2 } ] },
-        omega2:     { header: 'Omega II loaded — advanced multi-level system with ace tracking',   details: 'High-efficiency count with separate ace tracking and ace-remaining awareness',                     use: 'Use +1 for 2,3,7; +2 for 4,5,6; 0 for 8; -1 for 9; -2 for 10–K; Ace for A',         aceSideCount: true,  usesRunningCountOnly: false, buttons: [ { label: '-2', delta: -2 }, { label: '-1', delta: -1 }, { label: '0', delta: 0 }, { label: '+2', delta: 2 }, { label: '+1', delta: 1 }, { label: 'Ace', delta: 0, ace: true } ] },
-        wonghalves: { header: 'Wong Halves loaded — high-efficiency fractional balanced count',    details: 'Very accurate count using half-point steps and true-count conversion',                             use: 'Use +1.5 for 5; +1 for 3,4,6; +0.5 for 2,7; 0 for 8; -0.5 for 9; -1 for 10–A',     aceSideCount: false, usesRunningCountOnly: false, buttons: [ { label: '-1', delta: -1 }, { label: '-0.5', delta: -0.5 }, { label: '0', delta: 0 }, { label: '+0.5', delta: 0.5 }, { label: '+1', delta: 1 }, { label: '+1.5', delta: 1.5 } ] }
+    (function(){
+      var root=document.documentElement,btnTheme=document.getElementById('btnTheme');
+      function setTheme(t){root.setAttribute('data-theme',t);btnTheme.textContent=t==='light'?'☾':'☀';btnTheme.title=t==='light'?'Switch to dark mode':'Switch to light mode';try{localStorage.setItem('bj-theme',t);}catch(e){}}
+      btnTheme.addEventListener('click',function(){setTheme(root.getAttribute('data-theme')==='light'?'dark':'light');});
+      try{var saved=localStorage.getItem('bj-theme');if(saved==='light'||saved==='dark')setTheme(saved);}catch(e){}
+      var count=0,cardsPlayed=0,acesPlayed=0,activeSystem='hilo',history=[];
+      var systems={
+        hilo:{header:'Hi-Lo system loaded — beginner-friendly balanced count',details:'Simple three-group system focused on running count and true count only',use:'Use +1 for 2–6, 0 for 7–9, and -1 for 10–A',aceSideCount:false,usesRunningCountOnly:false,buttons:[{label:'-1',delta:-1},{label:'0',delta:0},{label:'+1',delta:1}]},
+        ko:{header:'KO system loaded — unbalanced beginner-friendly running count',details:'Use running count, but still keep deck count selected because KO key points depend on shoe size',use:'Use +1 for 2–7, 0 for 8–9, and -1 for 10–A',aceSideCount:false,usesRunningCountOnly:true,buttons:[{label:'-1',delta:-1},{label:'0',delta:0},{label:'+1',delta:1}]},
+        red7:{header:'Red 7 system loaded — unbalanced count with red-7 bonus',details:'Use running count, and keep deck count selected because Red 7 key points depend on shoe size',use:'Use +1 for 2–6 and red 7, 0 for black 7,8,9, and -1 for 10–A',aceSideCount:false,usesRunningCountOnly:true,buttons:[{label:'-1',delta:-1},{label:'0',delta:0},{label:'+1',delta:1},{label:'7 Red',delta:1},{label:'7 Black',delta:0}]},
+        hiopt1:{header:'Hi-Opt I loaded — balanced bridge system before Hi-Opt II',details:'Balanced level-one count with separate ace tracking',use:'Use +1 for 3–6; 0 for 2,7,8,9; -1 for 10–K; Ace for A',aceSideCount:true,usesRunningCountOnly:false,buttons:[{label:'-1',delta:-1},{label:'0',delta:0},{label:'+1',delta:1},{label:'Ace',delta:0,ace:true}]},
+        hiopt2:{header:'Hi-Opt II system loaded — advanced accuracy with ace side count',details:'More precise pro system with separate ace tracking and ace-remaining awareness',use:'Use +1 for 2,3,6,7; +2 for 4,5; 0 for 8,9; -2 for 10–K; Ace for A; no -1 used',aceSideCount:true,usesRunningCountOnly:false,buttons:[{label:'-2',delta:-2},{label:'+2',delta:2},{label:'+1',delta:1},{label:'0',delta:0},{label:'Ace',delta:0,ace:true}]},
+        zen:{header:'Zen Count loaded — stronger multi-level balanced count',details:'Higher precision than Hi-Lo; Aces count as -1 within the main count, no side counting needed',use:'Use +2 for 4,5,6; +1 for 2,3,7; 0 for 8,9; -1 for A; -2 for 10–K',aceSideCount:false,usesRunningCountOnly:false,buttons:[{label:'-2',delta:-2},{label:'-1',delta:-1},{label:'0',delta:0},{label:'+1',delta:1},{label:'+2',delta:2}]},
+        omega2:{header:'Omega II loaded — advanced multi-level system with ace tracking',details:'High-efficiency count with separate ace tracking and ace-remaining awareness',use:'Use +1 for 2,3,7; +2 for 4,5,6; 0 for 8; -1 for 9; -2 for 10–K; Ace for A',aceSideCount:true,usesRunningCountOnly:false,buttons:[{label:'-2',delta:-2},{label:'-1',delta:-1},{label:'0',delta:0},{label:'+2',delta:2},{label:'+1',delta:1},{label:'Ace',delta:0,ace:true}]},
+        wonghalves:{header:'Wong Halves loaded — high-efficiency fractional balanced count',details:'Very accurate count using half-point steps and true-count conversion',use:'Use +1.5 for 5; +1 for 3,4,6; +0.5 for 2,7; 0 for 8; -0.5 for 9; -1 for 10–A',aceSideCount:false,usesRunningCountOnly:false,buttons:[{label:'-1',delta:-1},{label:'-0.5',delta:-0.5},{label:'0',delta:0},{label:'+0.5',delta:0.5},{label:'+1',delta:1},{label:'+1.5',delta:1.5}]}
       };
-
-      const display                  = document.getElementById('counterDisplay');
-      const trueCountDisplay         = document.getElementById('trueCountDisplay');
-      const countMetricLabel         = document.getElementById('countMetricLabel');
-      const bettingSuggestionDisplay = document.getElementById('bettingSuggestionDisplay');
-      const bettingNoteDisplay       = document.getElementById('bettingNoteDisplay');
-      const cardsPlayedDisplay       = document.getElementById('cardsPlayedDisplay');
-      const cardsRemainingDisplay    = document.getElementById('cardsRemainingDisplay');
-      const acesPlayedDisplay        = document.getElementById('acesPlayedDisplay');
-      const acesRemainingDisplay     = document.getElementById('acesRemainingDisplay');
-      const extraStatOneBox          = document.getElementById('extraStatOneBox');
-      const extraStatTwoBox          = document.getElementById('extraStatTwoBox');
-      const extraStatOneLabel        = document.getElementById('extraStatOneLabel');
-      const extraStatTwoLabel        = document.getElementById('extraStatTwoLabel');
-      const extraStatOneDisplay      = document.getElementById('extraStatOneDisplay');
-      const extraStatTwoDisplay      = document.getElementById('extraStatTwoDisplay');
-      const acesPlayedBox            = document.getElementById('acesPlayedBox');
-      const acesRemainingBox         = document.getElementById('acesRemainingBox');
-      const shoeSelectorRow          = document.getElementById('shoeSelectorRow');
-      const deckCount                = document.getElementById('deckCount');
-      const btnUndo                  = document.getElementById('btnUndo');
-      const btnNewShoe               = document.getElementById('btnNewShoe');
-      const btnClear                 = document.getElementById('btnClear');
-      const btnClose                 = document.getElementById('btnClose');
-      const btnHelp                  = document.getElementById('btnHelp');
-      const helpModal                = document.getElementById('helpModal');
-      const helpClose                = document.getElementById('helpClose');
-      const counterButtons           = document.getElementById('counterButtons');
-      const systemTabs               = document.querySelectorAll('.system-tab');
-      const helpTabs                 = document.querySelectorAll('.help-tab');
-      const helpPanels               = document.querySelectorAll('.help-panel');
-      const systemHeaderLine         = document.getElementById('systemHeaderLine');
-      const systemHeaderDetails      = document.getElementById('systemHeaderDetails');
-      const systemHeaderUse          = document.getElementById('systemHeaderUse');
-      const actionLogBody            = document.getElementById('actionLogBody');
-      const actionLogEntries         = [];
-
-      function getUnbalancedSystemStartCount(systemName, decks) {
-        if (systemName === 'ko') {
-          const koIrc = { 1: 0, 2: -4, 3: -8, 4: -12, 5: -16, 6: -20, 7: -24, 8: -28 };
-          return koIrc[decks] ?? (4 - 4 * decks);
-        }
-        if (systemName === 'red7') { return -2 * decks; }
-        return 0;
+      var display=document.getElementById('counterDisplay'),trueCountDisplay=document.getElementById('trueCountDisplay'),countMetricLabel=document.getElementById('countMetricLabel'),bettingSuggestionDisplay=document.getElementById('bettingSuggestionDisplay'),bettingNoteDisplay=document.getElementById('bettingNoteDisplay'),cardsPlayedDisplay=document.getElementById('cardsPlayedDisplay'),cardsRemainingDisplay=document.getElementById('cardsRemainingDisplay'),acesPlayedDisplay=document.getElementById('acesPlayedDisplay'),acesRemainingDisplay=document.getElementById('acesRemainingDisplay'),extraStatOneBox=document.getElementById('extraStatOneBox'),extraStatTwoBox=document.getElementById('extraStatTwoBox'),extraStatOneLabel=document.getElementById('extraStatOneLabel'),extraStatTwoLabel=document.getElementById('extraStatTwoLabel'),extraStatOneDisplay=document.getElementById('extraStatOneDisplay'),extraStatTwoDisplay=document.getElementById('extraStatTwoDisplay'),acesPlayedBox=document.getElementById('acesPlayedBox'),acesRemainingBox=document.getElementById('acesRemainingBox'),shoeSelectorRow=document.getElementById('shoeSelectorRow'),deckCount=document.getElementById('deckCount'),btnUndo=document.getElementById('btnUndo'),btnNewShoe=document.getElementById('btnNewShoe'),btnClear=document.getElementById('btnClear'),btnClose=document.getElementById('btnClose'),btnHelp=document.getElementById('btnHelp'),helpModal=document.getElementById('helpModal'),helpClose=document.getElementById('helpClose'),counterButtons=document.getElementById('counterButtons'),systemTabs=document.querySelectorAll('.system-tab'),helpTabs=document.querySelectorAll('.help-tab'),helpPanels=document.querySelectorAll('.help-panel'),systemHeaderLine=document.getElementById('systemHeaderLine'),systemHeaderDetails=document.getElementById('systemHeaderDetails'),systemHeaderUse=document.getElementById('systemHeaderUse'),actionLogBody=document.getElementById('actionLogBody'),actionLogEntries=[];
+      function getIRC(n,d){if(n==='ko'){var t={1:0,2:-4,3:-8,4:-12,5:-16,6:-20,7:-24,8:-28};return t[d]!=null?t[d]:4-4*d;}if(n==='red7')return -2*d;return 0;}
+      function getKeyCount(n,d){if(n==='ko'){var t={1:2,2:0,3:-1,4:-2,5:-4,6:-5,7:-6,8:-6};return t[d]!=null?t[d]:0;}return 0;}
+      function getBet(v,note){var s='Standard';if(v>=4)s='Max';else if(v>=3)s='High';else if(v>=2)s='Raise';else if(v>=1)s='Slight Increase';else if(v>=-1&&v<0)s='Minimum';else if(v<-1)s='Sit Out / Minimum';return{suggestion:s,note:note||'Based on count'};}
+      function ftime(){var n=new Date();return String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');}
+      function cardText(sys,lbl){var m={hilo:{'-1':'Card: 10, J, Q, K, A','0':'Card: 7, 8, 9','+1':'Card: 2, 3, 4, 5, 6'},ko:{'-1':'Card: 10, J, Q, K, A','0':'Card: 8, 9','+1':'Card: 2, 3, 4, 5, 6, 7'},red7:{'-1':'Card: 10, J, Q, K, A','0':'Card: 8, 9','+1':'Card: 2, 3, 4, 5, 6','7 Black':'Card: 7 black','7 Red':'Card: 7 red'},hiopt1:{'-1':'Card: 10, J, Q, K','0':'Card: 2, 7, 8, 9','+1':'Card: 3, 4, 5, 6','Ace':'Card: A'},hiopt2:{'-2':'Card: 10, J, Q, K','0':'Card: 8, 9','+1':'Card: 2, 3, 6, 7','+2':'Card: 4, 5','Ace':'Card: A'},zen:{'-2':'Card: 10, J, Q, K','-1':'Card: A','0':'Card: 8, 9','+1':'Card: 2, 3, 7','+2':'Card: 4, 5, 6'},omega2:{'-2':'Card: 10, J, Q, K','-1':'Card: 9','0':'Card: 8','+1':'Card: 2, 3, 7','+2':'Card: 4, 5, 6','Ace':'Card: A'},wonghalves:{'-1':'Card: 10, J, Q, K, A','-0.5':'Card: 9','0':'Card: 8','+0.5':'Card: 2, 7','+1':'Card: 3, 4, 6','+1.5':'Card: 5'}};return(m[sys]&&m[sys][lbl])||'Card counted';}
+      function renderLog(){actionLogBody.innerHTML='';actionLogEntries.forEach(function(e){var d=document.createElement('div');d.className='action-line';d.innerHTML=e;actionLogBody.appendChild(d);});actionLogBody.scrollTop=actionLogBody.scrollHeight;}
+      function addLog(lbl,sys){var e=ftime()+' <span class="log-button-tag">'+lbl+'</span> : '+cardText(sys,lbl);actionLogEntries.push(e);renderLog();}
+      function render(){
+        var decks=Number(deckCount.value)||1,totalCards=decks*52,totalAces=decks*4,cardsRem=Math.max(totalCards-cardsPlayed,0),acesRem=Math.max(totalAces-acesPlayed,0);
+        var metric=systems[activeSystem].usesRunningCountOnly?count:count/decks;
+        var note=systems[activeSystem].usesRunningCountOnly?'Based on running count':'Based on true count';
+        if(systems[activeSystem].aceSideCount&&cardsRem>0){var exp=(cardsRem/totalCards)*totalAces,surplus=acesRem-exp,decksRem=Math.max(cardsRem/52,0.5),bias=surplus/decksRem;note=bias>=0.5?'Aces rich':bias<=-0.5?'Aces poor':'Aces neutral';}
+        var bet=getBet(metric,note),isUnbal=systems[activeSystem].usesRunningCountOnly;
+        if(isUnbal){var kc=getKeyCount(activeSystem,decks),diff=count-kc,st='At Key',adv='Neutral',kt='At key';if(diff<0){st='Below Key';adv='Negative';kt='Need +'+Math.abs(diff);}else if(diff>0){st='Above Key';adv='Positive';kt='Above key by '+diff;}countMetricLabel.textContent='Key Count';trueCountDisplay.textContent=kt;extraStatOneLabel.textContent='Key Count Status';extraStatOneDisplay.textContent=st;extraStatTwoLabel.textContent='Advantage';extraStatTwoDisplay.textContent=adv;extraStatOneBox.style.display='block';extraStatTwoBox.style.display='block';}
+        else{countMetricLabel.textContent='True Count';trueCountDisplay.textContent=metric.toFixed(2);extraStatOneBox.style.display='none';extraStatTwoBox.style.display='none';}
+        display.textContent=Number.isInteger(count)?count:count.toFixed(1);bettingSuggestionDisplay.textContent=bet.suggestion;bettingNoteDisplay.textContent=bet.note;cardsPlayedDisplay.textContent=cardsPlayed;cardsRemainingDisplay.textContent=cardsRem;acesPlayedDisplay.textContent=acesPlayed;acesRemainingDisplay.textContent=acesRem;
       }
-
-      function getUnbalancedKeyCount(systemName, decks) {
-        if (systemName === 'ko') {
-          const koKey = { 1: 2, 2: 0, 3: -1, 4: -2, 5: -4, 6: -5, 7: -6, 8: -6 };
-          return koKey[decks] ?? 0;
-        }
-        if (systemName === 'red7') { return 0; }
-        return 0;
+      function makeBtn(def){var b=document.createElement('button');b.type='button';b.textContent=def.label;b.addEventListener('click',function(){history.push({count:count,cardsPlayed:cardsPlayed,acesPlayed:acesPlayed,logLength:actionLogEntries.length});count+=def.delta;cardsPlayed++;if(def.ace)acesPlayed++;addLog(def.label,activeSystem);render();});counterButtons.appendChild(b);}
+      function renderBtns(){
+        counterButtons.innerHTML='';counterButtons.classList.remove('four-wide');
+        var btns=systems[activeSystem].buttons,ord=btns;
+        if(activeSystem==='hiopt1'){ord=[btns.find(function(b){return b.label==='-1';}),btns.find(function(b){return b.label==='0';}),btns.find(function(b){return b.label==='+1';}),btns.find(function(b){return b.label==='Ace';})].filter(Boolean);counterButtons.classList.add('four-wide');}
+        else if(activeSystem==='hiopt2'){ord=[btns.find(function(b){return b.label==='-2';}),btns.find(function(b){return b.label==='0';}),btns.find(function(b){return b.label==='Ace';}),btns.find(function(b){return b.label==='+2';}),btns.find(function(b){return b.label==='+1';})].filter(Boolean);}
+        else if(activeSystem==='zen'){ord=[btns.find(function(b){return b.label==='-2';}),btns.find(function(b){return b.label==='-1';}),btns.find(function(b){return b.label==='0';}),btns.find(function(b){return b.label==='+2';}),btns.find(function(b){return b.label==='+1';})].filter(Boolean);}
+        else if(activeSystem==='red7'){ord=[btns.find(function(b){return b.label==='-1';}),btns.find(function(b){return b.label==='0';}),btns.find(function(b){return b.label==='+1';}),btns.find(function(b){return b.label==='7 Black';}),btns.find(function(b){return b.label==='7 Red';})].filter(Boolean);}
+        else if(activeSystem==='wonghalves'){ord=[btns.find(function(b){return b.label==='-0.5';}),btns.find(function(b){return b.label==='-1';}),btns.find(function(b){return b.label==='0';}),btns.find(function(b){return b.label==='+0.5';}),btns.find(function(b){return b.label==='+1';}),btns.find(function(b){return b.label==='+1.5';})].filter(Boolean);}
+        else if(btns.length===4){counterButtons.classList.add('four-wide');}
+        ord.forEach(makeBtn);
       }
-
-      function getBettingSuggestion(metricValue, aceNote) {
-        let suggestion = 'Standard';
-        if      (metricValue >= 4)  suggestion = 'Max';
-        else if (metricValue >= 3)  suggestion = 'High';
-        else if (metricValue >= 2)  suggestion = 'Raise';
-        else if (metricValue >= 1)  suggestion = 'Slight Increase';
-        else if (metricValue >= 0)  suggestion = 'Standard';
-        else if (metricValue > -2)  suggestion = 'Minimum';
-        else                        suggestion = 'Sit Out / Minimum';
-        return { suggestion, note: aceNote || 'Based on count' };
+      function setSystem(name){
+        activeSystem=name;
+        systemTabs.forEach(function(t){t.classList.toggle('active',t.dataset.system===name);});
+        var sys=systems[name];systemHeaderLine.textContent=sys.header;systemHeaderDetails.textContent=sys.details;systemHeaderUse.textContent=sys.use;countMetricLabel.textContent=sys.usesRunningCountOnly?'Key Count':'True Count';shoeSelectorRow.style.display='flex';
+        acesPlayedBox.style.display=sys.aceSideCount?'block':'none';acesRemainingBox.style.display=sys.aceSideCount?'block':'none';
+        cardsPlayed=0;acesPlayed=0;var d=Number(deckCount.value)||1;count=sys.usesRunningCountOnly?getIRC(name,d):0;history.length=0;actionLogEntries.length=0;renderLog();renderBtns();render();
       }
-
-      function formatTime24() {
-        const now = new Date();
-        return String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
-      }
-
-      function getActionCardText(systemName, buttonLabel) {
-        const lookup = {
-          hilo:       { '-1': 'Card: 10, J, Q, K, A', '0': 'Card: 7, 8, 9',    '+1': 'Card: 2, 3, 4, 5, 6' },
-          ko:         { '-1': 'Card: 10, J, Q, K, A', '0': 'Card: 8, 9',       '+1': 'Card: 2, 3, 4, 5, 6, 7' },
-          red7:       { '-1': 'Card: 10, J, Q, K, A', '0': 'Card: 8, 9',       '+1': 'Card: 2, 3, 4, 5, 6', '7 Black': 'Card: 7 black', '7 Red': 'Card: 7 red' },
-          hiopt1:     { '-1': 'Card: 10, J, Q, K',    '0': 'Card: 2, 7, 8, 9', '+1': 'Card: 3, 4, 5, 6', 'Ace': 'Card: A' },
-          hiopt2:     { '-2': 'Card: 10, J, Q, K',    '0': 'Card: 8, 9',       '+1': 'Card: 2, 3, 6, 7', '+2': 'Card: 4, 5', 'Ace': 'Card: A' },
-          zen:        { '-2': 'Card: 10, J, Q, K',    '-1': 'Card: A',          '0': 'Card: 8, 9', '+1': 'Card: 2, 3, 7', '+2': 'Card: 4, 5, 6' },
-          omega2:     { '-2': 'Card: 10, J, Q, K',    '-1': 'Card: 9',          '0': 'Card: 8',    '+1': 'Card: 2, 3, 7', '+2': 'Card: 4, 5, 6', 'Ace': 'Card: A' },
-          wonghalves: { '-1': 'Card: 10, J, Q, K, A', '-0.5': 'Card: 9',        '0': 'Card: 8',    '+0.5': 'Card: 2, 7',  '+1': 'Card: 3, 4, 6', '+1.5': 'Card: 5' }
-        };
-        return (lookup[systemName] && lookup[systemName][buttonLabel]) || 'Card counted';
-      }
-
-      function renderActionLog() {
-        actionLogBody.innerHTML = '';
-        actionLogEntries.forEach(function (entry) {
-          const line = document.createElement('div');
-          line.className = 'action-line';
-          line.innerHTML = entry;
-          actionLogBody.appendChild(line);
-        });
-        actionLogBody.scrollTop = actionLogBody.scrollHeight;
-      }
-
-      function addActionLog(buttonLabel, systemName) {
-        const entry = formatTime24() + ' <span class="log-button-tag">' + buttonLabel + '</span> : ' + getActionCardText(systemName, buttonLabel);
-        actionLogEntries.push(entry);
-        renderActionLog();
-      }
-
-      function render() {
-        const decks          = Number(deckCount.value) || 1;
-        const totalCards     = decks * 52;
-        const totalAces      = decks * 4;
-        const cardsRemaining = Math.max(totalCards - cardsPlayed, 0);
-        const acesRemaining  = Math.max(totalAces  - acesPlayed,  0);
-        const metricValue    = systems[activeSystem].usesRunningCountOnly ? count : (count / decks);
-        let aceNote          = systems[activeSystem].usesRunningCountOnly ? 'Based on running count' : 'Based on true count';
-
-        if (systems[activeSystem].aceSideCount && cardsRemaining > 0) {
-          const expectedAcesRemaining = (cardsRemaining / totalCards) * totalAces;
-          const aceSurplus            = acesRemaining - expectedAcesRemaining;
-          const decksRemaining        = Math.max(cardsRemaining / 52, 0.5);
-          const aceBiasPerDeck        = aceSurplus / decksRemaining;
-          if      (aceBiasPerDeck >=  0.5) aceNote = 'Aces rich';
-          else if (aceBiasPerDeck <= -0.5) aceNote = 'Aces poor';
-          else                             aceNote = 'Aces neutral';
-        }
-
-        const bet          = getBettingSuggestion(metricValue, aceNote);
-        const isUnbalanced = systems[activeSystem].usesRunningCountOnly;
-
-        if (isUnbalanced) {
-          const key     = getUnbalancedKeyCount(activeSystem, decks);
-          const diff    = count - key;
-          let status    = 'At Key';
-          let advantage = 'Neutral';
-          let keyText   = 'At key';
-          if (diff < 0) { status = 'Below Key'; advantage = 'Negative'; keyText = 'Need +' + Math.abs(diff); }
-          else if (diff > 0) { status = 'Above Key'; advantage = 'Positive'; keyText = 'Above key by ' + diff; }
-          countMetricLabel.textContent    = 'Key Count';
-          trueCountDisplay.textContent    = keyText;
-          extraStatOneLabel.textContent   = 'Key Count Status';
-          extraStatOneDisplay.textContent = status;
-          extraStatTwoLabel.textContent   = 'Advantage';
-          extraStatTwoDisplay.textContent = advantage;
-          extraStatOneBox.style.display   = 'block';
-          extraStatTwoBox.style.display   = 'block';
-        } else {
-          countMetricLabel.textContent  = 'True Count';
-          trueCountDisplay.textContent  = metricValue.toFixed(2);
-          extraStatOneBox.style.display = 'none';
-          extraStatTwoBox.style.display = 'none';
-        }
-
-        display.textContent                  = Number.isInteger(count) ? count : count.toFixed(1);
-        bettingSuggestionDisplay.textContent = bet.suggestion;
-        bettingNoteDisplay.textContent       = bet.note;
-        cardsPlayedDisplay.textContent       = cardsPlayed;
-        cardsRemainingDisplay.textContent    = cardsRemaining;
-        acesPlayedDisplay.textContent        = acesPlayed;
-        acesRemainingDisplay.textContent     = acesRemaining;
-      }
-
-      function createCounterButton(buttonDef) {
-        const button       = document.createElement('button');
-        button.type        = 'button';
-        button.textContent = buttonDef.label;
-        button.addEventListener('click', function () {
-          history.push({ count, cardsPlayed, acesPlayed, logLength: actionLogEntries.length });
-          count       += buttonDef.delta;
-          cardsPlayed += 1;
-          if (buttonDef.ace) acesPlayed += 1;
-          addActionLog(buttonDef.label, activeSystem);
-          render();
-        });
-        counterButtons.appendChild(button);
-      }
-
-      function renderButtons() {
-        counterButtons.innerHTML = '';
-        counterButtons.classList.remove('four-wide');
-        const btns  = systems[activeSystem].buttons;
-        let ordered = btns;
-
-        if (activeSystem === 'hiopt1') {
-          ordered = [
-            btns.find(b => b.label === '-1'),
-            btns.find(b => b.label === '0'),
-            btns.find(b => b.label === '+1'),
-            btns.find(b => b.label === 'Ace')
-          ].filter(Boolean);
-          counterButtons.classList.add('four-wide');
-
-        } else if (activeSystem === 'hiopt2') {
-          ordered = [
-            btns.find(b => b.label === '-2'),
-            btns.find(b => b.label === '0'),
-            btns.find(b => b.label === 'Ace'),
-            btns.find(b => b.label === '+2'),
-            btns.find(b => b.label === '+1')
-          ].filter(Boolean);
-
-        } else if (activeSystem === 'zen') {
-          ordered = [
-            btns.find(b => b.label === '-2'),
-            btns.find(b => b.label === '-1'),
-            btns.find(b => b.label === '0'),
-            btns.find(b => b.label === '+2'),
-            btns.find(b => b.label === '+1')
-          ].filter(Boolean);
-
-        } else if (activeSystem === 'red7') {
-          ordered = [
-            btns.find(b => b.label === '-1'),
-            btns.find(b => b.label === '0'),
-            btns.find(b => b.label === '+1'),
-            btns.find(b => b.label === '7 Black'),
-            btns.find(b => b.label === '7 Red')
-          ].filter(Boolean);
-
-        } else if (activeSystem === 'wonghalves') {
-          ordered = [
-            btns.find(b => b.label === '-0.5'),
-            btns.find(b => b.label === '-1'),
-            btns.find(b => b.label === '0'),
-            btns.find(b => b.label === '+0.5'),
-            btns.find(b => b.label === '+1'),
-            btns.find(b => b.label === '+1.5')
-          ].filter(Boolean);
-
-        } else if (btns.length === 4) {
-          counterButtons.classList.add('four-wide');
-        }
-
-        ordered.forEach(createCounterButton);
-      }
-
-      function setActiveSystem(systemName) {
-        activeSystem = systemName;
-        systemTabs.forEach(tab => tab.classList.toggle('active', tab.dataset.system === systemName));
-        const system = systems[systemName];
-        systemHeaderLine.textContent    = system.header;
-        systemHeaderDetails.textContent = system.details;
-        systemHeaderUse.textContent     = system.use;
-        countMetricLabel.textContent    = system.usesRunningCountOnly ? 'Key Count' : 'True Count';
-        shoeSelectorRow.style.display   = 'flex';
-
-        acesPlayedBox.style.display    = system.aceSideCount ? 'block' : 'none';
-        acesRemainingBox.style.display = system.aceSideCount ? 'block' : 'none';
-
-        cardsPlayed             = 0;
-        acesPlayed              = 0;
-        const decks             = Number(deckCount.value) || 1;
-        count                   = system.usesRunningCountOnly ? getUnbalancedSystemStartCount(systemName, decks) : 0;
-        history.length          = 0;
-        actionLogEntries.length = 0;
-        renderActionLog();
-        renderButtons();
-        render();
-      }
-
-      function openHelp()  { helpModal.style.display = 'block'; helpModal.setAttribute('aria-hidden', 'false'); }
-      function closeHelp() { helpModal.style.display = 'none';  helpModal.setAttribute('aria-hidden', 'true');  }
-
-      systemTabs.forEach(tab => tab.addEventListener('click', () => setActiveSystem(tab.dataset.system)));
-
-      helpTabs.forEach(tab => tab.addEventListener('click', function () {
-        helpTabs.forEach(t   => t.classList.remove('active'));
-        helpPanels.forEach(p => p.classList.remove('active'));
-        tab.classList.add('active');
-        const panel = document.getElementById(tab.dataset.helpTab);
-        if (panel) panel.classList.add('active');
-      }));
-
-      deckCount.addEventListener('change', function () {
-        if (systems[activeSystem].usesRunningCountOnly && cardsPlayed === 0) {
-          count = getUnbalancedSystemStartCount(activeSystem, Number(deckCount.value) || 1);
-        }
-        render();
-      });
-
-      btnUndo.addEventListener('click', function () {
-        const previous = history.pop();
-        if (!previous) return;
-        count       = previous.count;
-        cardsPlayed = previous.cardsPlayed;
-        acesPlayed  = previous.acesPlayed;
-        actionLogEntries.length = previous.logLength || 0;
-        renderActionLog();
-        render();
-      });
-
-      btnNewShoe.addEventListener('click', function () {
-        history.push({ count, cardsPlayed, acesPlayed, logLength: actionLogEntries.length });
-        const decks             = Number(deckCount.value) || 1;
-        count                   = systems[activeSystem].usesRunningCountOnly ? getUnbalancedSystemStartCount(activeSystem, decks) : 0;
-        cardsPlayed             = 0;
-        acesPlayed              = 0;
-        actionLogEntries.length = 0;
-        renderActionLog();
-        render();
-      });
-
-      btnClear.addEventListener('click', function () {
-        history.push({ count, cardsPlayed, acesPlayed, logLength: actionLogEntries.length });
-        const decks             = Number(deckCount.value) || 1;
-        count                   = systems[activeSystem].usesRunningCountOnly ? getUnbalancedSystemStartCount(activeSystem, decks) : 0;
-        cardsPlayed             = 0;
-        acesPlayed              = 0;
-        actionLogEntries.length = 0;
-        renderActionLog();
-        render();
-      });
-
-      btnHelp.addEventListener('click', openHelp);
-      helpClose.addEventListener('click', closeHelp);
-      helpModal.addEventListener('click', e => { if (e.target === helpModal) closeHelp(); });
-      document.addEventListener('keydown', e => { if (e.key === 'Escape' && helpModal.style.display === 'block') closeHelp(); });
-      btnClose.addEventListener('click', () => { if (confirm('Are you sure you want to exit?')) window.close(); });
-
-      setActiveSystem('hilo');
-      render();
+      function openHelp(){helpModal.style.display='block';helpModal.setAttribute('aria-hidden','false');}
+      function closeHelp(){helpModal.style.display='none';helpModal.setAttribute('aria-hidden','true');}
+      systemTabs.forEach(function(t){t.addEventListener('click',function(){setSystem(t.dataset.system);});});
+      helpTabs.forEach(function(t){t.addEventListener('click',function(){helpTabs.forEach(function(x){x.classList.remove('active');});helpPanels.forEach(function(p){p.classList.remove('active');});t.classList.add('active');var p=document.getElementById(t.dataset.helpTab);if(p)p.classList.add('active');});});
+      deckCount.addEventListener('change',function(){if(systems[activeSystem].usesRunningCountOnly&&cardsPlayed===0)count=getIRC(activeSystem,Number(deckCount.value)||1);render();});
+      btnUndo.addEventListener('click',function(){var p=history.pop();if(!p)return;count=p.count;cardsPlayed=p.cardsPlayed;acesPlayed=p.acesPlayed;actionLogEntries.length=p.logLength||0;renderLog();render();});
+      btnNewShoe.addEventListener('click',function(){history.push({count:count,cardsPlayed:cardsPlayed,acesPlayed:acesPlayed,logLength:actionLogEntries.length});var d=Number(deckCount.value)||1;count=systems[activeSystem].usesRunningCountOnly?getIRC(activeSystem,d):0;cardsPlayed=0;acesPlayed=0;actionLogEntries.length=0;renderLog();render();});
+      btnClear.addEventListener('click',function(){history.push({count:count,cardsPlayed:cardsPlayed,acesPlayed:acesPlayed,logLength:actionLogEntries.length});var d=Number(deckCount.value)||1;count=systems[activeSystem].usesRunningCountOnly?getIRC(activeSystem,d):0;cardsPlayed=0;acesPlayed=0;actionLogEntries.length=0;renderLog();render();});
+      btnHelp.addEventListener('click',openHelp);
+      helpClose.addEventListener('click',closeHelp);
+      helpModal.addEventListener('click',function(e){if(e.target===helpModal)closeHelp();});
+      document.addEventListener('keydown',function(e){if(e.key==='Escape'&&helpModal.style.display==='block')closeHelp();});
+      btnClose.addEventListener('click',function(){if(confirm('Are you sure you want to exit?'))window.close();});
+      setSystem('hilo');render();
     })();
   </script>
 </body>
