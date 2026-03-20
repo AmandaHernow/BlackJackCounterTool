@@ -21,11 +21,10 @@
       --bg-select:  #111111;
       --bg-btn:     #7a0000;
       --bg-infobox: #0d0000;
-      --bg-tblhdr:  #180000;
       --bg-step:    #1a0000;
       --brd-main:   #b30000;
       --brd-btn:    #ff2a2a;
-      --brd-sep:    #3a0000;
+      --brd-sep:    #7a2020;
       --brd-card:   #2a0000;
       --brd-row:    #1a0000;
       --txt-main:   #ffffff;
@@ -46,7 +45,6 @@
       --bg-select:  #ffffff;
       --bg-btn:     #8a0000;
       --bg-infobox: #fff7f7;
-      --bg-tblhdr:  #ffeaea;
       --bg-step:    #fff0f0;
       --brd-main:   #b30000;
       --brd-btn:    #aa1111;
@@ -68,6 +66,7 @@
 
     .window { border: 1px solid var(--brd-main); display: flex; flex-direction: column; height: 100vh; background: var(--bg-app); }
 
+    /* ── Titlebar ── */
     .titlebar { display: flex; align-items: center; background: var(--bg-tab); border-bottom: 1px solid var(--brd-main); height: 40px; padding: 0 6px; user-select: none; flex-shrink: 0; }
     .titlebar .icon { width: 24px; height: 24px; margin-right: 8px; border: 1px solid var(--brd-main); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; background: #1a1a1a; flex-shrink: 0; }
     .titlebar .title { flex: 1; color: var(--txt-main); font-weight: bold; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -76,136 +75,131 @@
     .titlebar button:hover { background: var(--brd-main); color: #fff; }
     .titlebar button:active { transform: scale(0.98); }
 
+    /* ── Buttons/tabs shared ── */
     .system-tab, .help-tab, #helpClose { background: var(--bg-tab); border: 1px solid var(--brd-main); color: var(--txt-main); cursor: pointer; }
     .counter-buttons button, .clear-button, .undo-button, .new-shoe-button { background: var(--bg-btn); border: 1px solid var(--brd-btn); color: #fff; cursor: pointer; }
     .system-tab:hover, .help-tab:hover, #helpClose:hover { background: var(--brd-main); color: #fff; }
     .counter-buttons button:hover, .clear-button:hover, .undo-button:hover, .new-shoe-button:hover { background: var(--brd-main); }
-    .system-tab:active, .help-tab:active, #helpClose:active, .counter-buttons button:active, .clear-button:active, .undo-button:active, .new-shoe-button:active { transform: scale(0.98); }
+    .system-tab:active, .help-tab:active, #helpClose:active,
+    .counter-buttons button:active, .clear-button:active, .undo-button:active, .new-shoe-button:active { transform: scale(0.98); }
 
+    /* ── System selector ── */
     .system-selector-row { display: flex; align-items: center; justify-content: flex-start; gap: 14px; margin: 10px 20px 0; color: var(--txt-main); flex-wrap: wrap; flex-shrink: 0; border-bottom: 1px solid var(--brd-sep); padding-bottom: 10px; }
     .system-selector-label { font-size: 22px; font-weight: 700; min-width: 185px; }
     .system-tabs { display: flex; justify-content: flex-start; gap: 8px; flex-wrap: wrap; align-items: flex-end; }
     .system-tab { padding: 9px 16px; font-size: 14px; font-weight: 700; min-width: 110px; border: 1px solid var(--brd-main); border-bottom: 2px solid var(--brd-main); box-shadow: none; }
     .system-tab.active, .help-tab.active { background: var(--bg-tab-act); border-bottom-color: var(--brd-btn); }
 
+    /* ── Header info ── */
     .header-info { display: flex; justify-content: space-between; gap: 18px; padding: 10px 12px 6px; color: var(--txt-main); font-size: 12px; line-height: 1.5; flex-shrink: 0; }
     .header-info-text { flex: 1; min-width: 0; }
     .header-info-text > div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
+    /* ── Use badge (red squares around button values in system header) ── */
+    .use-badge {
+      display: inline-block;
+      border: 1px solid #ff2a2a;
+      color: #ff4d4d;
+      padding: 0 4px;
+      font-family: Consolas, Monaco, monospace;
+      font-weight: 700;
+      font-size: 0.88em;
+      line-height: 1.6;
+      vertical-align: baseline;
+    }
+    [data-theme="light"] .use-badge { border-color: #cc0000; color: #cc0000; }
+
+    /* ── Shoe selector ── */
     .shoe-selector-row { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 4px 20px 0; color: var(--txt-main); font-size: 20px; font-weight: 700; flex-wrap: wrap; flex-shrink: 0; }
     .shoe-selector-row select { min-width: 90px; padding: 8px 12px; background: var(--bg-select); color: var(--txt-main); border: 1px solid var(--brd-btn); font-size: 18px; font-weight: 700; outline: none; cursor: pointer; }
 
+    /* ── App body ── */
     .app-body { flex: 1; display: block; padding: 12px 20px 16px 20px; min-height: 0; overflow: auto; }
     .main-panel { width: min(920px, 100%); margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 14px; min-width: 0; }
 
-    /* ── Side panel: always fixed so it never affects layout ── */
+    /* ── Side panel: toggle (hidden by default, slides in from right) ── */
+    /* Applies to all non-mobile screens; mobile overrides with display:none */
     .side-panel {
       position: fixed;
-      top: 116px;
-      right: 20px;
+      top: 40px;
+      right: 0;
       width: 320px;
-      height: calc(100vh - 182px);
+      height: calc(100vh - 40px);
       z-index: 998;
       transition: transform 0.25s ease, opacity 0.25s ease;
+      transform: translateX(110%);
+      opacity: 0;
+      pointer-events: none;
+      border-left: 2px solid var(--brd-main);
+      box-shadow: -4px 0 24px rgba(0,0,0,0.6);
+      background: var(--bg-deep);
     }
     .side-panel > * { pointer-events: auto; }
+    .side-panel.log-open { transform: translateX(0); opacity: 1; pointer-events: auto; }
 
-    /* Log toggle button — hidden by default, shown on medium/laptop via breakpoint above */
-    #btnLog { display: none; }
-
-    /* Large screens ≥1400px: panel always visible, tabs always shown */
-    @media (min-width: 1400px) {
-      #btnLog { display: none !important; }
-      .system-tabs { display: flex !important; }
-      .system-select-mobile { display: none !important; }
-      .side-panel {
-        position: fixed;
-        top: 116px;
-        right: 20px;
-        width: 320px;
-        height: calc(100vh - 182px);
-        transform: none !important;
-        opacity: 1 !important;
-        pointer-events: auto !important;
-      }
-    }
-
-    /* Medium screens 641–1399px: toggle panel, dropdown for system, scaled down */
-    @media (max-width: 1399px) and (min-width: 641px) {
-      #btnLog { display: block; }
-      .system-tabs { display: none !important; }
-      .system-select-mobile { display: block !important; flex: 1; width: auto; padding: 5px 8px; font-size: 14px; }
-      .system-selector-row { gap: 10px; margin: 6px 16px 0; padding-bottom: 6px; }
-      .system-selector-label { font-size: 15px; min-width: unset; }
-      #systemHeaderLine, #systemHeaderDetails { display: none; }
-      #systemHeaderUse { font-size: 11px; color: var(--txt-main); white-space: normal; }
-      .header-info { padding: 2px 16px 2px; }
-      .shoe-selector-row { font-size: 16px; margin: 2px 16px 0; }
-      .shoe-selector-row select { padding: 5px 10px; font-size: 15px; }
-      .counter-display { min-height: 120px; font-size: clamp(40px, 10vw, 80px); }
-      .clear-button, .undo-button, .new-shoe-button { min-height: 36px; padding: 6px 10px; font-size: 13px; }
-      .counter-buttons button { min-height: 42px; padding: 8px 6px; font-size: 16px; }
-      .true-count-box, .betting-box { min-height: 80px; padding: 8px 12px; }
-      .true-count-label, .betting-label { font-size: 13px; }
-      .true-count-value, .betting-value { font-size: clamp(22px, 4vw, 32px); }
-      .betting-note { font-size: 11px; }
-      .stat-box { padding: 8px 10px; }
-      .stat-label { font-size: 11px; }
-      .stat-value { font-size: clamp(18px, 3vw, 26px); }
-      .side-panel {
-        top: 56px;
-        right: 0;
-        height: calc(100vh - 56px);
-        width: 300px;
-        transform: translateX(100%);
-        opacity: 0;
-        pointer-events: none;
-        border-left: 2px solid var(--brd-main);
-        box-shadow: -4px 0 24px rgba(0,0,0,0.5);
-      }
-      .side-panel.log-open {
-        transform: translateX(0);
-        opacity: 1;
-        pointer-events: auto;
-      }
-    }
-
-    /* Mobile: completely hidden, no toggle */
-    @media (max-width: 640px) {
-      .side-panel { display: none !important; }
-      #btnLog { display: none !important; }
-    }
-
+    /* ── Counter area ── */
     .counter-area { width: min(980px, 100%); display: grid; grid-template-columns: 120px minmax(0, 700px) 120px; align-items: center; justify-content: center; column-gap: 14px; }
     .counter-display-spacer { width: 100%; min-height: 1px; }
     .counter-display-wrap { width: 100%; display: flex; align-items: center; justify-content: center; }
     .counter-display { width: 100%; min-height: 170px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--brd-main); background: var(--bg-surface); color: var(--txt-main); font-size: clamp(44px, 12vw, 100px); font-weight: 700; text-align: center; padding: 16px; overflow: hidden; word-break: break-word; }
-
     .clear-button-wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; width: 100%; }
     .clear-button, .undo-button, .new-shoe-button { padding: 12px 16px; min-height: 50px; font-weight: 700; font-size: 16px; flex-shrink: 0; border-radius: 0; width: 100%; }
 
+    /* ── Counter buttons ── */
     .counter-buttons { width: min(920px, 100%); display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
     .counter-buttons.four-wide { grid-template-columns: repeat(4, 1fr) !important; }
     .counter-buttons button { padding: 14px 10px; font-weight: 700; font-size: 20px; min-height: 54px; transition: background 0.15s ease, transform 0.05s ease; }
 
-    .info-row { width: min(920px, 100%); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
-    .true-count-box, .betting-box { border: 1px solid var(--brd-main); background: var(--bg-surface); text-align: center; padding: 14px 16px; min-height: 108px; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+    /* ── Unified main grid (base: flex-wrap for mobile) ── */
+    .main-grid { width: min(920px, 100%); display: flex; flex-wrap: wrap; gap: 12px; align-items: stretch; }
+    .true-count-box, .betting-box { border: 1px solid var(--brd-main); background: var(--bg-surface); text-align: center; padding: 14px 16px; min-height: 108px; display: flex; flex-direction: column; justify-content: center; gap: 6px; flex: 1 1 calc(50% - 6px); min-width: 140px; }
     .true-count-label, .betting-label { font-size: 16px; font-weight: 700; color: var(--txt-main); }
     .true-count-value, .betting-value { font-size: clamp(28px, 6vw, 42px); font-weight: 700; color: var(--txt-main); }
     .betting-note { font-size: 13px; color: var(--txt-sub); min-height: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-    .stats-grid { width: min(920px, 100%); display: flex; justify-content: center; gap: 10px; flex-wrap: nowrap; }    .stat-box { border: 1px solid var(--brd-main); background: var(--bg-surface); text-align: center; padding: 12px 14px; flex: 1 1 0; max-width: 220px; }
+    .stat-box { border: 1px solid var(--brd-main); background: var(--bg-surface); text-align: center; padding: 12px 14px; flex: 1 1 calc(25% - 9px); min-width: 100px; }
     .stat-label { font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--txt-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .stat-value { font-size: clamp(24px, 5vw, 34px); font-weight: 700; color: var(--txt-main); }
 
+    /* ── Grid layout for all non-mobile screens ── */
+    @media (min-width: 641px) {
+      #mainGrid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: minmax(90px, auto) minmax(90px, auto);
+        gap: 10px;
+        flex-wrap: unset;
+        align-items: unset;
+      }
+      #mainGrid .true-count-box  { grid-column: 1; grid-row: 1 / span 2; flex: none; min-width: 0; }
+      #mainGrid .betting-box     { grid-column: 2; grid-row: 1 / span 2; flex: none; min-width: 0; }
+      #mainGrid #cardsPlayedBox    { grid-column: 3; grid-row: 1; flex: none; max-width: none; }
+      #mainGrid #cardsRemainingBox { grid-column: 4; grid-row: 1; flex: none; max-width: none; }
+      #mainGrid #extraStatOneBox   { grid-column: 3; grid-row: 2; flex: none; max-width: none; }
+      #mainGrid #extraStatTwoBox   { grid-column: 4; grid-row: 2; flex: none; max-width: none; }
+      #mainGrid #acesPlayedBox     { grid-column: 3; grid-row: 2; flex: none; max-width: none; }
+      #mainGrid #acesRemainingBox  { grid-column: 4; grid-row: 2; flex: none; max-width: none; }
+
+      /* 4-box only (Hi-Lo, Zen, Wong Halves): collapse to single row */
+      #mainGrid.two-box {
+        grid-template-rows: auto;
+      }
+      #mainGrid.two-box .true-count-box  { grid-row: 1; }
+      #mainGrid.two-box .betting-box     { grid-row: 1; }
+      #mainGrid.two-box #cardsPlayedBox    { grid-column: 3; grid-row: 1; }
+      #mainGrid.two-box #cardsRemainingBox { grid-column: 4; grid-row: 1; }
+    }
+
+    /* ── Action log ── */
     .action-log { border: 1px solid var(--brd-main); background: var(--bg-deep); height: 100%; display: flex; flex-direction: column; overflow: hidden; }
     .action-log-header { padding: 12px 14px; border-bottom: 1px solid var(--brd-sep); font-size: 16px; font-weight: 700; color: var(--txt-main); background: var(--bg-raised); }
     .action-log-body { flex: 1; padding: 10px 12px; overflow-y: auto; overflow-x: hidden; font-family: Consolas, Monaco, monospace; font-size: 13px; color: var(--txt-log); line-height: 1.5; white-space: pre-wrap; word-break: break-word; }
     .action-line { margin-bottom: 6px; color: var(--txt-log); }
     .log-button-tag { display: inline-block; border: 1px solid var(--brd-main); padding: 0 6px; margin: 0 4px; color: var(--txt-main); background: var(--bg-tab); }
 
+    /* ── Footer ── */
     .footer { text-align: center; font-size: 12px; color: var(--txt-main); padding: 10px 12px; border-top: 1px solid var(--brd-sep); flex-shrink: 0; }
 
+    /* ── Help modal ── */
     #helpModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.78); z-index: 9999; padding: 24px; }
     #helpBox { width: min(1040px, 100%); max-height: calc(100vh - 48px); margin: 0 auto; background: var(--bg-deep); border: 2px solid var(--brd-main); display: flex; flex-direction: column; overflow: hidden; }
     #helpHeader { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--brd-sep); padding: 10px 12px; background: var(--bg-raised); flex-wrap: wrap; }
@@ -215,6 +209,7 @@
     .help-panel.active { display: block; }
     #helpContent { padding: 20px 22px; overflow: auto; line-height: 1.5; font-size: 14px; }
 
+    /* ── Help content ── */
     .help-section-title { font-size: 17px; font-weight: 700; color: #ff4d4d; border-bottom: 1px solid var(--brd-sep); padding-bottom: 8px; margin: 0 0 18px; letter-spacing: 0.03em; }
     .step-list { display: flex; flex-direction: column; gap: 10px; margin: 0 0 18px; }
     .step-item { display: flex; gap: 12px; align-items: flex-start; }
@@ -225,6 +220,7 @@
     .info-box strong { color: var(--txt-main); }
     .info-box.muted { color: var(--txt-dim); }
 
+    /* ── System cards ── */
     .sys-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; margin-bottom: 10px; }
     .sys-card { border: 1px solid var(--brd-card); background: var(--bg-surface); padding: 14px 16px; }
     .sys-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
@@ -257,6 +253,7 @@
     .val-cards { color: var(--txt-muted); }
     .sys-note  { margin-top: 10px; font-size: 12px; color: var(--txt-note); }
 
+    /* ── Betting ramp ── */
     .bet-ramp { display: flex; flex-direction: column; gap: 5px; margin: 0 0 18px; }
     .bet-row { display: flex; align-items: center; gap: 14px; padding: 9px 14px; border: 1px solid var(--brd-card); background: var(--bg-surface); }
     .bet-count { min-width: 100px; font-family: Consolas, Monaco, monospace; font-size: 13px; color: var(--txt-note); }
@@ -271,81 +268,109 @@
     .bet-row.r-min  { border-color: #660000; background: #150000; } .bet-row.r-min  .bet-label-cell { color: #cc4444; } .bet-row.r-min  .bet-bar-fill { background: #cc4444; width: 10%; }
     .bet-row.r-out  { border-color: #aa0000; background: #1a0000; } .bet-row.r-out  .bet-label-cell { color: #ff4444; } .bet-row.r-out  .bet-bar-fill { background: #ff4444; width: 5%; }
 
+    /* ── Expert compare ── */
     .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
     .compare-box { border: 1px solid var(--brd-card); background: var(--bg-surface); padding: 14px 16px; }
     .compare-box h4 { margin: 0 0 10px; font-size: 14px; color: #ff4d4d; border-bottom: 1px solid var(--brd-card); padding-bottom: 6px; }
     .compare-box ul { margin: 0; padding-left: 16px; color: var(--txt-sub); font-size: 13px; line-height: 1.8; }
 
-    /* ── Mobile system dropdown — hidden by default ── */
-    .system-select-mobile {
-      display: none;
-      padding: 10px 12px;
-      background: var(--bg-select);
-      color: var(--txt-main);
-      border: 1px solid var(--brd-btn);
-      font-size: 16px;
-      font-weight: 700;
-      outline: none;
-      cursor: pointer;
-    }
+    /* ── Mobile system dropdown (hidden by default) ── */
+    .system-select-mobile { display: none; padding: 10px 12px; background: var(--bg-select); color: var(--txt-main); border: 1px solid var(--brd-btn); font-size: 16px; font-weight: 700; outline: none; cursor: pointer; }
 
-    /* ── Mobile control bar (hidden on desktop) ── */
+    /* ── Mobile control bar (hidden by default) ── */
     .mobile-control-bar { display: none; }
-    .mob-ctrl-btn {
-      flex: 1;
-      padding: 8px 4px;
-      font-size: 13px;
-      font-weight: 700;
-      min-height: 38px;
-      background: var(--bg-btn);
-      border: 1px solid var(--brd-btn);
-      color: #fff;
-      cursor: pointer;
-    }
+    .mob-ctrl-btn { flex: 1; padding: 8px 4px; font-size: 13px; font-weight: 700; min-height: 38px; background: var(--bg-btn); border: 1px solid var(--brd-btn); color: #fff; cursor: pointer; }
     .mob-ctrl-btn:hover { background: var(--brd-main); }
     .mob-ctrl-btn:active { transform: scale(0.98); }
 
+    /* ─────────────────────────────────────────
+       BREAKPOINTS
+    ───────────────────────────────────────── */
+
     @media (max-width: 700px) { .sys-grid { grid-template-columns: 1fr; } .compare-grid { grid-template-columns: 1fr; } }
     @media (min-height: 1150px) { .window { zoom: 0.75; } }
+
+    /* ══ LARGE SCREEN ≥1400px ══
+       System tabs visible. Log panel is a toggle (same as medium).
+       No side-panel overrides needed — base styles handle toggle. */
+    @media (min-width: 1400px) {
+      .system-tabs { display: flex !important; }
+      .system-select-mobile { display: none !important; }
+    }
+
+    /* ══ MEDIUM / LAPTOP  641–1399px ══ */
+    @media (max-width: 1399px) and (min-width: 641px) {
+      /* System selector */
+      .system-tabs { display: none !important; }
+      .system-select-mobile { display: block !important; flex: 1; width: auto; padding: 5px 8px; font-size: 14px; }
+      .system-selector-row { gap: 10px; margin: 6px 16px 0; padding-bottom: 6px; }
+      .system-selector-label { font-size: 15px; min-width: unset; }
+
+      /* Header info */
+      #systemHeaderLine, #systemHeaderDetails { display: none; }
+      #systemHeaderUse { font-size: 11px; color: var(--txt-main); white-space: normal; }
+      .header-info { padding: 2px 16px 2px; }
+
+      /* Shoe selector */
+      .shoe-selector-row { font-size: 16px; margin: 2px 16px 0; }
+      .shoe-selector-row select { padding: 5px 10px; font-size: 15px; }
+
+      /* Counter */
+      .counter-display { min-height: 120px; font-size: clamp(40px, 10vw, 80px); }
+      .clear-button, .undo-button, .new-shoe-button { min-height: 36px; padding: 6px 10px; font-size: 13px; }
+      .counter-buttons button { min-height: 42px; padding: 8px 6px; font-size: 16px; }
+
+      /* Info / stats boxes — compact sizing */
+      .true-count-box, .betting-box { padding: 8px 12px; }
+      .true-count-label, .betting-label { font-size: 13px; }
+      .true-count-value, .betting-value { font-size: clamp(22px, 4vw, 32px); }
+      .betting-note { font-size: 11px; }
+      .stat-box { padding: 8px 10px; }
+      .stat-label { font-size: 11px; }
+      .stat-value { font-size: clamp(18px, 3vw, 26px); }
+    }
+
+    /* ══ MOBILE ≤640px ══ */
     @media (max-width: 640px) {
-      /* System selector: label + select on one row, use text below */
+      /* Hide log panel and toggle entirely on mobile */
+      .side-panel { display: none !important; }
+      #btnLog { display: none !important; }
+
+      /* System selector: label + dropdown on one row */
       .system-selector-row { flex-direction: row; align-items: center; gap: 8px; margin: 6px 12px 0; padding-bottom: 0; flex-wrap: wrap; }
       .system-selector-label { font-size: 14px; font-weight: 700; min-width: unset; white-space: nowrap; }
       .system-tabs { display: none; }
       .system-select-mobile { display: block; flex: 1; margin-top: 0; padding: 6px 8px; font-size: 14px; min-width: 0; }
 
-      /* Show only the use line, hide the other two header lines */
+      /* Header: show only the use line, white, small */
       .header-info { display: block; padding: 3px 12px 4px; }
       #systemHeaderLine, #systemHeaderDetails { display: none; }
-      #systemHeaderUse { font-size: 11px; color: var(--txt-dim); white-space: normal; }
+      #systemHeaderUse { font-size: 11px; color: var(--txt-main); white-space: normal; }
 
       /* Shoe selector */
       .shoe-selector-row { font-size: 16px; margin: 4px 12px 0; justify-content: flex-start; }
 
-      /* Mobile control bar above counter */
+      /* Mobile control bar replaces desktop side buttons */
       .mobile-control-bar { display: flex; gap: 6px; width: 100%; }
 
-      /* Counter area: display only, full width, hide side buttons */
+      /* Counter */
       .counter-area { grid-template-columns: 1fr; row-gap: 0; }
       .counter-display-spacer { display: none; }
       .clear-button-wrap { display: none; }
       .counter-display { min-height: 130px; width: 100%; font-size: clamp(52px, 18vw, 90px); }
 
-      /* Count buttons: always 3 per row, compact */
+      /* Count buttons */
       .counter-buttons { grid-template-columns: repeat(3, 1fr) !important; }
       .counter-buttons.four-wide { grid-template-columns: repeat(4, 1fr) !important; }
       .counter-buttons button { padding: 10px 4px; font-size: 16px; min-height: 44px; }
 
-      /* Info row: side by side */
-      .info-row { grid-template-columns: repeat(2, 1fr); }
-      .true-count-box, .betting-box { padding: 8px 10px; min-height: 80px; }
+      /* Main grid: back to flex wrap on mobile */
+      #mainGrid { display: flex; flex-wrap: wrap; gap: 10px; }
+      .true-count-box, .betting-box { flex: 1 1 calc(50% - 5px); min-width: 0; padding: 8px 10px; min-height: 80px; }
       .true-count-value, .betting-value { font-size: clamp(20px, 6vw, 30px); }
       .true-count-label, .betting-label { font-size: 13px; }
       .betting-note { font-size: 11px; }
-
-      /* Stats: 2 per row */
-      .stats-grid { flex-wrap: wrap; }
-      .stat-box { max-width: none; flex: 1 1 45%; }
+      .stat-box { flex: 1 1 calc(50% - 5px); max-width: none; }
       .stat-value { font-size: clamp(20px, 5vw, 28px); }
 
       #helpModal { padding: 12px; }
@@ -363,7 +388,7 @@
       </div>
       <div class="title">Blackjack Counter Tool</div>
       <div class="titlebar-buttons">
-        <button id="btnLog" title="Toggle action log">≡</button>
+        <button id="btnLog" title="Toggle action log" style="font-size:11px;letter-spacing:-1px;font-family:Consolas,Monaco,monospace;">&gt;_</button>
         <button id="btnTheme" title="Switch theme">☀</button>
         <button id="btnHelp" title="Help">?</button>
         <button id="btnClose" title="Close">X</button>
@@ -398,24 +423,25 @@
       <div class="header-info-text">
         <div id="systemHeaderLine">Hi-Lo system loaded — beginner-friendly balanced count</div>
         <div id="systemHeaderDetails">Simple three-group system focused on running count and true count only</div>
-        <div id="systemHeaderUse">Best for beginners: 2–6 = +1, 7–9 = 0, 10–A = -1</div>
+        <div id="systemHeaderUse"></div>
       </div>
     </div>
 
     <div class="app-body">
       <div class="main-panel">
-            <div id="shoeSelectorRow" class="shoe-selector-row">
-              <label for="deckCount">Decks in Shoe:</label>
-              <select id="deckCount" aria-label="Decks in Shoe">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-              </select>
-            </div>
+        <div id="shoeSelectorRow" class="shoe-selector-row">
+          <label for="deckCount">Decks in Shoe:</label>
+          <select id="deckCount" aria-label="Decks in Shoe">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+          </select>
+        </div>
+
         <div class="mobile-control-bar">
           <button id="btnUndoMob" class="mob-ctrl-btn">Undo</button>
           <button id="btnNewShoeMob" class="mob-ctrl-btn">New Shoe</button>
@@ -436,24 +462,21 @@
 
         <div id="counterButtons" class="counter-buttons"></div>
 
-        <div class="info-row">
-            <div class="true-count-box">
-              <div id="countMetricLabel" class="true-count-label">True Count</div>
-              <div id="trueCountDisplay" class="true-count-value">0.00</div>
-            </div>
-            <div class="betting-box">
-              <div class="betting-label">Betting Suggestion</div>
-              <div id="bettingSuggestionDisplay" class="betting-value">Standard</div>
-              <div id="bettingNoteDisplay" class="betting-note">Based on true count</div>
-            </div>
+        <div id="mainGrid" class="main-grid">
+          <div class="true-count-box">
+            <div id="countMetricLabel" class="true-count-label">True Count</div>
+            <div id="trueCountDisplay" class="true-count-value">0.00</div>
           </div>
-
-          <div id="statsGrid" class="stats-grid">
-          <div class="stat-box">
+          <div class="betting-box">
+            <div class="betting-label">Betting Suggestion</div>
+            <div id="bettingSuggestionDisplay" class="betting-value">Standard</div>
+            <div id="bettingNoteDisplay" class="betting-note">Based on true count</div>
+          </div>
+          <div id="cardsPlayedBox" class="stat-box">
             <div class="stat-label">Cards Played</div>
             <div id="cardsPlayedDisplay" class="stat-value">0</div>
           </div>
-          <div class="stat-box">
+          <div id="cardsRemainingBox" class="stat-box">
             <div class="stat-label">Cards Left in Shoe</div>
             <div id="cardsRemainingDisplay" class="stat-value">52</div>
           </div>
@@ -473,7 +496,7 @@
             <div class="stat-label">Aces Left in Shoe</div>
             <div id="acesRemainingDisplay" class="stat-value">4</div>
           </div>
-        </div><!-- end stats-grid -->
+        </div>
       </div>
     </div>
 
@@ -487,6 +510,7 @@
     <div class="footer">© 2026 Amanda Hernow. All rights reserved. Web Version 2.0</div>
   </div>
 
+  <!-- ══════════════════ HELP MODAL ══════════════════ -->
   <div id="helpModal" aria-hidden="true">
     <div id="helpBox" role="dialog" aria-modal="true">
       <div id="helpHeader">
@@ -500,6 +524,7 @@
         <button id="helpClose" title="Close help">Close</button>
       </div>
       <div id="helpContent">
+
         <div id="usagePanel" class="help-panel active">
           <p class="help-section-title">How to Use the Counter</p>
           <div class="step-list">
@@ -511,6 +536,7 @@
             <div class="step-item"><div class="step-num">6</div><div class="step-text"><strong>New Shoe</strong> — resets the count to the correct starting value for the selected system and shoe size. Use this at the start of each new shoe.</div></div>
             <div class="step-item"><div class="step-num">7</div><div class="step-text"><strong>Undo / Clear</strong> — Undo steps back one action at a time. Clear resets the entire shoe, same as New Shoe.</div></div>
             <div class="step-item"><div class="step-num">8</div><div class="step-text"><strong>Theme toggle</strong> — the ☀ button in the top right switches between dark and light mode. Your preference is saved automatically.</div></div>
+            <div class="step-item"><div class="step-num">9</div><div class="step-text"><strong>Action log</strong> — the ≡ button toggles the action log panel, which slides in from the right on all screen sizes.</div></div>
           </div>
           <div class="info-box"><strong>Ace density:</strong> in systems with ace side counting, the betting note shows <em>Aces rich</em>, <em>Aces poor</em>, or <em>Aces neutral</em>. A rich shoe has more aces remaining than expected and slightly favours the player beyond what the count alone shows.</div>
           <div class="info-box"><strong>True Count vs Running Count:</strong> the true count normalises the running count for decks remaining. A running count of +6 in a 6-deck shoe is much weaker than the same count with one deck left. Unbalanced systems (KO, Red 7) skip this step and use the running count against fixed key thresholds.</div>
@@ -564,86 +590,395 @@
           <div class="info-box"><strong>What this tool does not replace:</strong> memorised basic strategy, proper bankroll management, game selection, bet spread discipline, and camouflage play. Using a count without solid basic strategy will not produce a meaningful advantage.</div>
           <div class="info-box muted">This tool is for personal practice and training only. Use it responsibly and in accordance with the rules and policies of wherever you play.</div>
         </div>
+
       </div>
     </div>
   </div>
 
   <script>
-    (function(){
-      var root=document.documentElement,btnTheme=document.getElementById('btnTheme'),btnLog=document.getElementById('btnLog'),sidePanel=document.getElementById('sidePanel');
-      function setTheme(t){root.setAttribute('data-theme',t);btnTheme.textContent=t==='light'?'☾':'☀';btnTheme.title=t==='light'?'Switch to dark mode':'Switch to light mode';try{localStorage.setItem('bj-theme',t);}catch(e){}}
-      btnTheme.addEventListener('click',function(){setTheme(root.getAttribute('data-theme')==='light'?'dark':'light');});
-      try{var saved=localStorage.getItem('bj-theme');if(saved==='light'||saved==='dark')setTheme(saved);}catch(e){}
-      btnLog.addEventListener('click',function(){sidePanel.classList.toggle('log-open');btnLog.textContent=sidePanel.classList.contains('log-open')?'✕':'≡';});
-      var systemSelect=document.getElementById('systemSelect');
-      systemSelect.addEventListener('change',function(){setSystem(systemSelect.value);});
-      var count=0,cardsPlayed=0,acesPlayed=0,activeSystem='hilo',history=[];
-      var systems={
-        hilo:{header:'Hi-Lo system loaded — beginner-friendly balanced count',details:'Simple three-group system focused on running count and true count only',use:'Use +1 for 2–6, 0 for 7–9, and -1 for 10–A',aceSideCount:false,usesRunningCountOnly:false,buttons:[{label:'-1',delta:-1},{label:'0',delta:0},{label:'+1',delta:1}]},
-        ko:{header:'KO system loaded — unbalanced beginner-friendly running count',details:'Use running count, but still keep deck count selected because KO key points depend on shoe size',use:'Use +1 for 2–7, 0 for 8–9, and -1 for 10–A',aceSideCount:false,usesRunningCountOnly:true,buttons:[{label:'-1',delta:-1},{label:'0',delta:0},{label:'+1',delta:1}]},
-        red7:{header:'Red 7 system loaded — unbalanced count with red-7 bonus',details:'Use running count, and keep deck count selected because Red 7 key points depend on shoe size',use:'Use +1 for 2–6 and red 7, 0 for black 7,8,9, and -1 for 10–A',aceSideCount:false,usesRunningCountOnly:true,buttons:[{label:'-1',delta:-1},{label:'0',delta:0},{label:'+1',delta:1},{label:'7 Red',delta:1},{label:'7 Black',delta:0}]},
-        hiopt1:{header:'Hi-Opt I loaded — balanced bridge system before Hi-Opt II',details:'Balanced level-one count with separate ace tracking',use:'Use +1 for 3–6; 0 for 2,7,8,9; -1 for 10–K; Ace for A',aceSideCount:true,usesRunningCountOnly:false,buttons:[{label:'-1',delta:-1},{label:'0',delta:0},{label:'+1',delta:1},{label:'Ace',delta:0,ace:true}]},
-        hiopt2:{header:'Hi-Opt II system loaded — advanced accuracy with ace side count',details:'More precise pro system with separate ace tracking and ace-remaining awareness',use:'Use +1 for 2,3,6,7; +2 for 4,5; 0 for 8,9; -2 for 10–K; Ace for A; no -1 used',aceSideCount:true,usesRunningCountOnly:false,buttons:[{label:'-2',delta:-2},{label:'+2',delta:2},{label:'+1',delta:1},{label:'0',delta:0},{label:'Ace',delta:0,ace:true}]},
-        zen:{header:'Zen Count loaded — stronger multi-level balanced count',details:'Higher precision than Hi-Lo; Aces count as -1 within the main count, no side counting needed',use:'Use +2 for 4,5,6; +1 for 2,3,7; 0 for 8,9; -1 for A; -2 for 10–K',aceSideCount:false,usesRunningCountOnly:false,buttons:[{label:'-2',delta:-2},{label:'-1',delta:-1},{label:'0',delta:0},{label:'+1',delta:1},{label:'+2',delta:2}]},
-        omega2:{header:'Omega II loaded — advanced multi-level system with ace tracking',details:'High-efficiency count with separate ace tracking and ace-remaining awareness',use:'Use +1 for 2,3,7; +2 for 4,5,6; 0 for 8; -1 for 9; -2 for 10–K; Ace for A',aceSideCount:true,usesRunningCountOnly:false,buttons:[{label:'-2',delta:-2},{label:'-1',delta:-1},{label:'0',delta:0},{label:'+2',delta:2},{label:'+1',delta:1},{label:'Ace',delta:0,ace:true}]},
-        wonghalves:{header:'Wong Halves loaded — high-efficiency fractional balanced count',details:'Very accurate count using half-point steps and true-count conversion',use:'Use +1.5 for 5; +1 for 3,4,6; +0.5 for 2,7; 0 for 8; -0.5 for 9; -1 for 10–A',aceSideCount:false,usesRunningCountOnly:false,buttons:[{label:'-1',delta:-1},{label:'-0.5',delta:-0.5},{label:'0',delta:0},{label:'+0.5',delta:0.5},{label:'+1',delta:1},{label:'+1.5',delta:1.5}]}
+  (function () {
+    var root       = document.documentElement;
+    var btnTheme   = document.getElementById('btnTheme');
+    var btnLog     = document.getElementById('btnLog');
+    var sidePanel  = document.getElementById('sidePanel');
+    var systemSelectEl = document.getElementById('systemSelect');
+
+    /* ── Theme ── */
+    function setTheme(t) {
+      root.setAttribute('data-theme', t);
+      btnTheme.textContent = t === 'light' ? '☾' : '☀';
+      btnTheme.title = t === 'light' ? 'Switch to dark mode' : 'Switch to light mode';
+      try { localStorage.setItem('bj-theme', t); } catch (e) {}
+    }
+    btnTheme.addEventListener('click', function () {
+      setTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+    });
+    try {
+      var saved = localStorage.getItem('bj-theme');
+      if (saved === 'light' || saved === 'dark') setTheme(saved);
+    } catch (e) {}
+
+    /* ── Log panel toggle (all non-mobile screen sizes) ── */
+    btnLog.addEventListener('click', function () {
+      sidePanel.classList.toggle('log-open');
+      btnLog.textContent = sidePanel.classList.contains('log-open') ? '✕' : '≡';
+    });
+
+    /* ── Mobile system dropdown ── */
+    systemSelectEl.addEventListener('change', function () {
+      setActiveSystem(systemSelectEl.value);
+    });
+
+    /* ────────────────────────────────────────
+       Helper: build a use-badge span
+    ──────────────────────────────────────── */
+    function b(val) {
+      return '<span class="use-badge">' + val + '</span>';
+    }
+
+    /* ────────────────────────────────────────
+       System definitions
+       use: HTML string with use-badge spans
+            (no leading "Use " — badges make
+             the context self-evident)
+    ──────────────────────────────────────── */
+    var systems = {
+      hilo: {
+        header:  'Hi-Lo system loaded — beginner-friendly balanced count',
+        details: 'Simple three-group system focused on running count and true count only',
+        use:     b('+1') + ' for 2–6, ' + b('0') + ' for 7–9, ' + b('−1') + ' for 10–A',
+        aceSideCount: false, usesRunningCountOnly: false,
+        buttons: [{label:'-1',delta:-1},{label:'0',delta:0},{label:'+1',delta:1}]
+      },
+      ko: {
+        header:  'KO system loaded — unbalanced beginner-friendly running count',
+        details: 'Use running count; keep deck count selected because KO key points depend on shoe size',
+        use:     b('+1') + ' for 2–7, ' + b('0') + ' for 8–9, ' + b('−1') + ' for 10–A',
+        aceSideCount: false, usesRunningCountOnly: true,
+        buttons: [{label:'-1',delta:-1},{label:'0',delta:0},{label:'+1',delta:1}]
+      },
+      red7: {
+        header:  'Red 7 system loaded — unbalanced count with red-7 bonus',
+        details: 'Use running count; keep deck count selected because Red 7 key points depend on shoe size',
+        use:     b('+1') + ' for 2–6 & red 7, ' + b('0') + ' for black 7/8/9, ' + b('−1') + ' for 10–A',
+        aceSideCount: false, usesRunningCountOnly: true,
+        buttons: [{label:'-1',delta:-1},{label:'0',delta:0},{label:'+1',delta:1},{label:'7 Red',delta:1},{label:'7 Black',delta:0}]
+      },
+      hiopt1: {
+        header:  'Hi-Opt I loaded — balanced bridge system before Hi-Opt II',
+        details: 'Balanced level-one count with separate ace tracking',
+        use:     b('+1') + ' for 3–6, ' + b('0') + ' for 2/7/8/9, ' + b('−1') + ' for 10–K, ' + b('Ace') + ' for A',
+        aceSideCount: true, usesRunningCountOnly: false,
+        buttons: [{label:'-1',delta:-1},{label:'0',delta:0},{label:'+1',delta:1},{label:'Ace',delta:0,ace:true}]
+      },
+      hiopt2: {
+        header:  'Hi-Opt II system loaded — advanced accuracy with ace side count',
+        details: 'More precise pro system with separate ace tracking and ace-remaining awareness',
+        use:     b('+1') + ' for 2/3/6/7, ' + b('+2') + ' for 4/5, ' + b('0') + ' for 8/9, ' + b('−2') + ' for 10–K, ' + b('Ace') + ' for A',
+        aceSideCount: true, usesRunningCountOnly: false,
+        buttons: [{label:'-2',delta:-2},{label:'+2',delta:2},{label:'+1',delta:1},{label:'0',delta:0},{label:'Ace',delta:0,ace:true}]
+      },
+      zen: {
+        header:  'Zen Count loaded — stronger multi-level balanced count',
+        details: 'Higher precision than Hi-Lo; Aces count as −1 in the main count, no side counting needed',
+        use:     b('+2') + ' for 4/5/6, ' + b('+1') + ' for 2/3/7, ' + b('0') + ' for 8/9, ' + b('−1') + ' for A, ' + b('−2') + ' for 10–K',
+        aceSideCount: false, usesRunningCountOnly: false,
+        buttons: [{label:'-2',delta:-2},{label:'-1',delta:-1},{label:'0',delta:0},{label:'+1',delta:1},{label:'+2',delta:2}]
+      },
+      omega2: {
+        header:  'Omega II loaded — advanced multi-level system with ace tracking',
+        details: 'High-efficiency count with separate ace tracking and ace-remaining awareness',
+        use:     b('+1') + ' for 2/3/7, ' + b('+2') + ' for 4/5/6, ' + b('0') + ' for 8, ' + b('−1') + ' for 9, ' + b('−2') + ' for 10–K, ' + b('Ace') + ' for A',
+        aceSideCount: true, usesRunningCountOnly: false,
+        buttons: [{label:'-2',delta:-2},{label:'-1',delta:-1},{label:'0',delta:0},{label:'+2',delta:2},{label:'+1',delta:1},{label:'Ace',delta:0,ace:true}]
+      },
+      wonghalves: {
+        header:  'Wong Halves loaded — high-efficiency fractional balanced count',
+        details: 'Very accurate count using half-point steps and true-count conversion',
+        use:     b('+1.5') + ' for 5, ' + b('+1') + ' for 3/4/6, ' + b('+0.5') + ' for 2/7, ' + b('0') + ' for 8, ' + b('−0.5') + ' for 9, ' + b('−1') + ' for 10–A',
+        aceSideCount: false, usesRunningCountOnly: false,
+        buttons: [{label:'-1',delta:-1},{label:'-0.5',delta:-0.5},{label:'0',delta:0},{label:'+0.5',delta:0.5},{label:'+1',delta:1},{label:'+1.5',delta:1.5}]
+      }
+    };
+
+    /* ── State ── */
+    var count = 0, cardsPlayed = 0, acesPlayed = 0, activeSystem = 'hilo', history = [];
+    var actionLogEntries = [];
+
+    /* ── DOM refs ── */
+    var display                  = document.getElementById('counterDisplay');
+    var trueCountDisplay         = document.getElementById('trueCountDisplay');
+    var countMetricLabel         = document.getElementById('countMetricLabel');
+    var bettingSuggestionDisplay = document.getElementById('bettingSuggestionDisplay');
+    var bettingNoteDisplay       = document.getElementById('bettingNoteDisplay');
+    var cardsPlayedDisplay       = document.getElementById('cardsPlayedDisplay');
+    var cardsRemainingDisplay    = document.getElementById('cardsRemainingDisplay');
+    var acesPlayedDisplay        = document.getElementById('acesPlayedDisplay');
+    var acesRemainingDisplay     = document.getElementById('acesRemainingDisplay');
+    var extraStatOneBox          = document.getElementById('extraStatOneBox');
+    var extraStatTwoBox          = document.getElementById('extraStatTwoBox');
+    var extraStatOneLabel        = document.getElementById('extraStatOneLabel');
+    var extraStatTwoLabel        = document.getElementById('extraStatTwoLabel');
+    var extraStatOneDisplay      = document.getElementById('extraStatOneDisplay');
+    var extraStatTwoDisplay      = document.getElementById('extraStatTwoDisplay');
+    var acesPlayedBox            = document.getElementById('acesPlayedBox');
+    var acesRemainingBox         = document.getElementById('acesRemainingBox');
+    var shoeSelectorRow          = document.getElementById('shoeSelectorRow');
+    var deckCount                = document.getElementById('deckCount');
+    var btnUndo                  = document.getElementById('btnUndo');
+    var btnNewShoe               = document.getElementById('btnNewShoe');
+    var btnClear                 = document.getElementById('btnClear');
+    var btnClose                 = document.getElementById('btnClose');
+    var btnHelp                  = document.getElementById('btnHelp');
+    var helpModal                = document.getElementById('helpModal');
+    var helpClose                = document.getElementById('helpClose');
+    var counterButtons           = document.getElementById('counterButtons');
+    var mainGrid                = document.getElementById('mainGrid');
+    var systemTabs               = document.querySelectorAll('.system-tab');
+    var helpTabs                 = document.querySelectorAll('.help-tab');
+    var helpPanels               = document.querySelectorAll('.help-panel');
+    var systemHeaderLine         = document.getElementById('systemHeaderLine');
+    var systemHeaderDetails      = document.getElementById('systemHeaderDetails');
+    var systemHeaderUse          = document.getElementById('systemHeaderUse');
+    var actionLogBody            = document.getElementById('actionLogBody');
+
+    /* ── Helpers ── */
+    function getIRC(name, decks) {
+      if (name === 'ko') { var t = {1:0,2:-4,3:-8,4:-12,5:-16,6:-20,7:-24,8:-28}; return t[decks] != null ? t[decks] : 4 - 4 * decks; }
+      if (name === 'red7') return -2 * decks;
+      return 0;
+    }
+    function getKeyCount(name, decks) {
+      if (name === 'ko') { var t = {1:2,2:0,3:-1,4:-2,5:-4,6:-5,7:-6,8:-6}; return t[decks] != null ? t[decks] : 0; }
+      return 0;
+    }
+    function getBet(v, note) {
+      var s = 'Standard';
+      if      (v >= 4)            s = 'Max';
+      else if (v >= 3)            s = 'High';
+      else if (v >= 2)            s = 'Raise';
+      else if (v >= 1)            s = 'Slight Increase';
+      else if (v >= 0)            s = 'Standard';
+      else if (v > -2)            s = 'Minimum';
+      else                        s = 'Sit Out / Minimum';
+      return { suggestion: s, note: note || 'Based on count' };
+    }
+    function ftime() {
+      var n = new Date();
+      return String(n.getHours()).padStart(2, '0') + ':' + String(n.getMinutes()).padStart(2, '0');
+    }
+    function cardText(sys, lbl) {
+      var m = {
+        hilo:       { '-1':'Card: 10, J, Q, K, A', '0':'Card: 7, 8, 9',       '+1':'Card: 2, 3, 4, 5, 6' },
+        ko:         { '-1':'Card: 10, J, Q, K, A', '0':'Card: 8, 9',           '+1':'Card: 2, 3, 4, 5, 6, 7' },
+        red7:       { '-1':'Card: 10, J, Q, K, A', '0':'Card: 8, 9',           '+1':'Card: 2, 3, 4, 5, 6', '7 Black':'Card: 7 black', '7 Red':'Card: 7 red' },
+        hiopt1:     { '-1':'Card: 10, J, Q, K',    '0':'Card: 2, 7, 8, 9',     '+1':'Card: 3, 4, 5, 6', 'Ace':'Card: A' },
+        hiopt2:     { '-2':'Card: 10, J, Q, K',    '0':'Card: 8, 9',           '+1':'Card: 2, 3, 6, 7', '+2':'Card: 4, 5', 'Ace':'Card: A' },
+        zen:        { '-2':'Card: 10, J, Q, K',    '-1':'Card: A',             '0':'Card: 8, 9', '+1':'Card: 2, 3, 7', '+2':'Card: 4, 5, 6' },
+        omega2:     { '-2':'Card: 10, J, Q, K',    '-1':'Card: 9',             '0':'Card: 8', '+1':'Card: 2, 3, 7', '+2':'Card: 4, 5, 6', 'Ace':'Card: A' },
+        wonghalves: { '-1':'Card: 10, J, Q, K, A', '-0.5':'Card: 9',           '0':'Card: 8', '+0.5':'Card: 2, 7', '+1':'Card: 3, 4, 6', '+1.5':'Card: 5' }
       };
-      var display=document.getElementById('counterDisplay'),trueCountDisplay=document.getElementById('trueCountDisplay'),countMetricLabel=document.getElementById('countMetricLabel'),bettingSuggestionDisplay=document.getElementById('bettingSuggestionDisplay'),bettingNoteDisplay=document.getElementById('bettingNoteDisplay'),cardsPlayedDisplay=document.getElementById('cardsPlayedDisplay'),cardsRemainingDisplay=document.getElementById('cardsRemainingDisplay'),acesPlayedDisplay=document.getElementById('acesPlayedDisplay'),acesRemainingDisplay=document.getElementById('acesRemainingDisplay'),extraStatOneBox=document.getElementById('extraStatOneBox'),extraStatTwoBox=document.getElementById('extraStatTwoBox'),extraStatOneLabel=document.getElementById('extraStatOneLabel'),extraStatTwoLabel=document.getElementById('extraStatTwoLabel'),extraStatOneDisplay=document.getElementById('extraStatOneDisplay'),extraStatTwoDisplay=document.getElementById('extraStatTwoDisplay'),acesPlayedBox=document.getElementById('acesPlayedBox'),acesRemainingBox=document.getElementById('acesRemainingBox'),shoeSelectorRow=document.getElementById('shoeSelectorRow'),deckCount=document.getElementById('deckCount'),btnUndo=document.getElementById('btnUndo'),btnNewShoe=document.getElementById('btnNewShoe'),btnClear=document.getElementById('btnClear'),btnClose=document.getElementById('btnClose'),btnHelp=document.getElementById('btnHelp'),helpModal=document.getElementById('helpModal'),helpClose=document.getElementById('helpClose'),counterButtons=document.getElementById('counterButtons'),systemTabs=document.querySelectorAll('.system-tab'),helpTabs=document.querySelectorAll('.help-tab'),helpPanels=document.querySelectorAll('.help-panel'),systemHeaderLine=document.getElementById('systemHeaderLine'),systemHeaderDetails=document.getElementById('systemHeaderDetails'),systemHeaderUse=document.getElementById('systemHeaderUse'),actionLogBody=document.getElementById('actionLogBody'),actionLogEntries=[];
-      function getIRC(n,d){if(n==='ko'){var t={1:0,2:-4,3:-8,4:-12,5:-16,6:-20,7:-24,8:-28};return t[d]!=null?t[d]:4-4*d;}if(n==='red7')return -2*d;return 0;}
-      function getKeyCount(n,d){if(n==='ko'){var t={1:2,2:0,3:-1,4:-2,5:-4,6:-5,7:-6,8:-6};return t[d]!=null?t[d]:0;}return 0;}
-      function getBet(v,note){var s='Standard';if(v>=4)s='Max';else if(v>=3)s='High';else if(v>=2)s='Raise';else if(v>=1)s='Slight Increase';else if(v>=-1&&v<0)s='Minimum';else if(v<-1)s='Sit Out / Minimum';return{suggestion:s,note:note||'Based on count'};}
-      function ftime(){var n=new Date();return String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');}
-      function cardText(sys,lbl){var m={hilo:{'-1':'Card: 10, J, Q, K, A','0':'Card: 7, 8, 9','+1':'Card: 2, 3, 4, 5, 6'},ko:{'-1':'Card: 10, J, Q, K, A','0':'Card: 8, 9','+1':'Card: 2, 3, 4, 5, 6, 7'},red7:{'-1':'Card: 10, J, Q, K, A','0':'Card: 8, 9','+1':'Card: 2, 3, 4, 5, 6','7 Black':'Card: 7 black','7 Red':'Card: 7 red'},hiopt1:{'-1':'Card: 10, J, Q, K','0':'Card: 2, 7, 8, 9','+1':'Card: 3, 4, 5, 6','Ace':'Card: A'},hiopt2:{'-2':'Card: 10, J, Q, K','0':'Card: 8, 9','+1':'Card: 2, 3, 6, 7','+2':'Card: 4, 5','Ace':'Card: A'},zen:{'-2':'Card: 10, J, Q, K','-1':'Card: A','0':'Card: 8, 9','+1':'Card: 2, 3, 7','+2':'Card: 4, 5, 6'},omega2:{'-2':'Card: 10, J, Q, K','-1':'Card: 9','0':'Card: 8','+1':'Card: 2, 3, 7','+2':'Card: 4, 5, 6','Ace':'Card: A'},wonghalves:{'-1':'Card: 10, J, Q, K, A','-0.5':'Card: 9','0':'Card: 8','+0.5':'Card: 2, 7','+1':'Card: 3, 4, 6','+1.5':'Card: 5'}};return(m[sys]&&m[sys][lbl])||'Card counted';}
-      function renderLog(){actionLogBody.innerHTML='';actionLogEntries.forEach(function(e){var d=document.createElement('div');d.className='action-line';d.innerHTML=e;actionLogBody.appendChild(d);});actionLogBody.scrollTop=actionLogBody.scrollHeight;}
-      function addLog(lbl,sys){var e=ftime()+' <span class="log-button-tag">'+lbl+'</span> : '+cardText(sys,lbl);actionLogEntries.push(e);renderLog();}
-      function render(){
-        var decks=Number(deckCount.value)||1,totalCards=decks*52,totalAces=decks*4,cardsRem=Math.max(totalCards-cardsPlayed,0),acesRem=Math.max(totalAces-acesPlayed,0);
-        var metric=systems[activeSystem].usesRunningCountOnly?count:count/decks;
-        var note=systems[activeSystem].usesRunningCountOnly?'Based on running count':'Based on true count';
-        if(systems[activeSystem].aceSideCount&&cardsRem>0){var exp=(cardsRem/totalCards)*totalAces,surplus=acesRem-exp,decksRem=Math.max(cardsRem/52,0.5),bias=surplus/decksRem;note=bias>=0.5?'Aces rich':bias<=-0.5?'Aces poor':'Aces neutral';}
-        var bet=getBet(metric,note),isUnbal=systems[activeSystem].usesRunningCountOnly;
-        if(isUnbal){var kc=getKeyCount(activeSystem,decks),diff=count-kc,st='At Key',adv='Neutral',kt='At key';if(diff<0){st='Below Key';adv='Negative';kt='Need +'+Math.abs(diff);}else if(diff>0){st='Above Key';adv='Positive';kt='Above key by '+diff;}countMetricLabel.textContent='Key Count';trueCountDisplay.textContent=kt;extraStatOneLabel.textContent='Key Count Status';extraStatOneDisplay.textContent=st;extraStatTwoLabel.textContent='Advantage';extraStatTwoDisplay.textContent=adv;extraStatOneBox.style.display='block';extraStatTwoBox.style.display='block';}
-        else{countMetricLabel.textContent='True Count';trueCountDisplay.textContent=metric.toFixed(2);extraStatOneBox.style.display='none';extraStatTwoBox.style.display='none';}
-        display.textContent=Number.isInteger(count)?count:count.toFixed(1);bettingSuggestionDisplay.textContent=bet.suggestion;bettingNoteDisplay.textContent=bet.note;cardsPlayedDisplay.textContent=cardsPlayed;cardsRemainingDisplay.textContent=cardsRem;acesPlayedDisplay.textContent=acesPlayed;acesRemainingDisplay.textContent=acesRem;
+      return (m[sys] && m[sys][lbl]) || 'Card counted';
+    }
+
+    /* ── Action log ── */
+    function renderLog() {
+      actionLogBody.innerHTML = '';
+      actionLogEntries.forEach(function (e) {
+        var d = document.createElement('div');
+        d.className = 'action-line';
+        d.innerHTML = e;
+        actionLogBody.appendChild(d);
+      });
+      actionLogBody.scrollTop = actionLogBody.scrollHeight;
+    }
+    function addLog(lbl, sys) {
+      actionLogEntries.push(ftime() + ' <span class="log-button-tag">' + lbl + '</span> : ' + cardText(sys, lbl));
+      renderLog();
+    }
+
+    /* ── Render ── */
+    function render() {
+      var decks    = Number(deckCount.value) || 1;
+      var total    = decks * 52, totalAces = decks * 4;
+      var cardsRem = Math.max(total - cardsPlayed, 0);
+      var acesRem  = Math.max(totalAces - acesPlayed, 0);
+      var metric   = systems[activeSystem].usesRunningCountOnly ? count : count / decks;
+      var note     = systems[activeSystem].usesRunningCountOnly ? 'Based on running count' : 'Based on true count';
+
+      if (systems[activeSystem].aceSideCount && cardsRem > 0) {
+        var exp     = (cardsRem / total) * totalAces;
+        var surplus = acesRem - exp;
+        var decksRem = Math.max(cardsRem / 52, 0.5);
+        var bias    = surplus / decksRem;
+        note = bias >= 0.5 ? 'Aces rich' : bias <= -0.5 ? 'Aces poor' : 'Aces neutral';
       }
-      function makeBtn(def){var b=document.createElement('button');b.type='button';b.textContent=def.label;b.addEventListener('click',function(){history.push({count:count,cardsPlayed:cardsPlayed,acesPlayed:acesPlayed,logLength:actionLogEntries.length});count+=def.delta;cardsPlayed++;if(def.ace)acesPlayed++;addLog(def.label,activeSystem);render();});counterButtons.appendChild(b);}
-      function renderBtns(){
-        counterButtons.innerHTML='';counterButtons.classList.remove('four-wide');
-        var btns=systems[activeSystem].buttons,ord=btns;
-        if(activeSystem==='hiopt1'){ord=[btns.find(function(b){return b.label==='-1';}),btns.find(function(b){return b.label==='0';}),btns.find(function(b){return b.label==='+1';}),btns.find(function(b){return b.label==='Ace';})].filter(Boolean);counterButtons.classList.add('four-wide');}
-        else if(activeSystem==='hiopt2'){ord=[btns.find(function(b){return b.label==='-2';}),btns.find(function(b){return b.label==='0';}),btns.find(function(b){return b.label==='Ace';}),btns.find(function(b){return b.label==='+2';}),btns.find(function(b){return b.label==='+1';})].filter(Boolean);}
-        else if(activeSystem==='zen'){ord=[btns.find(function(b){return b.label==='-2';}),btns.find(function(b){return b.label==='-1';}),btns.find(function(b){return b.label==='0';}),btns.find(function(b){return b.label==='+2';}),btns.find(function(b){return b.label==='+1';})].filter(Boolean);}
-        else if(activeSystem==='red7'){ord=[btns.find(function(b){return b.label==='-1';}),btns.find(function(b){return b.label==='0';}),btns.find(function(b){return b.label==='+1';}),btns.find(function(b){return b.label==='7 Black';}),btns.find(function(b){return b.label==='7 Red';})].filter(Boolean);}
-        else if(activeSystem==='wonghalves'){ord=[btns.find(function(b){return b.label==='-0.5';}),btns.find(function(b){return b.label==='-1';}),btns.find(function(b){return b.label==='0';}),btns.find(function(b){return b.label==='+0.5';}),btns.find(function(b){return b.label==='+1';}),btns.find(function(b){return b.label==='+1.5';})].filter(Boolean);}
-        else if(btns.length===4){counterButtons.classList.add('four-wide');}
-        ord.forEach(makeBtn);
+
+      var bet      = getBet(metric, note);
+      var isUnbal  = systems[activeSystem].usesRunningCountOnly;
+
+      if (isUnbal) {
+        var kc   = getKeyCount(activeSystem, decks);
+        var diff = count - kc;
+        var st   = 'At Key', adv = 'Neutral', kt = 'At key';
+        if (diff < 0)      { st = 'Below Key'; adv = 'Negative'; kt = 'Need +' + Math.abs(diff); }
+        else if (diff > 0) { st = 'Above Key'; adv = 'Positive'; kt = 'Above key by ' + diff; }
+        countMetricLabel.textContent    = 'Key Count';
+        trueCountDisplay.textContent    = kt;
+        extraStatOneLabel.textContent   = 'Key Count Status';
+        extraStatOneDisplay.textContent = st;
+        extraStatTwoLabel.textContent   = 'Advantage';
+        extraStatTwoDisplay.textContent = adv;
+        extraStatOneBox.style.display   = 'block';
+        extraStatTwoBox.style.display   = 'block';
+      } else {
+        countMetricLabel.textContent  = 'True Count';
+        trueCountDisplay.textContent  = metric.toFixed(2);
+        extraStatOneBox.style.display = 'none';
+        extraStatTwoBox.style.display = 'none';
       }
-      function setSystem(name){
-        activeSystem=name;
-        systemTabs.forEach(function(t){t.classList.toggle('active',t.dataset.system===name);});
-        systemSelect.value=name;
-        var sys=systems[name];systemHeaderLine.textContent=sys.header;systemHeaderDetails.textContent=sys.details;systemHeaderUse.textContent=sys.use;countMetricLabel.textContent=sys.usesRunningCountOnly?'Key Count':'True Count';shoeSelectorRow.style.display='flex';
-        acesPlayedBox.style.display=sys.aceSideCount?'block':'none';acesRemainingBox.style.display=sys.aceSideCount?'block':'none';
-        cardsPlayed=0;acesPlayed=0;var d=Number(deckCount.value)||1;count=sys.usesRunningCountOnly?getIRC(name,d):0;history.length=0;actionLogEntries.length=0;renderLog();renderBtns();render();
+
+      display.textContent                  = Number.isInteger(count) ? count : count.toFixed(1);
+      bettingSuggestionDisplay.textContent = bet.suggestion;
+      bettingNoteDisplay.textContent       = bet.note;
+      cardsPlayedDisplay.textContent       = cardsPlayed;
+      cardsRemainingDisplay.textContent    = cardsRem;
+      acesPlayedDisplay.textContent        = acesPlayed;
+      acesRemainingDisplay.textContent     = acesRem;
+    }
+
+    /* ── Counter buttons ── */
+    function makeBtn(def) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = def.label;
+      btn.addEventListener('click', function () {
+        history.push({ count: count, cardsPlayed: cardsPlayed, acesPlayed: acesPlayed, logLength: actionLogEntries.length });
+        count += def.delta;
+        cardsPlayed++;
+        if (def.ace) acesPlayed++;
+        addLog(def.label, activeSystem);
+        render();
+      });
+      counterButtons.appendChild(btn);
+    }
+
+    function renderBtns() {
+      counterButtons.innerHTML = '';
+      counterButtons.classList.remove('four-wide');
+      var btns = systems[activeSystem].buttons;
+      var ord  = btns;
+
+      if (activeSystem === 'hiopt1') {
+        ord = [btns.find(function(b){return b.label==='-1';}), btns.find(function(b){return b.label==='0';}), btns.find(function(b){return b.label==='+1';}), btns.find(function(b){return b.label==='Ace';})].filter(Boolean);
+        counterButtons.classList.add('four-wide');
+      } else if (activeSystem === 'hiopt2') {
+        ord = [btns.find(function(b){return b.label==='-2';}), btns.find(function(b){return b.label==='0';}), btns.find(function(b){return b.label==='Ace';}), btns.find(function(b){return b.label==='+2';}), btns.find(function(b){return b.label==='+1';})].filter(Boolean);
+      } else if (activeSystem === 'zen') {
+        ord = [btns.find(function(b){return b.label==='-2';}), btns.find(function(b){return b.label==='-1';}), btns.find(function(b){return b.label==='0';}), btns.find(function(b){return b.label==='+2';}), btns.find(function(b){return b.label==='+1';})].filter(Boolean);
+      } else if (activeSystem === 'red7') {
+        ord = [btns.find(function(b){return b.label==='-1';}), btns.find(function(b){return b.label==='0';}), btns.find(function(b){return b.label==='+1';}), btns.find(function(b){return b.label==='7 Black';}), btns.find(function(b){return b.label==='7 Red';})].filter(Boolean);
+      } else if (activeSystem === 'wonghalves') {
+        ord = [btns.find(function(b){return b.label==='-0.5';}), btns.find(function(b){return b.label==='-1';}), btns.find(function(b){return b.label==='0';}), btns.find(function(b){return b.label==='+0.5';}), btns.find(function(b){return b.label==='+1';}), btns.find(function(b){return b.label==='+1.5';})].filter(Boolean);
+      } else if (btns.length === 4) {
+        counterButtons.classList.add('four-wide');
       }
-      function openHelp(){helpModal.style.display='block';helpModal.setAttribute('aria-hidden','false');}
-      function closeHelp(){helpModal.style.display='none';helpModal.setAttribute('aria-hidden','true');}
-      systemTabs.forEach(function(t){t.addEventListener('click',function(){setSystem(t.dataset.system);});});
-      helpTabs.forEach(function(t){t.addEventListener('click',function(){helpTabs.forEach(function(x){x.classList.remove('active');});helpPanels.forEach(function(p){p.classList.remove('active');});t.classList.add('active');var p=document.getElementById(t.dataset.helpTab);if(p)p.classList.add('active');});});
-      deckCount.addEventListener('change',function(){if(systems[activeSystem].usesRunningCountOnly&&cardsPlayed===0)count=getIRC(activeSystem,Number(deckCount.value)||1);render();});
-      btnUndo.addEventListener('click',function(){var p=history.pop();if(!p)return;count=p.count;cardsPlayed=p.cardsPlayed;acesPlayed=p.acesPlayed;actionLogEntries.length=p.logLength||0;renderLog();render();});
-      btnNewShoe.addEventListener('click',function(){history.push({count:count,cardsPlayed:cardsPlayed,acesPlayed:acesPlayed,logLength:actionLogEntries.length});var d=Number(deckCount.value)||1;count=systems[activeSystem].usesRunningCountOnly?getIRC(activeSystem,d):0;cardsPlayed=0;acesPlayed=0;actionLogEntries.length=0;renderLog();render();});
-      btnClear.addEventListener('click',function(){history.push({count:count,cardsPlayed:cardsPlayed,acesPlayed:acesPlayed,logLength:actionLogEntries.length});var d=Number(deckCount.value)||1;count=systems[activeSystem].usesRunningCountOnly?getIRC(activeSystem,d):0;cardsPlayed=0;acesPlayed=0;actionLogEntries.length=0;renderLog();render();});
-      document.getElementById('btnUndoMob').addEventListener('click',function(){btnUndo.click();});
-      document.getElementById('btnNewShoeMob').addEventListener('click',function(){btnNewShoe.click();});
-      document.getElementById('btnClearMob').addEventListener('click',function(){btnClear.click();});
-      btnHelp.addEventListener('click',openHelp);
-      helpClose.addEventListener('click',closeHelp);
-      helpModal.addEventListener('click',function(e){if(e.target===helpModal)closeHelp();});
-      document.addEventListener('keydown',function(e){if(e.key==='Escape'&&helpModal.style.display==='block')closeHelp();});
-      btnClose.addEventListener('click',function(){if(confirm('Are you sure you want to exit?'))window.close();});
-      setSystem('hilo');render();
-    })();
+
+      ord.forEach(makeBtn);
+    }
+
+    /* ── Set active system ── */
+    function setActiveSystem(name) {
+      activeSystem = name;
+      systemTabs.forEach(function (t) { t.classList.toggle('active', t.dataset.system === name); });
+      systemSelectEl.value = name;
+
+      var sys = systems[name];
+      systemHeaderLine.textContent    = sys.header;
+      systemHeaderDetails.textContent = sys.details;
+      systemHeaderUse.innerHTML       = sys.use;   /* innerHTML for use-badge spans */
+      countMetricLabel.textContent    = sys.usesRunningCountOnly ? 'Key Count' : 'True Count';
+      shoeSelectorRow.style.display   = 'flex';
+
+      /* Ace stat boxes */
+      acesPlayedBox.style.display    = sys.aceSideCount ? 'block' : 'none';
+      acesRemainingBox.style.display = sys.aceSideCount ? 'block' : 'none';
+
+      /* Stats grid class for medium-screen layout */
+      mainGrid.classList.remove('two-box');
+      if (!sys.aceSideCount && !sys.usesRunningCountOnly) {
+        mainGrid.classList.add('two-box');
+      }
+
+      cardsPlayed  = 0;
+      acesPlayed   = 0;
+      var d        = Number(deckCount.value) || 1;
+      count        = sys.usesRunningCountOnly ? getIRC(name, d) : 0;
+      history.length          = 0;
+      actionLogEntries.length = 0;
+      renderLog();
+      renderBtns();
+      render();
+    }
+
+    /* ── Help modal ── */
+    function openHelp()  { helpModal.style.display = 'block'; helpModal.setAttribute('aria-hidden', 'false'); }
+    function closeHelp() { helpModal.style.display = 'none';  helpModal.setAttribute('aria-hidden', 'true');  }
+
+    /* ── Event listeners ── */
+    systemTabs.forEach(function (t) { t.addEventListener('click', function () { setActiveSystem(t.dataset.system); }); });
+
+    helpTabs.forEach(function (t) {
+      t.addEventListener('click', function () {
+        helpTabs.forEach(function (x)  { x.classList.remove('active'); });
+        helpPanels.forEach(function (p) { p.classList.remove('active'); });
+        t.classList.add('active');
+        var panel = document.getElementById(t.dataset.helpTab);
+        if (panel) panel.classList.add('active');
+      });
+    });
+
+    deckCount.addEventListener('change', function () {
+      if (systems[activeSystem].usesRunningCountOnly && cardsPlayed === 0) {
+        count = getIRC(activeSystem, Number(deckCount.value) || 1);
+      }
+      render();
+    });
+
+    btnUndo.addEventListener('click', function () {
+      var p = history.pop();
+      if (!p) return;
+      count = p.count; cardsPlayed = p.cardsPlayed; acesPlayed = p.acesPlayed;
+      actionLogEntries.length = p.logLength || 0;
+      renderLog(); render();
+    });
+
+    function doNewShoe() {
+      history.push({ count: count, cardsPlayed: cardsPlayed, acesPlayed: acesPlayed, logLength: actionLogEntries.length });
+      var d = Number(deckCount.value) || 1;
+      count = systems[activeSystem].usesRunningCountOnly ? getIRC(activeSystem, d) : 0;
+      cardsPlayed = 0; acesPlayed = 0;
+      actionLogEntries.length = 0;
+      renderLog(); render();
+    }
+
+    btnNewShoe.addEventListener('click', doNewShoe);
+    btnClear.addEventListener('click', doNewShoe);
+
+    document.getElementById('btnUndoMob').addEventListener('click',    function () { btnUndo.click(); });
+    document.getElementById('btnNewShoeMob').addEventListener('click', function () { btnNewShoe.click(); });
+    document.getElementById('btnClearMob').addEventListener('click',   function () { btnClear.click(); });
+
+    btnHelp.addEventListener('click', openHelp);
+    helpClose.addEventListener('click', closeHelp);
+    helpModal.addEventListener('click', function (e) { if (e.target === helpModal) closeHelp(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && helpModal.style.display === 'block') closeHelp(); });
+    btnClose.addEventListener('click', function () { if (confirm('Are you sure you want to exit?')) window.close(); });
+
+    /* ── Init ── */
+    setActiveSystem('hilo');
+    render();
+  }());
   </script>
 </body>
 </html>
