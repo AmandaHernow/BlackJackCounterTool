@@ -1,4 +1,4 @@
-![banner-readme](https://github.com/user-attachments/assets/075d09a0-6b01-4593-87f3-d24b8686f6ef)
+![banner-readme](https://github.com/user-attachments/assets/cae0c7a2-0fc6-4384-8853-5e2ab4191b3d)
 # Black Jack Counter Tool
 
 > A self-contained offline blackjack card counting tool — single HTML file, no dependencies, no internet required.
