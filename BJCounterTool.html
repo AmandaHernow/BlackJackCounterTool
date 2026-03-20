@@ -25,7 +25,7 @@
       --brd-main:   #b30000;
       --brd-btn:    #ff2a2a;
       --brd-sep:    #7a2020;
-      --brd-card:   #2a0000;
+      --brd-card:   #6a2020;
       --brd-row:    #1a0000;
       --txt-main:   #ffffff;
       --txt-sub:    #d6d6d6;
@@ -160,13 +160,13 @@
     .stat-label { font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--txt-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .stat-value { font-size: clamp(24px, 5vw, 34px); font-weight: 700; color: var(--txt-main); }
 
-    /* ── Grid layout for all non-mobile screens ── */
-    @media (min-width: 641px) {
+    /* ── Grid layout — MEDIUM ONLY (641–1399px): True Count + Betting as tall left pair ── */
+    @media (min-width: 641px) and (max-width: 1399px) {
       #mainGrid {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-template-rows: minmax(90px, auto) minmax(90px, auto);
-        gap: 10px;
+        grid-template-rows: minmax(52px, auto) minmax(52px, auto);
+        gap: 8px;
         flex-wrap: unset;
         align-items: unset;
       }
@@ -178,11 +178,8 @@
       #mainGrid #extraStatTwoBox   { grid-column: 4; grid-row: 2; flex: none; max-width: none; }
       #mainGrid #acesPlayedBox     { grid-column: 3; grid-row: 2; flex: none; max-width: none; }
       #mainGrid #acesRemainingBox  { grid-column: 4; grid-row: 2; flex: none; max-width: none; }
-
-      /* 4-box only (Hi-Lo, Zen, Wong Halves): collapse to single row */
-      #mainGrid.two-box {
-        grid-template-rows: auto;
-      }
+      /* 4-box systems (Hi-Lo, Zen, Wong Halves): collapse to single row */
+      #mainGrid.two-box { grid-template-rows: auto; }
       #mainGrid.two-box .true-count-box  { grid-row: 1; }
       #mainGrid.two-box .betting-box     { grid-row: 1; }
       #mainGrid.two-box #cardsPlayedBox    { grid-column: 3; grid-row: 1; }
@@ -291,43 +288,103 @@
     @media (min-height: 1150px) { .window { zoom: 0.75; } }
 
     /* ══ LARGE SCREEN ≥1400px ══
-       System tabs visible. Log panel is a toggle (same as medium).
-       No side-panel overrides needed — base styles handle toggle. */
+       Original layout: TC + Betting as equal top row, stats as bottom row */
     @media (min-width: 1400px) {
       .system-tabs { display: flex !important; }
       .system-select-mobile { display: none !important; }
+      #mainGrid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: auto auto;
+        gap: 12px;
+      }
+      #mainGrid .true-count-box  { grid-column: 1 / span 2; grid-row: 1; flex: none; min-width: 0; }
+      #mainGrid .betting-box     { grid-column: 3 / span 2; grid-row: 1; flex: none; min-width: 0; }
+      #mainGrid #cardsPlayedBox    { grid-column: 1; grid-row: 2; flex: none; max-width: none; }
+      #mainGrid #cardsRemainingBox { grid-column: 2; grid-row: 2; flex: none; max-width: none; }
+      #mainGrid #extraStatOneBox   { grid-column: 3; grid-row: 2; flex: none; max-width: none; }
+      #mainGrid #extraStatTwoBox   { grid-column: 4; grid-row: 2; flex: none; max-width: none; }
+      #mainGrid #acesPlayedBox     { grid-column: 3; grid-row: 2; flex: none; max-width: none; }
+      #mainGrid #acesRemainingBox  { grid-column: 4; grid-row: 2; flex: none; max-width: none; }
+      /* two-box: cards span wider in row 2 */
+      #mainGrid.two-box #cardsPlayedBox    { grid-column: 1 / span 2; grid-row: 2; }
+      #mainGrid.two-box #cardsRemainingBox { grid-column: 3 / span 2; grid-row: 2; }
     }
 
-    /* ══ MEDIUM / LAPTOP  641–1399px ══ */
+    /* ══ MEDIUM / LAPTOP  641–1399px ══
+       Shared rules (grid, dropdown, header) apply to both sub-ranges */
     @media (max-width: 1399px) and (min-width: 641px) {
       /* System selector */
       .system-tabs { display: none !important; }
-      .system-select-mobile { display: block !important; flex: 1; width: auto; padding: 5px 8px; font-size: 14px; }
-      .system-selector-row { gap: 10px; margin: 6px 16px 0; padding-bottom: 6px; }
-      .system-selector-label { font-size: 15px; min-width: unset; }
+      .system-select-mobile { display: block !important; flex: 1; width: auto; }
+      .system-selector-row { gap: 8px; margin: 4px 12px 0; padding-bottom: 4px; }
+      .system-selector-label { min-width: unset; }
 
       /* Header info */
       #systemHeaderLine, #systemHeaderDetails { display: none; }
       #systemHeaderUse { font-size: 11px; color: var(--txt-main); white-space: normal; }
-      .header-info { padding: 2px 16px 2px; }
+    }
 
-      /* Shoe selector */
-      .shoe-selector-row { font-size: 16px; margin: 2px 16px 0; }
+    /* ── SMALL MEDIUM: tablets + small laptops  641–1024px ──
+       Compact — fits everything without scrolling */
+    @media (max-width: 1024px) and (min-width: 641px) {
+      .system-selector-label { font-size: 13px; }
+      .system-select-mobile { padding: 4px 8px; font-size: 13px; }
+      .header-info { padding: 1px 12px 1px; }
+
+      .shoe-selector-row { font-size: 14px; margin: 2px 12px 0; }
+      .shoe-selector-row select { padding: 4px 8px; font-size: 13px; }
+
+      .app-body { padding: 5px 10px 6px 10px; }
+      .main-panel { gap: 6px; }
+
+      .counter-area { column-gap: 8px; }
+      .counter-display { min-height: 84px; font-size: clamp(34px, 9vw, 68px); padding: 6px; }
+      .clear-button, .undo-button, .new-shoe-button { min-height: 26px; padding: 3px 8px; font-size: 11px; }
+      .counter-buttons { gap: 7px; }
+      .counter-buttons button { min-height: 32px; padding: 3px 4px; font-size: 14px; }
+
+      .true-count-box, .betting-box { padding: 5px 10px; min-height: unset; gap: 2px; }
+      .true-count-label, .betting-label { font-size: 11px; }
+      .true-count-value, .betting-value { font-size: clamp(18px, 3vw, 26px); }
+      .betting-note { font-size: 10px; min-height: 12px; }
+      .stat-box { padding: 5px 8px; }
+      .stat-label { font-size: 10px; margin-bottom: 2px; }
+      .stat-value { font-size: clamp(15px, 2.2vw, 20px); }
+    }
+
+    /* ── LARGE MEDIUM: laptops  1025–1399px ──
+       Roomier — a step up from the small-medium tier */
+    @media (max-width: 1399px) and (min-width: 1025px) {
+      .system-selector-label { font-size: 15px; }
+      .system-select-mobile { padding: 5px 10px; font-size: 14px; }
+
+      /* Show all three header lines — enough room */
+      #systemHeaderLine, #systemHeaderDetails { display: block; }
+      #systemHeaderLine { font-size: 12px; }
+      #systemHeaderDetails { font-size: 11px; color: var(--txt-sub); }
+      #systemHeaderUse { font-size: 11px; }
+      .header-info { padding: 3px 14px 3px; }
+
+      .shoe-selector-row { font-size: 16px; margin: 3px 14px 0; }
       .shoe-selector-row select { padding: 5px 10px; font-size: 15px; }
 
-      /* Counter */
-      .counter-display { min-height: 120px; font-size: clamp(40px, 10vw, 80px); }
-      .clear-button, .undo-button, .new-shoe-button { min-height: 36px; padding: 6px 10px; font-size: 13px; }
-      .counter-buttons button { min-height: 42px; padding: 8px 6px; font-size: 16px; }
+      .app-body { padding: 8px 14px 10px 14px; }
+      .main-panel { gap: 9px; }
 
-      /* Info / stats boxes — compact sizing */
-      .true-count-box, .betting-box { padding: 8px 12px; }
+      .counter-area { column-gap: 12px; }
+      .counter-display { min-height: 108px; font-size: clamp(40px, 10vw, 80px); padding: 10px; }
+      .clear-button, .undo-button, .new-shoe-button { min-height: 34px; padding: 6px 10px; font-size: 13px; }
+      .counter-buttons { gap: 9px; }
+      .counter-buttons button { min-height: 40px; padding: 7px 6px; font-size: 17px; }
+
+      .true-count-box, .betting-box { padding: 8px 12px; min-height: unset; gap: 4px; }
       .true-count-label, .betting-label { font-size: 13px; }
-      .true-count-value, .betting-value { font-size: clamp(22px, 4vw, 32px); }
-      .betting-note { font-size: 11px; }
-      .stat-box { padding: 8px 10px; }
-      .stat-label { font-size: 11px; }
-      .stat-value { font-size: clamp(18px, 3vw, 26px); }
+      .true-count-value, .betting-value { font-size: clamp(22px, 3.8vw, 32px); }
+      .betting-note { font-size: 11px; min-height: 16px; }
+      .stat-box { padding: 7px 10px; }
+      .stat-label { font-size: 11px; margin-bottom: 3px; }
+      .stat-value { font-size: clamp(18px, 2.8vw, 24px); }
     }
 
     /* ══ MOBILE ≤640px ══ */
@@ -347,8 +404,10 @@
       #systemHeaderLine, #systemHeaderDetails { display: none; }
       #systemHeaderUse { font-size: 11px; color: var(--txt-main); white-space: normal; }
 
-      /* Shoe selector */
-      .shoe-selector-row { font-size: 16px; margin: 4px 12px 0; justify-content: flex-start; }
+      /* Shoe selector — smaller on mobile */
+      .shoe-selector-row { font-size: 13px; margin: 3px 12px 0; justify-content: flex-start; }
+      .shoe-selector-row label { font-size: 13px; font-weight: 600; }
+      .shoe-selector-row select { padding: 4px 6px; font-size: 13px; font-weight: 600; min-width: 60px; }
 
       /* Mobile control bar replaces desktop side buttons */
       .mobile-control-bar { display: flex; gap: 6px; width: 100%; }
@@ -359,19 +418,20 @@
       .clear-button-wrap { display: none; }
       .counter-display { min-height: 130px; width: 100%; font-size: clamp(52px, 18vw, 90px); }
 
-      /* Count buttons */
+      /* Count buttons — slightly tighter */
       .counter-buttons { grid-template-columns: repeat(3, 1fr) !important; }
       .counter-buttons.four-wide { grid-template-columns: repeat(4, 1fr) !important; }
-      .counter-buttons button { padding: 10px 4px; font-size: 16px; min-height: 44px; }
+      .counter-buttons button { padding: 7px 4px; font-size: 15px; min-height: 38px; }
 
-      /* Main grid: back to flex wrap on mobile */
-      #mainGrid { display: flex; flex-wrap: wrap; gap: 10px; }
-      .true-count-box, .betting-box { flex: 1 1 calc(50% - 5px); min-width: 0; padding: 8px 10px; min-height: 80px; }
-      .true-count-value, .betting-value { font-size: clamp(20px, 6vw, 30px); }
-      .true-count-label, .betting-label { font-size: 13px; }
-      .betting-note { font-size: 11px; }
-      .stat-box { flex: 1 1 calc(50% - 5px); max-width: none; }
-      .stat-value { font-size: clamp(20px, 5vw, 28px); }
+      /* Main grid: back to flex wrap on mobile — tighter */
+      #mainGrid { display: flex; flex-wrap: wrap; gap: 8px; }
+      .true-count-box, .betting-box { flex: 1 1 calc(50% - 4px); min-width: 0; padding: 6px 8px; min-height: 68px; gap: 2px; }
+      .true-count-value, .betting-value { font-size: clamp(18px, 5.5vw, 26px); }
+      .true-count-label, .betting-label { font-size: 12px; }
+      .betting-note { font-size: 10px; }
+      .stat-box { flex: 1 1 calc(50% - 4px); max-width: none; padding: 6px 8px; }
+      .stat-label { font-size: 11px; margin-bottom: 2px; }
+      .stat-value { font-size: clamp(18px, 5vw, 24px); }
 
       #helpModal { padding: 12px; }
     }
@@ -536,7 +596,7 @@
             <div class="step-item"><div class="step-num">6</div><div class="step-text"><strong>New Shoe</strong> — resets the count to the correct starting value for the selected system and shoe size. Use this at the start of each new shoe.</div></div>
             <div class="step-item"><div class="step-num">7</div><div class="step-text"><strong>Undo / Clear</strong> — Undo steps back one action at a time. Clear resets the entire shoe, same as New Shoe.</div></div>
             <div class="step-item"><div class="step-num">8</div><div class="step-text"><strong>Theme toggle</strong> — the ☀ button in the top right switches between dark and light mode. Your preference is saved automatically.</div></div>
-            <div class="step-item"><div class="step-num">9</div><div class="step-text"><strong>Action log</strong> — the ≡ button toggles the action log panel, which slides in from the right on all screen sizes.</div></div>
+            <div class="step-item"><div class="step-num">9</div><div class="step-text"><strong>Action log</strong> — the <code style="font-size:12px;border:1px solid #b30000;padding:0 4px;">&gt;_</code> button toggles the action log panel, which slides in from the right on all screen sizes.</div></div>
           </div>
           <div class="info-box"><strong>Ace density:</strong> in systems with ace side counting, the betting note shows <em>Aces rich</em>, <em>Aces poor</em>, or <em>Aces neutral</em>. A rich shoe has more aces remaining than expected and slightly favours the player beyond what the count alone shows.</div>
           <div class="info-box"><strong>True Count vs Running Count:</strong> the true count normalises the running count for decks remaining. A running count of +6 in a 6-deck shoe is much weaker than the same count with one deck left. Unbalanced systems (KO, Red 7) skip this step and use the running count against fixed key thresholds.</div>
@@ -621,7 +681,17 @@
     /* ── Log panel toggle (all non-mobile screen sizes) ── */
     btnLog.addEventListener('click', function () {
       sidePanel.classList.toggle('log-open');
-      btnLog.textContent = sidePanel.classList.contains('log-open') ? '✕' : '≡';
+      if (sidePanel.classList.contains('log-open')) {
+        btnLog.textContent = '✕';
+        btnLog.style.fontFamily = 'inherit';
+        btnLog.style.letterSpacing = 'normal';
+        btnLog.style.fontSize = '14px';
+      } else {
+        btnLog.textContent = '>_';
+        btnLog.style.fontFamily = 'Consolas,Monaco,monospace';
+        btnLog.style.letterSpacing = '-1px';
+        btnLog.style.fontSize = '11px';
+      }
     });
 
     /* ── Mobile system dropdown ── */
