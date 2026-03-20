@@ -98,8 +98,48 @@
     .app-body { flex: 1; display: block; padding: 12px 20px 16px 20px; min-height: 0; overflow: auto; }
     .main-panel { width: min(920px, 100%); margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 14px; min-width: 0; }
 
-    .side-panel { position: fixed !important; top: 116px !important; right: 20px !important; width: 320px !important; height: calc(100vh - 182px) !important; min-width: 0; z-index: 999 !important; display: block !important; }
+    /* ── Side panel: always fixed so it never affects layout ── */
+    .side-panel {
+      position: fixed;
+      top: 116px;
+      right: 20px;
+      width: 320px;
+      height: calc(100vh - 182px);
+      z-index: 998;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
     .side-panel > * { pointer-events: auto; }
+
+    /* Log toggle button — hidden on desktop and mobile */
+    #btnLog { display: none; }
+
+    /* Medium screens: panel hidden off-screen by default, slides in when open */
+    @media (max-width: 1199px) and (min-width: 641px) {
+      #btnLog { display: block; }
+      .side-panel {
+        top: 56px;
+        right: 0;
+        height: calc(100vh - 56px);
+        width: 300px;
+        transform: translateX(100%);
+        opacity: 0;
+        pointer-events: none;
+        border-left: 2px solid var(--brd-main);
+        box-shadow: -4px 0 24px rgba(0,0,0,0.5);
+      }
+      .side-panel.log-open {
+        transform: translateX(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .side-panel.log-open .action-log { height: 100%; }
+    }
+
+    /* Mobile: completely hidden, no toggle */
+    @media (max-width: 640px) {
+      .side-panel { display: none !important; }
+      #btnLog { display: none !important; }
+    }
 
     .counter-area { width: min(980px, 100%); display: grid; grid-template-columns: 120px minmax(0, 700px) 120px; align-items: center; justify-content: center; column-gap: 14px; }
     .counter-display-spacer { width: 100%; min-height: 1px; }
@@ -231,6 +271,7 @@
       </div>
       <div class="title">Blackjack Counter Tool</div>
       <div class="titlebar-buttons">
+        <button id="btnLog" title="Toggle action log">≡</button>
         <button id="btnTheme" title="Switch theme">☀</button>
         <button id="btnHelp" title="Help">?</button>
         <button id="btnClose" title="Close">X</button>
@@ -329,14 +370,14 @@
       </div>
     </div>
 
-    <div class="side-panel" style="position:fixed; top:116px; right:20px; width:320px; height:calc(100vh - 182px); z-index:999;">
+    <div class="side-panel" id="sidePanel">
       <div class="action-log">
         <div class="action-log-header">Latest Actions</div>
         <div id="actionLogBody" class="action-log-body"></div>
       </div>
     </div>
 
-    <div class="footer">© 2026 Amanda Hernow. All rights reserved. Web Version 1.0</div>
+    <div class="footer">© 2026 Amanda Hernow. All rights reserved. Web Version 2.0</div>
   </div>
 
   <div id="helpModal" aria-hidden="true">
@@ -422,10 +463,11 @@
 
   <script>
     (function(){
-      var root=document.documentElement,btnTheme=document.getElementById('btnTheme');
+      var root=document.documentElement,btnTheme=document.getElementById('btnTheme'),btnLog=document.getElementById('btnLog'),sidePanel=document.getElementById('sidePanel');
       function setTheme(t){root.setAttribute('data-theme',t);btnTheme.textContent=t==='light'?'☾':'☀';btnTheme.title=t==='light'?'Switch to dark mode':'Switch to light mode';try{localStorage.setItem('bj-theme',t);}catch(e){}}
       btnTheme.addEventListener('click',function(){setTheme(root.getAttribute('data-theme')==='light'?'dark':'light');});
       try{var saved=localStorage.getItem('bj-theme');if(saved==='light'||saved==='dark')setTheme(saved);}catch(e){}
+      btnLog.addEventListener('click',function(){sidePanel.classList.toggle('log-open');btnLog.textContent=sidePanel.classList.contains('log-open')?'✕':'≡';});
       var count=0,cardsPlayed=0,acesPlayed=0,activeSystem='hilo',history=[];
       var systems={
         hilo:{header:'Hi-Lo system loaded — beginner-friendly balanced count',details:'Simple three-group system focused on running count and true count only',use:'Use +1 for 2–6, 0 for 7–9, and -1 for 10–A',aceSideCount:false,usesRunningCountOnly:false,buttons:[{label:'-1',delta:-1},{label:'0',delta:0},{label:'+1',delta:1}]},
