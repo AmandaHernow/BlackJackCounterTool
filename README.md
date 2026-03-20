@@ -1,7 +1,23 @@
 ![banner-readme](https://github.com/user-attachments/assets/cae0c7a2-0fc6-4384-8853-5e2ab4191b3d)
-# Black Jack Counter Tool
+# Blackjack Counter Tool
 
 > A self-contained offline blackjack card counting tool — single HTML file, no dependencies, no internet required.
+
+---
+
+## Use it instantly — no download needed
+
+The web version is hosted live and works directly in your browser:
+
+**[Open Blackjack Counter Tool](https://amandahernow.github.io/BlackJackCounterTool/BJCounterTool.html)**
+
+No installation. No account. Just open the link and start counting.
+
+---
+
+## Download
+
+If you prefer to run it locally, download `BJCounterTool.html` from the [latest release](https://github.com/AmandaHernow/BlackJackCounterTool/releases/latest) and open it in any modern browser.
 
 ---
 
@@ -30,6 +46,7 @@
 - Correct IRC (initial running count) for unbalanced systems based on shoe size
 
 **Interface**
+- Dark and light mode with preference saved automatically
 - Configurable shoe size from 1 to 7 decks
 - System-specific button layouts that change per counting method
 - Betting suggestion panel with visual ramp tied to true count or running count
@@ -48,7 +65,7 @@
 
 ## Usage
 
-1. Open `BJCounterTool.html` in any modern browser
+1. Open the [live version](https://amandahernow.github.io/BlackJackCounterTool/BJCounterTool.html) in your browser, or download and open `BJCounterTool.html` locally
 2. Select the number of decks in the shoe
 3. Click the counting system tab you want to use
 4. Press the buttons as cards are dealt
@@ -56,7 +73,7 @@
 6. Hit **New Shoe** when the shoe is shuffled and restarted
 7. Use **Undo** to step back one action at a time
 
-The full built-in help panel (accessible via the `?` button) covers each system's card values, the betting ramp, expert-level notes on index plays and deck estimation, and a disclaimer.
+The full built-in help panel covers each system's card values, the betting ramp, expert-level notes, and a disclaimer — press **?** to open it.
 
 ---
 
@@ -100,19 +117,22 @@ Unbalanced systems do not return to 0 — they start at a negative IRC and use a
 
 ---
 
+## Roadmap
+
+| Version | Platform | Status |
+|---|---|---|
+| Web Version 1.0 | Browser | ✅ Released |
+| Desktop Version 1.0 | Windows / macOS / Linux (Java) | 🔄 In progress |
+
+---
+
 ## Tech
 
 Built with plain HTML, CSS, and JavaScript. No frameworks, no build tools, no package manager.
 
 ```
-BJCounterTool.html   ← the entire application
+BJCounterTool.html   ← the entire web application
 ```
-
----
-
-## Status
-
-Private repository. May be published at a later date.
 
 ---
 
@@ -122,5 +142,7 @@ Card counting is not illegal in most jurisdictions but casinos are private prope
 
 ---
 
+© 2026 Amanda Hernow — All rights reserved.
+Unauthorised copying, modification, or distribution of this software is prohibited.
 © 2026 Amanda Hernow — All rights reserved.  
 Unauthorised copying, modification, or distribution of this software is prohibited.
