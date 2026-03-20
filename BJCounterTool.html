@@ -242,20 +242,80 @@
     .compare-box h4 { margin: 0 0 10px; font-size: 14px; color: #ff4d4d; border-bottom: 1px solid var(--brd-card); padding-bottom: 6px; }
     .compare-box ul { margin: 0; padding-left: 16px; color: var(--txt-sub); font-size: 13px; line-height: 1.8; }
 
+    /* ── Mobile system dropdown ── */
+    .system-select-mobile {
+      display: none;
+      width: 100%;
+      padding: 10px 12px;
+      background: var(--bg-select);
+      color: var(--txt-main);
+      border: 1px solid var(--brd-btn);
+      font-size: 16px;
+      font-weight: 700;
+      outline: none;
+      cursor: pointer;
+      margin-top: 2px;
+    }
+
+    /* ── Mobile control bar (hidden on desktop) ── */
+    .mobile-control-bar { display: none; }
+    .mob-ctrl-btn {
+      flex: 1;
+      padding: 8px 4px;
+      font-size: 13px;
+      font-weight: 700;
+      min-height: 38px;
+      background: var(--bg-btn);
+      border: 1px solid var(--brd-btn);
+      color: #fff;
+      cursor: pointer;
+    }
+    .mob-ctrl-btn:hover { background: var(--brd-main); }
+    .mob-ctrl-btn:active { transform: scale(0.98); }
+
     @media (max-width: 700px) { .sys-grid { grid-template-columns: 1fr; } .compare-grid { grid-template-columns: 1fr; } }
     @media (min-height: 1150px) { .window { zoom: 0.75; } }
     @media (max-width: 640px) {
-      .system-selector-label { font-size: 18px; min-width: 100%; }
-      .header-info { flex-direction: column; }
-      .shoe-selector-row { font-size: 18px; }
-      .counter-area { grid-template-columns: 1fr; row-gap: 12px; }
+      /* System selector: label + select on one row, use text below */
+      .system-selector-row { flex-direction: row; align-items: center; gap: 8px; margin: 6px 12px 0; padding-bottom: 0; flex-wrap: wrap; }
+      .system-selector-label { font-size: 14px; font-weight: 700; min-width: unset; white-space: nowrap; }
+      .system-tabs { display: none; }
+      .system-select-mobile { display: block; flex: 1; margin-top: 0; padding: 6px 8px; font-size: 14px; min-width: 0; }
+
+      /* Show only the use line, hide the other two header lines */
+      .header-info { display: block; padding: 3px 12px 4px; }
+      #systemHeaderLine, #systemHeaderDetails { display: none; }
+      #systemHeaderUse { font-size: 11px; color: var(--txt-dim); white-space: normal; }
+
+      /* Shoe selector */
+      .shoe-selector-row { font-size: 16px; margin: 4px 12px 0; justify-content: flex-start; }
+
+      /* Mobile control bar above counter */
+      .mobile-control-bar { display: flex; gap: 6px; width: 100%; }
+
+      /* Counter area: display only, full width, hide side buttons */
+      .counter-area { grid-template-columns: 1fr; row-gap: 0; }
       .counter-display-spacer { display: none; }
-      .counter-display { min-height: 180px; width: 100%; }
-      .clear-button-wrap { justify-content: center; }
-      .clear-button, .undo-button, .new-shoe-button { width: 100%; }
-      .counter-buttons { grid-template-columns: repeat(2, 1fr); }
-      .info-row { grid-template-columns: 1fr; }
+      .clear-button-wrap { display: none; }
+      .counter-display { min-height: 130px; width: 100%; font-size: clamp(52px, 18vw, 90px); }
+
+      /* Count buttons: always 3 per row, compact */
+      .counter-buttons { grid-template-columns: repeat(3, 1fr) !important; }
+      .counter-buttons.four-wide { grid-template-columns: repeat(4, 1fr) !important; }
+      .counter-buttons button { padding: 10px 4px; font-size: 16px; min-height: 44px; }
+
+      /* Info row: side by side */
+      .info-row { grid-template-columns: repeat(2, 1fr); }
+      .true-count-box, .betting-box { padding: 8px 10px; min-height: 80px; }
+      .true-count-value, .betting-value { font-size: clamp(20px, 6vw, 30px); }
+      .true-count-label, .betting-label { font-size: 13px; }
+      .betting-note { font-size: 11px; }
+
+      /* Stats: 2 per row */
       .stats-grid { flex-wrap: wrap; }
+      .stat-box { max-width: none; flex: 1 1 45%; }
+      .stat-value { font-size: clamp(20px, 5vw, 28px); }
+
       #helpModal { padding: 12px; }
     }
   </style>
@@ -290,6 +350,16 @@
         <button class="system-tab" data-system="omega2">Omega II</button>
         <button class="system-tab" data-system="wonghalves">Wong Halves</button>
       </div>
+      <select id="systemSelect" class="system-select-mobile" aria-label="Pick Counter System">
+        <option value="hilo">Hi-Lo</option>
+        <option value="ko">KO</option>
+        <option value="red7">Red 7</option>
+        <option value="hiopt1">Hi-Opt I</option>
+        <option value="hiopt2">Hi-Opt II</option>
+        <option value="zen">Zen Count</option>
+        <option value="omega2">Omega II</option>
+        <option value="wonghalves">Wong Halves</option>
+      </select>
     </div>
 
     <div class="header-info">
@@ -315,6 +385,13 @@
 
     <div class="app-body">
       <div class="main-panel">
+
+        <div class="mobile-control-bar">
+          <button id="btnUndoMob" class="mob-ctrl-btn">Undo</button>
+          <button id="btnNewShoeMob" class="mob-ctrl-btn">New Shoe</button>
+          <button id="btnClearMob" class="mob-ctrl-btn">Clear</button>
+        </div>
+
         <div class="counter-area">
           <div class="counter-display-spacer"></div>
           <div class="counter-display-wrap">
@@ -468,6 +545,8 @@
       btnTheme.addEventListener('click',function(){setTheme(root.getAttribute('data-theme')==='light'?'dark':'light');});
       try{var saved=localStorage.getItem('bj-theme');if(saved==='light'||saved==='dark')setTheme(saved);}catch(e){}
       btnLog.addEventListener('click',function(){sidePanel.classList.toggle('log-open');btnLog.textContent=sidePanel.classList.contains('log-open')?'✕':'≡';});
+      var systemSelect=document.getElementById('systemSelect');
+      systemSelect.addEventListener('change',function(){setSystem(systemSelect.value);});
       var count=0,cardsPlayed=0,acesPlayed=0,activeSystem='hilo',history=[];
       var systems={
         hilo:{header:'Hi-Lo system loaded — beginner-friendly balanced count',details:'Simple three-group system focused on running count and true count only',use:'Use +1 for 2–6, 0 for 7–9, and -1 for 10–A',aceSideCount:false,usesRunningCountOnly:false,buttons:[{label:'-1',delta:-1},{label:'0',delta:0},{label:'+1',delta:1}]},
@@ -512,6 +591,7 @@
       function setSystem(name){
         activeSystem=name;
         systemTabs.forEach(function(t){t.classList.toggle('active',t.dataset.system===name);});
+        systemSelect.value=name;
         var sys=systems[name];systemHeaderLine.textContent=sys.header;systemHeaderDetails.textContent=sys.details;systemHeaderUse.textContent=sys.use;countMetricLabel.textContent=sys.usesRunningCountOnly?'Key Count':'True Count';shoeSelectorRow.style.display='flex';
         acesPlayedBox.style.display=sys.aceSideCount?'block':'none';acesRemainingBox.style.display=sys.aceSideCount?'block':'none';
         cardsPlayed=0;acesPlayed=0;var d=Number(deckCount.value)||1;count=sys.usesRunningCountOnly?getIRC(name,d):0;history.length=0;actionLogEntries.length=0;renderLog();renderBtns();render();
@@ -524,6 +604,9 @@
       btnUndo.addEventListener('click',function(){var p=history.pop();if(!p)return;count=p.count;cardsPlayed=p.cardsPlayed;acesPlayed=p.acesPlayed;actionLogEntries.length=p.logLength||0;renderLog();render();});
       btnNewShoe.addEventListener('click',function(){history.push({count:count,cardsPlayed:cardsPlayed,acesPlayed:acesPlayed,logLength:actionLogEntries.length});var d=Number(deckCount.value)||1;count=systems[activeSystem].usesRunningCountOnly?getIRC(activeSystem,d):0;cardsPlayed=0;acesPlayed=0;actionLogEntries.length=0;renderLog();render();});
       btnClear.addEventListener('click',function(){history.push({count:count,cardsPlayed:cardsPlayed,acesPlayed:acesPlayed,logLength:actionLogEntries.length});var d=Number(deckCount.value)||1;count=systems[activeSystem].usesRunningCountOnly?getIRC(activeSystem,d):0;cardsPlayed=0;acesPlayed=0;actionLogEntries.length=0;renderLog();render();});
+      document.getElementById('btnUndoMob').addEventListener('click',function(){btnUndo.click();});
+      document.getElementById('btnNewShoeMob').addEventListener('click',function(){btnNewShoe.click();});
+      document.getElementById('btnClearMob').addEventListener('click',function(){btnClear.click();});
       btnHelp.addEventListener('click',openHelp);
       helpClose.addEventListener('click',closeHelp);
       helpModal.addEventListener('click',function(e){if(e.target===helpModal)closeHelp();});
