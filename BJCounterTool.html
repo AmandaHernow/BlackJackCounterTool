@@ -110,12 +110,48 @@
     }
     .side-panel > * { pointer-events: auto; }
 
-    /* Log toggle button — hidden on desktop and mobile */
+    /* Log toggle button — hidden by default, shown on medium/laptop via breakpoint above */
     #btnLog { display: none; }
 
-    /* Medium screens: panel hidden off-screen by default, slides in when open */
-    @media (max-width: 1199px) and (min-width: 641px) {
+    /* Large screens ≥1400px: panel always visible, tabs always shown */
+    @media (min-width: 1400px) {
+      #btnLog { display: none !important; }
+      .system-tabs { display: flex !important; }
+      .system-select-mobile { display: none !important; }
+      .side-panel {
+        position: fixed;
+        top: 116px;
+        right: 20px;
+        width: 320px;
+        height: calc(100vh - 182px);
+        transform: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+      }
+    }
+
+    /* Medium screens 641–1399px: toggle panel, dropdown for system, scaled down */
+    @media (max-width: 1399px) and (min-width: 641px) {
       #btnLog { display: block; }
+      .system-tabs { display: none !important; }
+      .system-select-mobile { display: block !important; flex: 1; width: auto; padding: 5px 8px; font-size: 14px; }
+      .system-selector-row { gap: 10px; margin: 6px 16px 0; padding-bottom: 6px; }
+      .system-selector-label { font-size: 15px; min-width: unset; }
+      #systemHeaderLine, #systemHeaderDetails { display: none; }
+      #systemHeaderUse { font-size: 11px; color: var(--txt-main); white-space: normal; }
+      .header-info { padding: 2px 16px 2px; }
+      .shoe-selector-row { font-size: 16px; margin: 2px 16px 0; }
+      .shoe-selector-row select { padding: 5px 10px; font-size: 15px; }
+      .counter-display { min-height: 120px; font-size: clamp(40px, 10vw, 80px); }
+      .clear-button, .undo-button, .new-shoe-button { min-height: 36px; padding: 6px 10px; font-size: 13px; }
+      .counter-buttons button { min-height: 42px; padding: 8px 6px; font-size: 16px; }
+      .true-count-box, .betting-box { min-height: 80px; padding: 8px 12px; }
+      .true-count-label, .betting-label { font-size: 13px; }
+      .true-count-value, .betting-value { font-size: clamp(22px, 4vw, 32px); }
+      .betting-note { font-size: 11px; }
+      .stat-box { padding: 8px 10px; }
+      .stat-label { font-size: 11px; }
+      .stat-value { font-size: clamp(18px, 3vw, 26px); }
       .side-panel {
         top: 56px;
         right: 0;
@@ -132,7 +168,6 @@
         opacity: 1;
         pointer-events: auto;
       }
-      .side-panel.log-open .action-log { height: 100%; }
     }
 
     /* Mobile: completely hidden, no toggle */
@@ -159,8 +194,7 @@
     .true-count-value, .betting-value { font-size: clamp(28px, 6vw, 42px); font-weight: 700; color: var(--txt-main); }
     .betting-note { font-size: 13px; color: var(--txt-sub); min-height: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    .stats-grid { width: min(920px, 100%); display: flex; justify-content: center; gap: 10px; flex-wrap: nowrap; }
-    .stat-box { border: 1px solid var(--brd-main); background: var(--bg-surface); text-align: center; padding: 12px 14px; flex: 1 1 0; max-width: 220px; }
+    .stats-grid { width: min(920px, 100%); display: flex; justify-content: center; gap: 10px; flex-wrap: nowrap; }    .stat-box { border: 1px solid var(--brd-main); background: var(--bg-surface); text-align: center; padding: 12px 14px; flex: 1 1 0; max-width: 220px; }
     .stat-label { font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--txt-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .stat-value { font-size: clamp(24px, 5vw, 34px); font-weight: 700; color: var(--txt-main); }
 
@@ -242,10 +276,9 @@
     .compare-box h4 { margin: 0 0 10px; font-size: 14px; color: #ff4d4d; border-bottom: 1px solid var(--brd-card); padding-bottom: 6px; }
     .compare-box ul { margin: 0; padding-left: 16px; color: var(--txt-sub); font-size: 13px; line-height: 1.8; }
 
-    /* ── Mobile system dropdown ── */
+    /* ── Mobile system dropdown — hidden by default ── */
     .system-select-mobile {
       display: none;
-      width: 100%;
       padding: 10px 12px;
       background: var(--bg-select);
       color: var(--txt-main);
@@ -254,7 +287,6 @@
       font-weight: 700;
       outline: none;
       cursor: pointer;
-      margin-top: 2px;
     }
 
     /* ── Mobile control bar (hidden on desktop) ── */
@@ -370,22 +402,20 @@
       </div>
     </div>
 
-    <div id="shoeSelectorRow" class="shoe-selector-row">
-      <label for="deckCount">Decks in Shoe:</label>
-      <select id="deckCount" aria-label="Decks in Shoe">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-      </select>
-    </div>
-
     <div class="app-body">
       <div class="main-panel">
-
+            <div id="shoeSelectorRow" class="shoe-selector-row">
+              <label for="deckCount">Decks in Shoe:</label>
+              <select id="deckCount" aria-label="Decks in Shoe">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+              </select>
+            </div>
         <div class="mobile-control-bar">
           <button id="btnUndoMob" class="mob-ctrl-btn">Undo</button>
           <button id="btnNewShoeMob" class="mob-ctrl-btn">New Shoe</button>
@@ -407,18 +437,18 @@
         <div id="counterButtons" class="counter-buttons"></div>
 
         <div class="info-row">
-          <div class="true-count-box">
-            <div id="countMetricLabel" class="true-count-label">True Count</div>
-            <div id="trueCountDisplay" class="true-count-value">0.00</div>
+            <div class="true-count-box">
+              <div id="countMetricLabel" class="true-count-label">True Count</div>
+              <div id="trueCountDisplay" class="true-count-value">0.00</div>
+            </div>
+            <div class="betting-box">
+              <div class="betting-label">Betting Suggestion</div>
+              <div id="bettingSuggestionDisplay" class="betting-value">Standard</div>
+              <div id="bettingNoteDisplay" class="betting-note">Based on true count</div>
+            </div>
           </div>
-          <div class="betting-box">
-            <div class="betting-label">Betting Suggestion</div>
-            <div id="bettingSuggestionDisplay" class="betting-value">Standard</div>
-            <div id="bettingNoteDisplay" class="betting-note">Based on true count</div>
-          </div>
-        </div>
 
-        <div id="statsGrid" class="stats-grid">
+          <div id="statsGrid" class="stats-grid">
           <div class="stat-box">
             <div class="stat-label">Cards Played</div>
             <div id="cardsPlayedDisplay" class="stat-value">0</div>
@@ -443,7 +473,7 @@
             <div class="stat-label">Aces Left in Shoe</div>
             <div id="acesRemainingDisplay" class="stat-value">4</div>
           </div>
-        </div>
+        </div><!-- end stats-grid -->
       </div>
     </div>
 
