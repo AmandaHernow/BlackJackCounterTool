@@ -8,35 +8,90 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Black Jack Counter Tool</title>
+  <title>Blackjack Counter Tool</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iIzAwMDAwMCIvPgogIDxyZWN0IHg9IjEiIHk9IjEiIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgcng9IjMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2IzMDAwMCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8cGF0aCBkPSJNMTYgNSBDMTYgNSwgNyAxMSwgNyAxNyBDNyAyMC41IDkuNSAyMiAxMiAyMSBDMTEgMjMgMTAgMjUgOCAyNiBMMjQgMjYgQzIyIDI1IDIxIDIzIDIwIDIxIEMyMi41IDIyIDI1IDIwLjUgMjUgMTcgQzI1IDExIDE2IDUgMTYgNSBaIiBmaWxsPSIjZmZmZmZmIi8+CiAgPHJlY3QgeD0iMTQiIHk9IjI0IiB3aWR0aD0iNCIgaGVpZ2h0PSIzIiByeD0iMSIgZmlsbD0iI2ZmZmZmZiIvPgo8L3N2Zz4=">
   <style>
+    /* ══ THEME VARIABLES ══ */
+    :root {
+      --bg-app:     #000000;
+      --bg-surface: #0a0a0a;
+      --bg-deep:    #050505;
+      --bg-raised:  #0d0d0d;
+      --bg-tab:     #111111;
+      --bg-tab-act: #151515;
+      --bg-select:  #111111;
+      --bg-btn:     #7a0000;
+      --bg-infobox: #0d0000;
+      --bg-tblhdr:  #180000;
+      --bg-step:    #1a0000;
+
+      --brd-main:   #b30000;
+      --brd-btn:    #ff2a2a;
+      --brd-sep:    #3a0000;
+      --brd-card:   #2a0000;
+      --brd-row:    #1a0000;
+
+      --txt-main:   #ffffff;
+      --txt-sub:    #d6d6d6;
+      --txt-muted:  #bbbbbb;
+      --txt-dim:    #888888;
+      --txt-note:   #777777;
+      --txt-log:    #ff4d4d;
+    }
+
+    [data-theme="light"] {
+      --bg-app:     #f5f0f0;
+      --bg-surface: #ffffff;
+      --bg-deep:    #f9f5f5;
+      --bg-raised:  #ede6e6;
+      --bg-tab:     #f0eaea;
+      --bg-tab-act: #e5dbdb;
+      --bg-select:  #ffffff;
+      --bg-btn:     #8a0000;
+      --bg-infobox: #fff7f7;
+      --bg-tblhdr:  #ffeaea;
+      --bg-step:    #fff0f0;
+
+      --brd-main:   #b30000;
+      --brd-btn:    #aa1111;
+      --brd-sep:    #ddc8c8;
+      --brd-card:   #ead5d5;
+      --brd-row:    #f2e5e5;
+
+      --txt-main:   #111111;
+      --txt-sub:    #444444;
+      --txt-muted:  #555555;
+      --txt-dim:    #666666;
+      --txt-note:   #888888;
+      --txt-log:    #880000;
+    }
+
     * { box-sizing: border-box; }
 
     html, body {
       margin: 0;
       height: 100%;
       font-family: 'Segoe UI', sans-serif;
-      background: #000;
-      color: #fff;
+      background: var(--bg-app);
+      color: var(--txt-main);
     }
 
     body { overflow: hidden; }
     button, select { font-family: inherit; }
 
     .window {
-      border: 1px solid #b30000;
+      border: 1px solid var(--brd-main);
       display: flex;
       flex-direction: column;
       height: 100vh;
-      background: #000;
+      background: var(--bg-app);
     }
 
     .titlebar {
       display: flex;
       align-items: center;
-      background: #111;
-      border-bottom: 1px solid #b30000;
+      background: var(--bg-tab);
+      border-bottom: 1px solid var(--brd-main);
       height: 40px;
       padding: 0 6px;
       user-select: none;
@@ -47,12 +102,11 @@
       width: 24px;
       height: 24px;
       margin-right: 8px;
-      border: 1px solid #b30000;
+      border: 1px solid var(--brd-main);
       border-radius: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
       font-size: 12px;
       font-weight: 700;
       background: #1a1a1a;
@@ -61,7 +115,7 @@
 
     .titlebar .title {
       flex: 1;
-      color: #fff;
+      color: var(--txt-main);
       font-weight: bold;
       font-size: 14px;
       white-space: nowrap;
@@ -71,42 +125,57 @@
 
     .titlebar-buttons { display: flex; gap: 4px; }
 
-    .titlebar button,
-    .system-tab,
-    .help-tab,
-    .counter-buttons button,
-    .clear-button,
-    #helpClose {
-      background: #111;
-      border: 1px solid #b30000;
-      color: #fff;
-      cursor: pointer;
-    }
-
     .titlebar button {
+      background: var(--bg-tab);
+      border: 1px solid var(--brd-main);
+      color: var(--txt-main);
+      cursor: pointer;
       width: 32px;
       height: 28px;
       font-size: 14px;
       line-height: 1;
     }
 
-    .titlebar button:hover,
+    .titlebar button:hover { background: var(--brd-main); color: #fff; }
+    .titlebar button:active { transform: scale(0.98); }
+
+    /* System/help tabs and modal close: themed */
+    .system-tab,
+    .help-tab,
+    #helpClose {
+      background: var(--bg-tab);
+      border: 1px solid var(--brd-main);
+      color: var(--txt-main);
+      cursor: pointer;
+    }
+
+    /* Counter and utility buttons: always red */
+    .counter-buttons button,
+    .clear-button,
+    .undo-button,
+    .new-shoe-button {
+      background: var(--bg-btn);
+      border: 1px solid var(--brd-btn);
+      color: #fff;
+      cursor: pointer;
+    }
+
     .system-tab:hover,
     .help-tab:hover,
+    #helpClose:hover { background: var(--brd-main); color: #fff; }
+
     .counter-buttons button:hover,
     .clear-button:hover,
     .undo-button:hover,
-    .new-shoe-button:hover,
-    #helpClose:hover { background: #b30000; }
+    .new-shoe-button:hover { background: var(--brd-main); }
 
-    .titlebar button:active,
     .system-tab:active,
     .help-tab:active,
+    #helpClose:active,
     .counter-buttons button:active,
     .clear-button:active,
     .undo-button:active,
-    .new-shoe-button:active,
-    #helpClose:active { transform: scale(0.98); }
+    .new-shoe-button:active { transform: scale(0.98); }
 
     .system-selector-row {
       display: flex;
@@ -114,10 +183,10 @@
       justify-content: flex-start;
       gap: 14px;
       margin: 10px 20px 0;
-      color: #fff;
+      color: var(--txt-main);
       flex-wrap: wrap;
       flex-shrink: 0;
-      border-bottom: 1px solid #3a0000;
+      border-bottom: 1px solid var(--brd-sep);
       padding-bottom: 10px;
     }
 
@@ -140,17 +209,15 @@
       font-size: 14px;
       font-weight: 700;
       min-width: 110px;
-      border: 1px solid #b30000;
-      border-bottom: 2px solid #b30000;
-      background: #111;
-      color: #fff;
+      border: 1px solid var(--brd-main);
+      border-bottom: 2px solid var(--brd-main);
       box-shadow: none;
     }
 
     .system-tab.active,
     .help-tab.active {
-      background: #151515;
-      border-bottom-color: #ff2a2a;
+      background: var(--bg-tab-act);
+      border-bottom-color: var(--brd-btn);
     }
 
     .header-info {
@@ -158,7 +225,7 @@
       justify-content: space-between;
       gap: 18px;
       padding: 10px 12px 6px;
-      color: #fff;
+      color: var(--txt-main);
       font-size: 12px;
       line-height: 1.5;
       flex-shrink: 0;
@@ -177,7 +244,7 @@
       justify-content: center;
       gap: 12px;
       margin: 4px 20px 0;
-      color: #fff;
+      color: var(--txt-main);
       font-size: 20px;
       font-weight: 700;
       flex-wrap: wrap;
@@ -187,9 +254,9 @@
     .shoe-selector-row select {
       min-width: 90px;
       padding: 8px 12px;
-      background: #111;
-      color: #fff;
-      border: 1px solid #ff2a2a;
+      background: var(--bg-select);
+      color: var(--txt-main);
+      border: 1px solid var(--brd-btn);
       font-size: 18px;
       font-weight: 700;
       outline: none;
@@ -214,7 +281,6 @@
       min-width: 0;
     }
 
-    /* FIX: 12px gap from content above */
     .side-panel {
       position: fixed !important;
       top: 116px !important;
@@ -252,9 +318,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 2px solid #b30000;
-      background: #0a0a0a;
-      color: #fff;
+      border: 2px solid var(--brd-main);
+      background: var(--bg-surface);
+      color: var(--txt-main);
       font-size: clamp(44px, 12vw, 100px);
       font-weight: 700;
       text-align: center;
@@ -279,9 +345,6 @@
       font-weight: 700;
       font-size: 16px;
       flex-shrink: 0;
-      background: #7a0000;
-      border: 1px solid #ff2a2a;
-      color: #fff;
       border-radius: 0;
       width: 100%;
     }
@@ -299,9 +362,6 @@
 
     .counter-buttons button {
       padding: 14px 10px;
-      background: #7a0000;
-      border: 1px solid #ff2a2a;
-      color: #fff;
       font-weight: 700;
       font-size: 20px;
       min-height: 54px;
@@ -318,8 +378,8 @@
 
     .true-count-box,
     .betting-box {
-      border: 1px solid #b30000;
-      background: #0a0a0a;
+      border: 1px solid var(--brd-main);
+      background: var(--bg-surface);
       text-align: center;
       padding: 14px 16px;
       min-height: 108px;
@@ -330,14 +390,14 @@
     }
 
     .true-count-label,
-    .betting-label { font-size: 16px; font-weight: 700; color: #fff; }
+    .betting-label { font-size: 16px; font-weight: 700; color: var(--txt-main); }
 
     .true-count-value,
-    .betting-value { font-size: clamp(28px, 6vw, 42px); font-weight: 700; color: #fff; }
+    .betting-value { font-size: clamp(28px, 6vw, 42px); font-weight: 700; color: var(--txt-main); }
 
     .betting-note {
       font-size: 13px;
-      color: #d6d6d6;
+      color: var(--txt-sub);
       min-height: 18px;
       white-space: nowrap;
       overflow: hidden;
@@ -353,8 +413,8 @@
     }
 
     .stat-box {
-      border: 1px solid #b30000;
-      background: #0a0a0a;
+      border: 1px solid var(--brd-main);
+      background: var(--bg-surface);
       text-align: center;
       padding: 12px 14px;
       flex: 1 1 0;
@@ -365,17 +425,17 @@
       font-size: 13px;
       font-weight: 700;
       margin-bottom: 6px;
-      color: #fff;
+      color: var(--txt-main);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .stat-value { font-size: clamp(24px, 5vw, 34px); font-weight: 700; color: #fff; }
+    .stat-value { font-size: clamp(24px, 5vw, 34px); font-weight: 700; color: var(--txt-main); }
 
     .action-log {
-      border: 1px solid #b30000;
-      background: #050505;
+      border: 1px solid var(--brd-main);
+      background: var(--bg-deep);
       height: 100%;
       display: flex;
       flex-direction: column;
@@ -384,11 +444,11 @@
 
     .action-log-header {
       padding: 12px 14px;
-      border-bottom: 1px solid #3a0000;
+      border-bottom: 1px solid var(--brd-sep);
       font-size: 16px;
       font-weight: 700;
-      color: #fff;
-      background: #0d0d0d;
+      color: var(--txt-main);
+      background: var(--bg-raised);
     }
 
     .action-log-body {
@@ -398,29 +458,29 @@
       overflow-x: hidden;
       font-family: Consolas, Monaco, monospace;
       font-size: 13px;
-      color: #ff4d4d;
+      color: var(--txt-log);
       line-height: 1.5;
       white-space: pre-wrap;
       word-break: break-word;
     }
 
-    .action-line { margin-bottom: 6px; color: #ff4d4d; }
+    .action-line { margin-bottom: 6px; color: var(--txt-log); }
 
     .log-button-tag {
       display: inline-block;
-      border: 1px solid #b30000;
+      border: 1px solid var(--brd-main);
       padding: 0 6px;
       margin: 0 4px;
-      color: #fff;
-      background: #111;
+      color: var(--txt-main);
+      background: var(--bg-tab);
     }
 
     .footer {
       text-align: center;
       font-size: 12px;
-      color: #fff;
+      color: var(--txt-main);
       padding: 10px 12px;
-      border-top: 1px solid #3a0000;
+      border-top: 1px solid var(--brd-sep);
       flex-shrink: 0;
     }
 
@@ -438,8 +498,8 @@
       width: min(1040px, 100%);
       max-height: calc(100vh - 48px);
       margin: 0 auto;
-      background: #050505;
-      border: 2px solid #b30000;
+      background: var(--bg-deep);
+      border: 2px solid var(--brd-main);
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -450,9 +510,9 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      border-bottom: 1px solid #3a0000;
+      border-bottom: 1px solid var(--brd-sep);
       padding: 10px 12px;
-      background: #111;
+      background: var(--bg-raised);
       flex-wrap: wrap;
     }
 
@@ -476,7 +536,7 @@
       font-size: 17px;
       font-weight: 700;
       color: #ff4d4d;
-      border-bottom: 1px solid #3a0000;
+      border-bottom: 1px solid var(--brd-sep);
       padding-bottom: 8px;
       margin: 0 0 18px;
       letter-spacing: 0.03em;
@@ -489,8 +549,8 @@
     .step-num {
       min-width: 28px;
       height: 28px;
-      border: 1px solid #b30000;
-      background: #1a0000;
+      border: 1px solid var(--brd-main);
+      background: var(--bg-step);
       color: #ff4d4d;
       font-weight: 700;
       font-size: 13px;
@@ -500,21 +560,21 @@
       flex-shrink: 0;
     }
 
-    .step-text { padding-top: 5px; font-size: 14px; color: #ddd; }
-    .step-text strong { color: #fff; }
+    .step-text { padding-top: 5px; font-size: 14px; color: var(--txt-muted); }
+    .step-text strong { color: var(--txt-main); }
 
     .info-box {
-      border: 1px solid #3a0000;
-      background: #0d0000;
+      border: 1px solid var(--brd-sep);
+      background: var(--bg-infobox);
       padding: 12px 14px;
       margin: 0 0 12px;
       font-size: 13px;
-      color: #bbb;
+      color: var(--txt-muted);
       line-height: 1.6;
     }
 
-    .info-box strong { color: #fff; }
-    .info-box.muted  { color: #777; }
+    .info-box strong { color: var(--txt-main); }
+    .info-box.muted  { color: var(--txt-dim); }
 
     /* System cards */
     .sys-grid {
@@ -524,7 +584,7 @@
       margin-bottom: 10px;
     }
 
-    .sys-card { border: 1px solid #2a0000; background: #0a0a0a; padding: 14px 16px; }
+    .sys-card { border: 1px solid var(--brd-card); background: var(--bg-surface); padding: 14px 16px; }
 
     .sys-card-header {
       display: flex;
@@ -535,7 +595,7 @@
       flex-wrap: wrap;
     }
 
-    .sys-card-name { font-size: 15px; font-weight: 700; color: #fff; }
+    .sys-card-name { font-size: 15px; font-weight: 700; color: var(--txt-main); }
 
     .sys-tags { display: flex; gap: 5px; flex-wrap: wrap; }
 
@@ -555,8 +615,12 @@
     .sys-tag.lvl2       { border-color: #555;    color: #aaa;    }
     .sys-tag.frac       { border-color: #005566; color: #44bbcc; }
 
+    /* Light theme adjustments for tags */
+    [data-theme="light"] .sys-tag.lvl1 { border-color: #aaa; color: #555; }
+    [data-theme="light"] .sys-tag.lvl2 { border-color: #999; color: #444; }
+
     .val-table { width: 100%; border-collapse: collapse; }
-    .val-table tr + tr td { border-top: 1px solid #1a0000; }
+    .val-table tr + tr td { border-top: 1px solid var(--brd-row); }
     .val-table td { padding: 5px 8px; font-size: 13px; vertical-align: middle; }
     .val-table td:first-child { width: 58px; }
 
@@ -575,16 +639,16 @@
     .val-badge.p15 { background: #002000; border-color: #009900; color: #55ee55; }
     .val-badge.p1  { background: #001a00; border-color: #007700; color: #44cc44; }
     .val-badge.p05 { background: #001200; border-color: #005500; color: #33aa33; }
-    .val-badge.z   { background: #111;    border-color: #444;    color: #777;    }
+    .val-badge.z   { background: #222;    border-color: #666;    color: #aaa;    }
     .val-badge.n05 { background: #1a0000; border-color: #660000; color: #cc4444; }
     .val-badge.n1  { background: #220000; border-color: #880000; color: #ff4444; }
     .val-badge.n2  { background: #2a0000; border-color: #aa0000; color: #ff6666; }
     .val-badge.ace { background: #110022; border-color: #660099; color: #cc77ff; }
 
-    .val-cards { color: #bbb; }
-    .sys-note  { margin-top: 10px; font-size: 12px; color: #777; }
+    .val-cards { color: var(--txt-muted); }
+    .sys-note  { margin-top: 10px; font-size: 12px; color: var(--txt-note); }
 
-    /* Betting ramp */
+    /* Betting ramp — semantic colours stay fixed */
     .bet-ramp { display: flex; flex-direction: column; gap: 5px; margin: 0 0 18px; }
 
     .bet-row {
@@ -592,13 +656,13 @@
       align-items: center;
       gap: 14px;
       padding: 9px 14px;
-      border: 1px solid #2a0000;
-      background: #0a0a0a;
+      border: 1px solid var(--brd-card);
+      background: var(--bg-surface);
     }
 
-    .bet-count { min-width: 100px; font-family: Consolas, Monaco, monospace; font-size: 13px; color: #777; }
+    .bet-count { min-width: 100px; font-family: Consolas, Monaco, monospace; font-size: 13px; color: var(--txt-note); }
     .bet-label-cell { font-size: 14px; font-weight: 700; min-width: 130px; }
-    .bet-bar { flex: 1; height: 4px; background: #1a0000; }
+    .bet-bar { flex: 1; height: 4px; background: var(--brd-row); }
     .bet-bar-fill { height: 100%; }
 
     .bet-row.r-max  { border-color: #00aa00; background: #002800; }
@@ -617,9 +681,8 @@
     .bet-row.r-slight .bet-label-cell { color: #ddaa44; }
     .bet-row.r-slight .bet-bar-fill   { background: #ddaa44; width: 40%; }
 
-    .bet-row.r-std  { border-color: #444; }
-    .bet-row.r-std  .bet-label-cell { color: #888; }
-    .bet-row.r-std  .bet-bar-fill   { background: #555; width: 20%; }
+    .bet-row.r-std  .bet-label-cell { color: var(--txt-dim); }
+    .bet-row.r-std  .bet-bar-fill   { background: var(--txt-dim); width: 20%; }
 
     .bet-row.r-min  { border-color: #660000; background: #150000; }
     .bet-row.r-min  .bet-label-cell { color: #cc4444; }
@@ -637,17 +700,17 @@
       margin-bottom: 16px;
     }
 
-    .compare-box { border: 1px solid #2a0000; background: #0a0a0a; padding: 14px 16px; }
+    .compare-box { border: 1px solid var(--brd-card); background: var(--bg-surface); padding: 14px 16px; }
 
     .compare-box h4 {
       margin: 0 0 10px;
       font-size: 14px;
       color: #ff4d4d;
-      border-bottom: 1px solid #2a0000;
+      border-bottom: 1px solid var(--brd-card);
       padding-bottom: 6px;
     }
 
-    .compare-box ul { margin: 0; padding-left: 16px; color: #ccc; font-size: 13px; line-height: 1.8; }
+    .compare-box ul { margin: 0; padding-left: 16px; color: var(--txt-sub); font-size: 13px; line-height: 1.8; }
 
     @media (max-width: 700px) {
       .sys-grid      { grid-template-columns: 1fr; }
@@ -683,8 +746,9 @@
           <rect x="10.5" y="19.5" width="3" height="2" rx="0.5" fill="#ffffff"/>
         </svg>
       </div>
-      <div class="title">Black Jack Counter Tool</div>
+      <div class="title">Blackjack Counter Tool</div>
       <div class="titlebar-buttons">
+        <button id="btnTheme" title="Switch theme">☀</button>
         <button id="btnHelp" title="Help">?</button>
         <button id="btnClose" title="Close">X</button>
       </div>
@@ -789,7 +853,7 @@
       </div>
     </div>
 
-    <div class="footer">© 2026 Amanda Hernow. All rights reserved. Version 1.0</div>
+    <div class="footer">© 2026 Amanda Hernow. All rights reserved. Version 1.1</div>
   </div>
 
   <!-- ══════════════════ HELP MODAL ══════════════════ -->
@@ -839,6 +903,10 @@
             <div class="step-item">
               <div class="step-num">7</div>
               <div class="step-text"><strong>Undo / Clear</strong> — Undo steps back one action at a time. Clear resets the entire shoe, same as New Shoe.</div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">8</div>
+              <div class="step-text"><strong>Theme toggle</strong> — the ☀ button in the top right switches between dark and light mode. Your preference is saved automatically.</div>
             </div>
           </div>
           <div class="info-box">
@@ -1107,6 +1175,27 @@
 
   <script>
     (function () {
+      /* ── Theme ── */
+      const root     = document.documentElement;
+      const btnTheme = document.getElementById('btnTheme');
+
+      function setTheme(theme) {
+        root.setAttribute('data-theme', theme);
+        btnTheme.textContent = theme === 'light' ? '☾' : '☀';
+        btnTheme.title       = theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode';
+        try { localStorage.setItem('bj-theme', theme); } catch (e) {}
+      }
+
+      btnTheme.addEventListener('click', function () {
+        setTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+      });
+
+      try {
+        const saved = localStorage.getItem('bj-theme');
+        if (saved === 'light' || saved === 'dark') setTheme(saved);
+      } catch (e) {}
+
+      /* ── Counter logic ── */
       let count       = 0;
       let cardsPlayed = 0;
       let acesPlayed  = 0;
