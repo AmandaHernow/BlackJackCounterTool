@@ -1,13 +1,14 @@
 package net.hernow.bjcountertool
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import net.hernow.bjcountertool.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,7 +38,20 @@ class MainActivity : AppCompatActivity() {
                 view: WebView,
                 request: WebResourceRequest
             ): Boolean {
-                // Block all external navigation — app is fully offline
+                val url = request.url.toString()
+                // Open http/https links (PayPal, email etc.) in the system browser
+                if (url.startsWith("https://") || url.startsWith("http://")) {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    startActivity(intent)
+                    return true
+                }
+                // Open mailto links in the email app
+                if (url.startsWith("mailto:")) {
+                    val intent = Intent(Intent.ACTION_SENDTO, Uri.parse(url))
+                    startActivity(intent)
+                    return true
+                }
+                // Block everything else — app stays offline
                 return true
             }
         }
