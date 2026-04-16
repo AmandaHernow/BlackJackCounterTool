@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data:; connect-src 'none'; img-src data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data:; connect-src 'none'; img-src data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'; form-action 'none';">
   <meta name="referrer" content="no-referrer">
   <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
   <meta http-equiv="Pragma" content="no-cache">
@@ -113,6 +113,17 @@
     html, body { margin: 0; height: 100%; font-family: 'Segoe UI', sans-serif; background: var(--bg-app); color: var(--txt-main); }
     body { overflow: hidden; }
     button, select { font-family: inherit; touch-action: manipulation; }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
     .window { border: 1px solid var(--brd-main); display: flex; flex-direction: column; height: 100vh; background: var(--bg-app); }
 
     /* ── Titlebar ── */
@@ -292,7 +303,7 @@
     .val-badge.p1  { background: #001a00; border-color: #007700; color: #44cc44; }
     .val-badge.p05 { background: #001200; border-color: #005500; color: #33aa33; }
     .val-badge.z   { background: #222;    border-color: #666;    color: #aaa;    }
-    .val-badge.n05 { background: #1a0000; border-color: #660000; color: #cc4444; }
+    .val-badge.n05 { background: #1a0000; border-color: #7a0000; color: #ff7070; }
     .val-badge.n1  { background: #220000; border-color: #880000; color: #ff4444; }
     .val-badge.n2  { background: #2a0000; border-color: #aa0000; color: #ff6666; }
     .val-badge.ace { background: #110022; border-color: #660099; color: #cc77ff; }
@@ -537,7 +548,7 @@
       </div>
     </div>
 
-    <div class="app-body">
+    <main class="app-body">
       <div class="main-panel">
         <div id="shoeSelectorRow" class="shoe-selector-row">
           <label for="deckCount">Decks in Shoe:</label>
@@ -608,7 +619,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </main>
 
     <div class="side-panel" id="sidePanel">
       <div class="action-log">
@@ -655,14 +666,14 @@
         <div id="systemsPanel" class="help-panel">
           <p class="help-section-title">Counting Systems</p>
           <div class="sys-grid">
-            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Hi-Lo</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag lvl1">Level 1</span></div></div><table class="val-table"><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 4, 5, 6</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">7, 8, 9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K, A</td></tr></table></div>
-            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">KO (Knock-Out)</div><div class="sys-tags"><span class="sys-tag unbalanced">Unbalanced</span><span class="sys-tag lvl1">Level 1</span></div></div><table class="val-table"><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 4, 5, 6, 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">8, 9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K, A</td></tr></table><div class="sys-note">No true count needed. Compare running count to the key count threshold shown in the app.</div></div>
-            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Red 7</div><div class="sys-tags"><span class="sys-tag unbalanced">Unbalanced</span><span class="sys-tag lvl1">Level 1</span></div></div><table class="val-table"><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 4, 5, 6 and red 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">Black 7, 8, 9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K, A</td></tr></table><div class="sys-note">Red sevens count +1, black sevens count 0. Use the separate 7 Red and 7 Black buttons.</div></div>
-            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Hi-Opt I</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag lvl1">Level 1</span><span class="sys-tag ace-side">Ace Side Count</span></div></div><table class="val-table"><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">3, 4, 5, 6</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">2, 7, 8, 9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K</td></tr><tr><td><span class="val-badge ace">Ace</span></td><td class="val-cards">A — tracked separately</td></tr></table></div>
-            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Hi-Opt II</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag lvl2">Level 2</span><span class="sys-tag ace-side">Ace Side Count</span></div></div><table class="val-table"><tr><td><span class="val-badge p2">+2</span></td><td class="val-cards">4, 5</td></tr><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 6, 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">8, 9</td></tr><tr><td><span class="val-badge n2">−2</span></td><td class="val-cards">10, J, Q, K</td></tr><tr><td><span class="val-badge ace">Ace</span></td><td class="val-cards">A — tracked separately</td></tr></table></div>
-            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Zen Count</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag lvl2">Level 2</span></div></div><table class="val-table"><tr><td><span class="val-badge p2">+2</span></td><td class="val-cards">4, 5, 6</td></tr><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">8, 9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">A</td></tr><tr><td><span class="val-badge n2">−2</span></td><td class="val-cards">10, J, Q, K</td></tr></table><div class="sys-note">Aces are included in the main count at −1. No separate side counting needed.</div></div>
-            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Omega II</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag lvl2">Level 2</span><span class="sys-tag ace-side">Ace Side Count</span></div></div><table class="val-table"><tr><td><span class="val-badge p2">+2</span></td><td class="val-cards">4, 5, 6</td></tr><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">8</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">9</td></tr><tr><td><span class="val-badge n2">−2</span></td><td class="val-cards">10, J, Q, K</td></tr><tr><td><span class="val-badge ace">Ace</span></td><td class="val-cards">A — tracked separately</td></tr></table></div>
-            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Wong Halves</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag frac">Fractional</span></div></div><table class="val-table"><tr><td><span class="val-badge p15">+1.5</span></td><td class="val-cards">5</td></tr><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">3, 4, 6</td></tr><tr><td><span class="val-badge p05">+0.5</span></td><td class="val-cards">2, 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">8</td></tr><tr><td><span class="val-badge n05">−0.5</span></td><td class="val-cards">9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K, A</td></tr></table><div class="sys-note">Highest accuracy of all systems here. Values can be doubled mentally to keep whole numbers if preferred.</div></div>
+            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Hi-Lo</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag lvl1">Level 1</span></div></div><table class="val-table"><thead class="sr-only"><tr><th scope="col">Value</th><th scope="col">Cards</th></tr></thead><tbody><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 4, 5, 6</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">7, 8, 9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K, A</td></tr></tbody></table></div>
+            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">KO (Knock-Out)</div><div class="sys-tags"><span class="sys-tag unbalanced">Unbalanced</span><span class="sys-tag lvl1">Level 1</span></div></div><table class="val-table"><thead class="sr-only"><tr><th scope="col">Value</th><th scope="col">Cards</th></tr></thead><tbody><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 4, 5, 6, 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">8, 9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K, A</td></tr></tbody></table><div class="sys-note">No true count needed. Compare running count to the key count threshold shown in the app.</div></div>
+            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Red 7</div><div class="sys-tags"><span class="sys-tag unbalanced">Unbalanced</span><span class="sys-tag lvl1">Level 1</span></div></div><table class="val-table"><thead class="sr-only"><tr><th scope="col">Value</th><th scope="col">Cards</th></tr></thead><tbody><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 4, 5, 6 and red 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">Black 7, 8, 9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K, A</td></tr></tbody></table><div class="sys-note">Red sevens count +1, black sevens count 0. Use the separate 7 Red and 7 Black buttons.</div></div>
+            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Hi-Opt I</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag lvl1">Level 1</span><span class="sys-tag ace-side">Ace Side Count</span></div></div><table class="val-table"><thead class="sr-only"><tr><th scope="col">Value</th><th scope="col">Cards</th></tr></thead><tbody><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">3, 4, 5, 6</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">2, 7, 8, 9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K</td></tr><tr><td><span class="val-badge ace">Ace</span></td><td class="val-cards">A — tracked separately</td></tr></tbody></table></div>
+            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Hi-Opt II</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag lvl2">Level 2</span><span class="sys-tag ace-side">Ace Side Count</span></div></div><table class="val-table"><thead class="sr-only"><tr><th scope="col">Value</th><th scope="col">Cards</th></tr></thead><tbody><tr><td><span class="val-badge p2">+2</span></td><td class="val-cards">4, 5</td></tr><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 6, 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">8, 9</td></tr><tr><td><span class="val-badge n2">−2</span></td><td class="val-cards">10, J, Q, K</td></tr><tr><td><span class="val-badge ace">Ace</span></td><td class="val-cards">A — tracked separately</td></tr></tbody></table></div>
+            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Zen Count</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag lvl2">Level 2</span></div></div><table class="val-table"><thead class="sr-only"><tr><th scope="col">Value</th><th scope="col">Cards</th></tr></thead><tbody><tr><td><span class="val-badge p2">+2</span></td><td class="val-cards">4, 5, 6</td></tr><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">8, 9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">A</td></tr><tr><td><span class="val-badge n2">−2</span></td><td class="val-cards">10, J, Q, K</td></tr></tbody></table><div class="sys-note">Aces are included in the main count at −1. No separate side counting needed.</div></div>
+            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Omega II</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag lvl2">Level 2</span><span class="sys-tag ace-side">Ace Side Count</span></div></div><table class="val-table"><thead class="sr-only"><tr><th scope="col">Value</th><th scope="col">Cards</th></tr></thead><tbody><tr><td><span class="val-badge p2">+2</span></td><td class="val-cards">4, 5, 6</td></tr><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">8</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">9</td></tr><tr><td><span class="val-badge n2">−2</span></td><td class="val-cards">10, J, Q, K</td></tr><tr><td><span class="val-badge ace">Ace</span></td><td class="val-cards">A — tracked separately</td></tr></tbody></table></div>
+            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Wong Halves</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag frac">Fractional</span></div></div><table class="val-table"><thead class="sr-only"><tr><th scope="col">Value</th><th scope="col">Cards</th></tr></thead><tbody><tr><td><span class="val-badge p15">+1.5</span></td><td class="val-cards">5</td></tr><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">3, 4, 6</td></tr><tr><td><span class="val-badge p05">+0.5</span></td><td class="val-cards">2, 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">8</td></tr><tr><td><span class="val-badge n05">−0.5</span></td><td class="val-cards">9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K, A</td></tr></tbody></table><div class="sys-note">Highest accuracy of all systems here. Values can be doubled mentally to keep whole numbers if preferred.</div></div>
           </div>
         </div>
 
@@ -910,7 +921,9 @@
         d.innerHTML = e;
         actionLogBody.appendChild(d);
       });
-      actionLogBody.scrollTop = actionLogBody.scrollHeight;
+      requestAnimationFrame(function () {
+        actionLogBody.scrollTop = actionLogBody.scrollHeight;
+      });
     }
     function addLog(lbl, sys) {
       actionLogEntries.push(ftime() + ' <span class="log-button-tag">' + lbl + '</span> : ' + cardText(sys, lbl));
