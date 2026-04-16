@@ -8,20 +8,20 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blackjack Counter Tool</title>
-  <meta name="description" content="Free offline blackjack card counting tool for browser use. Practice Hi-Lo, KO, Red 7, Hi-Opt I, Hi-Opt II, Zen Count, Omega II, and Wong Halves with true count, ace side count, and betting guidance.">
+  <title>Blackjack Card Counting Tool | Free Online Blackjack Counter</title>
+  <meta name="description" content="Free blackjack card counting tool for browser use. Practice blackjack card counting with Hi-Lo, KO, Red 7, Hi-Opt I, Hi-Opt II, Zen Count, Omega II, and Wong Halves, with true count, ace side count, and betting guidance.">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   <meta name="author" content="Amanda Hansson Hernow">
   <meta name="theme-color" content="#7a0000">
   <link rel="canonical" href="https://amandahernow.github.io/BlackJackCounterTool/BJCounterTool.html">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Blackjack Counter Tool">
+  <meta property="og:title" content="Blackjack Card Counting Tool">
   <meta property="og:description" content="Free browser-based blackjack card counting practice tool with multiple counting systems, true count conversion, ace side count tracking, and offline use.">
   <meta property="og:url" content="https://amandahernow.github.io/BlackJackCounterTool/BJCounterTool.html">
   <meta property="og:site_name" content="Blackjack Counter Tool">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Blackjack Counter Tool">
+  <meta name="twitter:title" content="Blackjack Card Counting Tool">
   <meta name="twitter:description" content="Free browser-based blackjack card counting practice tool with multiple counting systems and offline use.">
   <meta name="google-site-verification" content="idjCoV1cpdkScdzsT6ueb69RU5e9Sec1jk3MIDmB9Ik" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iIzAwMDAwMCIvPgogIDxyZWN0IHg9IjEiIHk9IjEiIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgcng9IjMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2IzMDAwMCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8cGF0aCBkPSJNMTYgNSBDMTYgNSwgNyAxMSwgNyAxNyBDNyAyMC41IDkuNSAyMiAxMiAyMSBDMTEgMjMgMTAgMjUgOCAyNiBMMjQgMjYgQzIyIDI1IDIxIDIzIDIwIDIxIEMyMi41IDIyIDI1IDIwLjUgMjUgMTcgQzI1IDExIDE2IDUgMTYgNSBaIiBmaWxsPSIjZmZmZmZmIi8+CiAgPHJlY3QgeD0iMTQiIHk9IjI0IiB3aWR0aD0iNCIgaGVpZ2h0PSIzIiByeD0iMSIgZmlsbD0iI2ZmZmZmZiIvPgo8L3N2Zz4=">
@@ -29,7 +29,7 @@
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Blackjack Counter Tool",
+    "name": "Blackjack Card Counting Tool",
     "applicationCategory": "GameApplication",
     "operatingSystem": "Web Browser",
     "browserRequirements": "Requires JavaScript. Works in modern desktop and mobile browsers.",
@@ -154,6 +154,37 @@
     .header-info { display: flex; justify-content: space-between; gap: 18px; padding: 10px 12px 6px; color: var(--txt-main); font-size: 12px; line-height: 1.5; flex-shrink: 0; }
     .header-info-text { flex: 1; min-width: 0; }
     .header-info-text > div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .seo-intro {
+      width: min(920px, 100%);
+      border: 1px solid var(--brd-sep);
+      background: linear-gradient(180deg, var(--bg-raised), var(--bg-surface));
+      padding: 14px 16px;
+      color: var(--txt-sub);
+    }
+    .seo-intro h1 {
+      margin: 0 0 8px;
+      font-size: clamp(22px, 4vw, 30px);
+      line-height: 1.15;
+      color: var(--txt-main);
+    }
+    .seo-intro p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .seo-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+    .seo-links a {
+      color: #ff7a7a;
+      text-decoration: none;
+    }
+    .seo-links a:hover { text-decoration: underline; }
+    [data-theme="light"] .seo-links a { color: #9a0000; }
 
     /* ── Use badge (red squares around button values in system header) ── */
     .use-badge {
@@ -550,6 +581,16 @@
 
     <main class="app-body">
       <div class="main-panel">
+        <section class="seo-intro" aria-labelledby="pageHeading">
+          <h1 id="pageHeading">Blackjack Card Counting Tool</h1>
+          <p>This free blackjack card counting tool helps you practise blackjack card counting in your browser with Hi-Lo, KO, Red 7, Hi-Opt I, Hi-Opt II, Zen Count, Omega II, and Wong Halves. It includes true count conversion, ace side count tracking, betting guidance, and offline-friendly play with no account required.</p>
+          <div class="seo-links">
+            <a href="privacy_policy.html">Privacy Policy</a>
+            <a href="https://github.com/AmandaHernow/BlackJackCounterTool" rel="noreferrer">GitHub Repository</a>
+            <a href="https://github.com/AmandaHernow/BlackJackCounterTool/releases/latest" rel="noreferrer">Latest Release</a>
+          </div>
+        </section>
+
         <div id="shoeSelectorRow" class="shoe-selector-row">
           <label for="deckCount">Decks in Shoe:</label>
           <select id="deckCount" aria-label="Decks in Shoe">
