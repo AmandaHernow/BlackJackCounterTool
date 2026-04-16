@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://amandahernow.github.io/BlackJackCounterTool/sitemap.xml
