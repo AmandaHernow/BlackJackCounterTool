@@ -36,27 +36,65 @@
         }
 
         [data-theme="light"] {
-          --bg-app:     #f5f0f0;
+          --bg-app:     #f3f4f6;
           --bg-surface: #ffffff;
-          --bg-deep:    #f9f5f5;
-          --bg-raised:  #ede6e6;
-          --bg-tab:     #f0eaea;
-          --bg-tab-act: #e5dbdb;
+          --bg-deep:    #ffffff;
+          --bg-raised:  #f7f7f8;
+          --bg-tab:     #ffffff;
+          --bg-tab-act: #f5f5f5;
           --bg-select:  #ffffff;
-          --bg-btn:     #8a0000;
-          --bg-infobox: #fff7f7;
-          --bg-step:    #fff0f0;
-          --brd-main:   #b30000;
-          --brd-btn:    #aa1111;
-          --brd-sep:    #ddc8c8;
-          --brd-card:   #ead5d5;
-          --brd-row:    #f2e5e5;
-          --txt-main:   #111111;
+
+          --bg-btn:     #8b1111;
+          --bg-infobox: #f8f8f8;
+          --bg-step:    #f3f4f6;
+
+          --brd-main:   #d1d5db;
+          --brd-btn:    #991b1b;
+          --brd-sep:    #e1e4e8;
+          --brd-card:   #d9dde2;
+          --brd-row:    #eceef1;
+
+          --txt-main:   #171717;
           --txt-sub:    #444444;
-          --txt-muted:  #555555;
-          --txt-dim:    #666666;
-          --txt-note:   #888888;
-          --txt-log:    #880000;
+          --txt-muted:  #5c6065;
+          --txt-dim:    #70757a;
+          --txt-note:   #777c82;
+          --txt-log:    #991b1b;
+        }
+        [data-theme="light"] .titlebar {
+          background: #8b1111;
+          border-bottom-color: #8b1111;
+        }
+
+        [data-theme="light"] .titlebar .title {
+          color: #ffffff;
+        }
+
+        [data-theme="light"] .titlebar .icon {
+          background: transparent;
+          border-color: rgba(255,255,255,.45);
+        }
+
+        [data-theme="light"] .titlebar button {
+          background: transparent;
+          border-color: rgba(255,255,255,.4);
+          color: #ffffff;
+        }
+
+        [data-theme="light"] .titlebar button:hover {
+          background: rgba(255,255,255,.15);
+        }
+
+        [data-theme="light"] .system-tab.active {
+          color: #8b1111;
+          border-bottom-color: #8b1111;
+        }
+
+        [data-theme="light"] .counter-display,
+        [data-theme="light"] .true-count-box,
+        [data-theme="light"] .betting-box,
+        [data-theme="light"] .stat-box {
+          border-color: #d1d5db;
         }
 
         * { box-sizing: border-box; }
