@@ -3,30 +3,30 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="About Blackjack Counter Tool, an independently developed browser-based blackjack counting practice tool by Amanda Hernow.">
+  <meta name="description" content="Learn about Blackjack Counter Tool, a free educational practice tool for understanding blackjack card-counting systems. Not intended for live gambling.">
   <meta name="robots" content="index,follow">
   <meta name="author" content="Amanda Hernow">
   <meta name="theme-color" content="#7a0000">
   <link rel="canonical" href="https://amandahernow.github.io/BlackJackCounterTool/about.html">
   <meta property="og:type" content="website">
   <meta property="og:title" content="About Blackjack Counter Tool">
-  <meta property="og:description" content="Learn about Blackjack Counter Tool, its independent development, privacy approach, and related projects.">
+  <meta property="og:description" content="An educational browser practice tool for learning and comparing blackjack card-counting systems. Not intended for casino or real-money play.">
   <meta property="og:url" content="https://amandahernow.github.io/BlackJackCounterTool/about.html">
   <meta property="og:site_name" content="Blackjack Counter Tool">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="About Blackjack Counter Tool">
-  <meta name="twitter:description" content="An independently developed browser-based blackjack counting practice tool by Amanda Hernow.">
+  <meta name="twitter:description" content="Learn and practise blackjack card-counting systems with an educational browser tool. Not intended for live gambling.">
   <title>About Blackjack Counter Tool | Amanda Hernow</title>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "Blackjack Counter Tool",
-    "applicationCategory": "GameApplication",
+    "applicationCategory": "EducationalApplication",
     "operatingSystem": "Web Browser",
     "url": "https://amandahernow.github.io/BlackJackCounterTool/BJCounterTool.html",
     "author": {"@type": "Person", "name": "Amanda Hernow"},
-    "description": "A browser-based blackjack card-counting practice tool with eight counting systems."
+    "description": "An educational browser practice tool for learning, practising, and understanding eight blackjack card-counting systems. It is not intended for use during casino play or real-money gambling."
   }
   </script>
   <style>
@@ -56,6 +56,20 @@
     .card p:last-child { margin-bottom:0; }
     .card ul { margin:0; padding-left:1.2rem; color:var(--muted); }
     .wide { grid-column:1/-1; }
+    .practice-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 24px; }
+    .developer-card { display:flex; align-items:center; gap:24px; }
+    .developer-photo { display:block; width:clamp(104px,15vw,164px); aspect-ratio:1; flex:none; border-radius:50%; object-fit:cover; object-position:center; border:4px solid var(--line); box-shadow:0 8px 24px rgba(60,0,0,.16); }
+    .developer-copy { min-width:0; }
+    .developer-name { margin:0 0 2px; font-size:1.55rem; line-height:1.2; }
+    .developer-role { margin:0 0 12px; color:var(--accent); font-weight:700; }
+    .project-card { display:flex; flex-direction:column; gap:12px; }
+    .project-card-heading { display:flex; align-items:center; gap:14px; }
+    .project-icon-link { width:76px; height:76px; display:grid; place-items:center; flex:none; border:1px solid var(--line); background:#fff; }
+    .project-icon { display:block; width:100%; height:100%; object-fit:contain; padding:4px; }
+    .project-card-heading h3 { margin:0; }
+    .project-card-heading h3 a { color:var(--ink); text-decoration:none; }
+    .project-card-heading h3 a:hover { color:var(--accent); text-decoration:underline; }
+    .primary-project-link { align-self:flex-start; font-weight:750; }
     .project-links { display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; }
     .project-links a { display:inline-block; padding:7px 11px; border:1px solid var(--line); background:var(--surface-2); font-weight:650; }
     .support { text-align:center; }
@@ -64,7 +78,7 @@
     .small { font-size:.88rem; }
     footer { padding:20px 24px 32px; border-top:1px solid var(--line); text-align:center; color:var(--muted); font-size:.9rem; }
     footer nav { display:flex; justify-content:center; flex-wrap:wrap; gap:18px; margin-bottom:12px; }
-    @media (max-width:640px) { .site-nav { align-items:flex-start; flex-direction:column; padding:14px 18px; } .nav-links { gap:12px 16px; } .hero { padding:48px 20px; } .content { width:min(100% - 24px,1000px); padding-top:20px; } .card-grid { grid-template-columns:1fr; gap:12px; } .wide { grid-column:auto; } }
+    @media (max-width:640px) { .site-nav { align-items:flex-start; flex-direction:column; padding:14px 18px; } .nav-links { gap:12px 16px; } .hero { padding:48px 20px; } .content { width:min(100% - 24px,1000px); padding-top:20px; } .card-grid { grid-template-columns:1fr; gap:12px; } .wide { grid-column:auto; } .practice-list { grid-template-columns:1fr; gap:6px; } .developer-card { align-items:flex-start; gap:15px; } .developer-photo { width:92px; } .project-icon-link { width:64px; height:64px; } .project-card-heading { gap:10px; } }
     @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
   </style>
 </head>
@@ -75,9 +89,9 @@
   </nav>
   <header class="hero">
     <div class="hero-inner">
-      <span class="eyebrow">Independent browser software</span>
-      <h1>Practice the count. Understand the tool.</h1>
-      <p>Blackjack Counter Tool is a free, browser-based practice aid built by Amanda Hernow. It keeps counting straightforward and makes its methods and limits visible.</p>
+      <span class="eyebrow">An educational practice tool</span>
+      <h1>Learn how card-counting systems work.</h1>
+      <p>Blackjack Counter Tool helps you practise and understand different counting methods: assign values to cards, follow how counts evolve, and see how shoe size affects True Count.</p>
       <a class="button-link" href="BJCounterTool.html">Open Blackjack Counter Tool</a>
     </div>
   </header>
@@ -85,8 +99,19 @@
     <div class="card-grid">
       <section class="card wide" aria-labelledby="about-tool">
         <h2 id="about-tool">About Blackjack Counter Tool</h2>
-        <p>This independently developed tool helps you practise tracking blackjack cards in a browser. It supports eight counting systems, shoes from 1–8 decks, Running Count and True Count, KO and Red 7 references, a half-deck remaining-shoe display, ace side counting where applicable, and educational betting suggestions.</p>
-        <p>The counter requires no account and has no advertising or behavioral tracking. A downloaded copy of the self-contained web app can be used offline after the file is available on your device. The suggestions are practice aids; they do not promise a winning result or replace informed decisions about a particular game.</p>
+        <p>Blackjack Counter Tool is an independently developed browser application for learning, practising, and understanding card-counting systems. It supports eight systems, shoes from 1–8 decks, Running Count and True Count, KO and Red 7 references, a half-deck remaining-shoe display, ace side counting where applicable, and educational betting examples.</p>
+        <p>It requires no account and has no advertising or behavioral tracking. A downloaded copy can be used offline when the complete project folder, including its local <code>assets/</code> directory, is kept together on your device. Its displays are learning aids and do not guarantee gambling outcomes.</p>
+      </section>
+      <section class="card wide" aria-labelledby="practice-purpose"><h2 id="practice-purpose">Designed for practice, not live gambling</h2>
+        <p>This tool is intended to help people understand blackjack card-counting methods in a learning and practice setting. It is not intended for casino tables, live blackjack games, or real-money play. Betting suggestions are educational examples, not instructions for real-money wagering.</p>
+        <ul class="practice-list">
+          <li>Learn how different counting systems work.</li>
+          <li>Practise assigning values to cards.</li>
+          <li>Observe how counts change throughout a shoe.</li>
+          <li>Understand True Count and unbalanced-system differences.</li>
+          <li>See how remaining shoe size affects True Count.</li>
+          <li>Explore educational betting examples.</li>
+        </ul>
       </section>
       <section class="card" aria-labelledby="why-built"><h2 id="why-built">Why I built it</h2>
         <p>I believe useful software should be accessible without forcing people into unnecessary subscriptions. I built Blackjack Counter Tool as a straightforward practice tool that you can use for free, without creating an account, watching advertisements, or giving away personal information.</p>
@@ -105,20 +130,35 @@
         <p><a href="privacy_policy.html">Read the full Privacy Policy</a> for the hosting and external-link details.</p>
       </section>
       <section class="card" aria-labelledby="how-it-works"><h2 id="how-it-works">How the tool works</h2>
-        <p>Select a shoe size and counting system, then enter cards as they are dealt. The app updates card totals and count references in the browser. Balanced systems use precise remaining-card counts for True Count; KO and Red 7 use their own running-count references. The Help sections explain the implemented betting suggestions and their limitations.</p>
+        <p>In a practice exercise, select a shoe size and counting system, then simulate entering cards one by one. The app updates card totals and count references in the browser. Balanced systems use precise remaining-card counts for True Count; KO and Red 7 use their own running-count references. The Help sections explain the educational betting examples and their limitations.</p>
       </section>
-      <section class="card" aria-labelledby="developer"><h2 id="developer">About the developer</h2>
-        <p><strong>Amanda Hernow — Independent developer.</strong> I build practical software with a focus on usability, privacy, accessibility, and avoiding unnecessary subscription-based features.</p>
+      <section class="card wide developer-card" aria-labelledby="developer">
+        <img class="developer-photo" src="assets/amanda.jpg" alt="Amanda Hernow, developer of Blackjack Counter Tool" width="640" height="640" loading="lazy" decoding="async">
+        <div class="developer-copy">
+          <h2 class="developer-name" id="developer">Amanda Hernow</h2>
+          <p class="developer-role">Independent developer</p>
+          <p>I build useful, accessible software with privacy as a default, not an expensive extra. I avoid unnecessary subscription fees and advertising-driven design, and I do not sell personal information. I aim to be clear about how my applications work and what their limitations are.</p>
+        </div>
       </section>
       <section class="card wide" aria-labelledby="projects"><h2 id="projects">Other projects</h2>
         <div class="card-grid">
-          <section class="card" aria-labelledby="encryption-project"><h3 id="encryption-project">Text Encryption and Decryption Utility Tool</h3>
-            <p>A separate browser utility for encrypting and decrypting text locally, designed to help protect user privacy.</p>
-            <div class="project-links"><a href="https://amandahernow.github.io/EncryptionDecryptionUtilityTool/" target="_blank" rel="noopener noreferrer">Use the encryption utility</a><a href="https://github.com/AmandaHernow/EncryptionDecryptionUtilityTool" target="_blank" rel="noopener noreferrer">View its GitHub repository</a></div>
+          <section class="card project-card" aria-labelledby="encryption-project">
+            <div class="project-card-heading">
+              <a class="project-icon-link" href="https://amandahernow.github.io/EncryptionDecryptionUtilityTool/" target="_blank" rel="noopener noreferrer" aria-label="Open Text Encryption and Decryption Utility Tool"><img class="project-icon" src="assets/encryption-utility-icon.png" alt="Text Encryption and Decryption Utility Tool icon"></a>
+              <h3 id="encryption-project"><a href="https://amandahernow.github.io/EncryptionDecryptionUtilityTool/" target="_blank" rel="noopener noreferrer">Text Encryption and Decryption Utility Tool</a></h3>
+            </div>
+            <p>A separate utility that encrypts and decrypts text locally in the browser.</p>
+            <a class="primary-project-link" href="https://amandahernow.github.io/EncryptionDecryptionUtilityTool/" target="_blank" rel="noopener noreferrer">Open the utility</a>
+            <div class="project-links"><a href="https://github.com/AmandaHernow/EncryptionDecryptionUtilityTool" target="_blank" rel="noopener noreferrer">View GitHub repository</a></div>
           </section>
-          <section class="card" aria-labelledby="hernownet-project"><h3 id="hernownet-project">HernowNet</h3>
+          <section class="card project-card" aria-labelledby="hernownet-project">
+            <div class="project-card-heading">
+              <a class="project-icon-link" href="https://hernow.net" target="_blank" rel="noopener noreferrer" aria-label="Visit HernowNet"><img class="project-icon" src="assets/hernownet-icon.png" alt="HernowNet application icon"></a>
+              <h3 id="hernownet-project"><a href="https://hernow.net" target="_blank" rel="noopener noreferrer">HernowNet</a></h3>
+            </div>
             <p>HernowNet is a privacy-focused personal software platform built around encrypted personal tools, including a Note Vault. It is under active development, so functionality may change.</p>
-            <div class="project-links"><a href="https://hernow.net" target="_blank" rel="noopener noreferrer">Visit HernowNet</a><a href="https://hernow.net/about" target="_blank" rel="noopener noreferrer">About HernowNet</a></div>
+            <a class="primary-project-link" href="https://hernow.net" target="_blank" rel="noopener noreferrer">Visit HernowNet</a>
+            <div class="project-links"><a href="https://hernow.net/about" target="_blank" rel="noopener noreferrer">About HernowNet</a></div>
           </section>
         </div>
       </section>

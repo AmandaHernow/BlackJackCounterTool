@@ -9,20 +9,20 @@
   <meta http-equiv="Expires" content="0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blackjack Card Counting Tool | Free Online Blackjack Counter</title>
-  <meta name="description" content="Free offline blackjack card counting tool with 1–8 deck shoes, decks remaining, accurate true count, eight counting systems, ace side count, and betting guidance.">
+  <meta name="description" content="Free educational blackjack card-counting practice tool with eight systems, 1–8 deck shoes, precise True Count, and learning examples. Not intended for live casino or real-money play.">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   <meta name="author" content="Amanda Hansson Hernow">
   <meta name="theme-color" content="#7a0000">
   <link rel="canonical" href="https://amandahernow.github.io/BlackJackCounterTool/BJCounterTool.html">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Blackjack Card Counting Tool">
-  <meta property="og:description" content="Free offline blackjack card counting practice tool with 1–8 deck shoes, decks remaining, true count conversion, ace side count tracking, and betting guidance.">
+  <meta property="og:description" content="Learn and practise eight blackjack card-counting systems with precise shoe tracking. Educational use only; not intended for casino or real-money play.">
   <meta property="og:url" content="https://amandahernow.github.io/BlackJackCounterTool/BJCounterTool.html">
   <meta property="og:site_name" content="Blackjack Counter Tool">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Blackjack Card Counting Tool">
-  <meta name="twitter:description" content="Free offline blackjack card counting practice tool with 1–8 deck shoes, decks remaining, true count, and eight systems.">
+  <meta name="twitter:description" content="Free educational practice tool for learning blackjack card-counting systems. Not intended for live casino or real-money play.">
   <meta name="google-site-verification" content="idjCoV1cpdkScdzsT6ueb69RU5e9Sec1jk3MIDmB9Ik" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iIzAwMDAwMCIvPgogIDxyZWN0IHg9IjEiIHk9IjEiIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgcng9IjMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2IzMDAwMCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8cGF0aCBkPSJNMTYgNSBDMTYgNSwgNyAxMSwgNyAxNyBDNyAyMC41IDkuNSAyMiAxMiAyMSBDMTEgMjMgMTAgMjUgOCAyNiBMMjQgMjYgQzIyIDI1IDIxIDIzIDIwIDIxIEMyMi41IDIyIDI1IDIwLjUgMjUgMTcgQzI1IDExIDE2IDUgMTYgNSBaIiBmaWxsPSIjZmZmZmZmIi8+CiAgPHJlY3QgeD0iMTQiIHk9IjI0IiB3aWR0aD0iNCIgaGVpZ2h0PSIzIiByeD0iMSIgZmlsbD0iI2ZmZmZmZiIvPgo8L3N2Zz4=">
   <script type="application/ld+json">
@@ -30,12 +30,12 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "Blackjack Card Counting Tool",
-    "applicationCategory": "GameApplication",
+    "applicationCategory": "EducationalApplication",
     "operatingSystem": "Web Browser",
     "browserRequirements": "Requires JavaScript. Works in modern desktop and mobile browsers.",
     "url": "https://amandahernow.github.io/BlackJackCounterTool/BJCounterTool.html",
     "downloadUrl": "https://github.com/AmandaHernow/BlackJackCounterTool/releases/latest",
-    "description": "Free offline blackjack card counting practice tool with 1–8 deck shoes, decks remaining, accurate true count conversion, ace side count tracking, and betting guidance.",
+    "description": "Free educational practice tool for learning and understanding eight blackjack card-counting systems. Not intended for use at casino tables or during real-money play.",
     "author": {
       "@type": "Person",
       "name": "Amanda Hansson Hernow",
@@ -57,7 +57,8 @@
       "Shoe size selection from 1 to 8 decks with cards and decks remaining",
       "Ace side count tracking for supported systems",
       "Offline browser use with no external dependencies",
-      "Betting suggestion guidance and action log"
+      "Educational betting examples and action log",
+      "Practice use only; not intended for casino or real-money play"
     ]
   }
   </script>
@@ -263,6 +264,7 @@
 
     /* ── Footer ── */
     .footer { text-align: center; font-size: 12px; color: var(--txt-main); padding: 10px 12px; border-top: 1px solid var(--brd-sep); flex-shrink: 0; }
+    .footer-practice-note { margin-bottom: 2px; color: var(--txt-sub); font-size: 11px; line-height: 1.35; }
 
     /* ── Help modal ── */
     #helpModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.78); z-index: 9999; padding: 24px; }
@@ -297,6 +299,16 @@
     .support-qr { display: block; width: min(180px, 60vw); height: auto; margin: 14px auto; border: 2px solid var(--brd-main); background: #fff; }
     .support-button { display: inline-block; padding: 11px 18px; background: var(--bg-btn); border: 1px solid var(--brd-btn); color: #fff; font-weight: 700; text-decoration: none; }
     .support-button:hover { background: var(--brd-main); }
+    .practice-notice { border-left: 3px solid var(--brd-btn); background: var(--bg-infobox); color: var(--txt-main); font-size: 13px; font-weight: 700; }
+    .developer-help { display: flex; align-items: center; gap: 12px; }
+    .developer-help > div { min-width: 0; overflow-wrap: anywhere; }
+    .developer-help-photo { display: block; width: 64px; height: 64px; object-fit: cover; object-position: center; border-radius: 50%; border: 2px solid var(--brd-main); flex: none; }
+    .help-project-heading { display: flex; align-items: center; gap: 9px; margin-bottom: 8px; }
+    .help-project-icon-link { display: block; width: 38px; height: 38px; flex: none; border: 1px solid var(--brd-card); background: #fff; }
+    .help-project-icon { width: 100%; height: 100%; object-fit: contain; padding: 2px; display: block; }
+    .help-project-heading h3 { margin: 0; }
+    .help-project-heading h3 a { color: var(--txt-main); text-decoration: none; }
+    .help-project-heading h3 a:hover { text-decoration: underline; }
 
     /* ── System cards ── */
     .sys-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; margin-bottom: 10px; }
@@ -629,7 +641,7 @@
       </div>
     </div>
 
-    <div class="footer">© 2026 Amanda Hernow. All rights reserved. Web Version 2.0</div>
+    <div class="footer"><div class="footer-practice-note">Practice and educational use only — not intended for live casino or real-money play.</div>© 2026 Amanda Hernow. All rights reserved. Web Version 2.0</div>
   </div>
 
   <!-- ══════════════════ HELP MODAL ══════════════════ -->
@@ -652,10 +664,11 @@
 
         <div id="usagePanel" class="help-panel active" role="tabpanel" aria-labelledby="usageTab" tabindex="0">
           <p class="help-section-title">How to Use the Counter</p>
+          <div class="info-box practice-notice">This tool is for learning and practice. It is not intended for casino tables, live blackjack games, or real-money play.</div>
           <div class="step-list">
             <div class="step-item"><div class="step-num">1</div><div class="step-text"><strong>Select shoe size</strong> — choose 1–8 decks, including the common 8-deck shoe. Changing the size starts a fresh shoe for the selected system.</div></div>
             <div class="step-item"><div class="step-num">2</div><div class="step-text"><strong>Choose a system</strong> — click the tab for the counting system you want to use. The buttons and display update automatically.</div></div>
-            <div class="step-item"><div class="step-num">3</div><div class="step-text"><strong>Press buttons as cards are dealt</strong> — each button adjusts the running count by its value. The large number in the centre is always the current running count.</div></div>
+            <div class="step-item"><div class="step-num">3</div><div class="step-text"><strong>Enter cards in a practice exercise</strong> — choose the matching card button as cards are revealed. Watch the Running Count, True Count, and other indicators change as you practise.</div></div>
             <div class="step-item"><div class="step-num">4</div><div class="step-text"><strong>Read the shoe and count stats</strong> — Cards Left and Decks Left update automatically after each counted card. <code>= 8</code> means exactly eight decks remain; <code>&lt; 8</code> means fewer than eight but more than 7.5. Likewise, <code>= 7.5</code> is exactly seven and a half decks, while <code>&lt; 7.5</code> means fewer than 7.5 but more than seven. Undo restores the previous shoe state; New Shoe and Clear reset it.</div></div>
             <div class="step-item"><div class="step-num">5</div><div class="step-text"><strong>Read the count and Betting Suggestion</strong> — balanced systems show True Count; KO and Red 7 use their running-count thresholds. The suggestion depends on the selected system. Open Betting or Expert Notes for the exact rules and examples.</div></div>
             <div class="step-item"><div class="step-num">6</div><div class="step-text"><strong>Ace button (where shown)</strong> — in Hi-Opt I, Hi-Opt II, and Omega II, aces are tracked separately. Pressing Ace does not change the running count but updates the ace density stats.</div></div>
@@ -685,6 +698,7 @@
 
         <div id="bettingPanel" class="help-panel" role="tabpanel" aria-labelledby="bettingTab" tabindex="0">
           <p class="help-section-title">How Betting Suggestions Are Calculated</p>
+          <div class="info-box practice-notice"><strong>Learning examples only:</strong> betting suggestions illustrate how a count can relate to a theoretical betting ramp. They do not calculate your actual advantage at a particular table, account for every rule, penetration, bankroll, table limit, or risk, and are not instructions for real-money wagering. This tool is not intended for live casino play.</div>
           <div class="info-box"><strong>Balanced systems — Hi-Lo, Hi-Opt I, Hi-Opt II, Zen, Omega II, Wong Halves:</strong> all six currently share this application-specific training ramp, using the unrounded True Count (TC = running count ÷ max(exact decks remaining, 0.5)). TC ≥ +4: <b>Max</b>; +3 ≤ TC &lt; +4: <b>High</b>; +2 ≤ TC &lt; +3: <b>Raise</b>; +1 ≤ TC &lt; +2: <b>Slight Increase</b>; 0 ≤ TC &lt; +1: <b>Standard</b>; −2 &lt; TC &lt; 0: <b>Minimum</b>; TC ≤ −2: <b>Sit Out / Minimum</b>. The common bands do not account for differences in betting correlation, rules, penetration, or bankroll, and are not a validated or optimized spread.</div>
           <div class="info-box"><strong>KO:</strong> the standard KO IRC is 4 − 4 × starting decks and the pivot is +4. For the published key counts available for 1, 2, 4, 6, and 8 decks (+2, +1, −1, −4, −6), this app says <b>Minimum</b> below key, <b>Raise</b> from key up to but not including +4, and <b>Max</b> at +4 or above. KO Rookie starts increasing at the key; its source describes the maximum bet as at or near pivot. Standard published key counts were not established here for 3, 5, and 7 decks. For those sizes, this app uses an explicitly conservative fallback: Minimum below +4, Max at/above +4, with no key count claimed.</div>
           <div class="info-box"><strong>Red 7:</strong> IRC = −2 × starting decks and pivot = 0. The app uses Arnold Snyder's published “Shoe” unit guide for 3–8 decks, and its 1-deck and 2-deck columns for those shoe sizes. At each listed RC threshold, the listed unit level applies until the next threshold: 1 deck: below 0 = 1 unit, 0 = 2, +2 = 4; 2 decks: below 0 = 1, 0 = 2, +4 = 3, +6 = 4, +8 = 6; 3–8 decks: below 0 = 1, 0 = 2, +6 = 3, +8 = 4, +12 = 6, +16 = 8. Zero is both the pivot and the first raise point in this convention; it is not a KO key count. The suggestion category labels summarize unit levels: 1 Minimum, 2 Slight Increase, 3 Raise, 4 High, 6 High (or Max where it is the selected table's highest level), and 8 Max. The note shows the exact unit count. The source calls these guidelines and explains that game rules, penetration, bankroll, limits, and spread constraints affect sizing.</div>
@@ -704,16 +718,17 @@
           <div class="info-box"><strong>Half-deck estimation:</strong> blackjack players often estimate the remaining shoe in half-deck increments. The Decks Left indicator shows the interval containing the exact remaining amount: <code>=</code> marks an exact whole- or half-deck boundary, and <code>&lt;</code> means fewer decks remain than the next half-deck boundary. This avoids suggesting an exact amount when the shoe is between boundaries. Internally, remaining decks are calculated from the exact number of cards left (cards ÷ 52); the display rounding never changes True Count, which continues to use precise fractional decks remaining. Near an empty shoe, the calculation divisor has a 0.5-deck minimum for stability, while the indicator still reports the actual amount down to <code>= 0</code>.</div>
           <div class="info-box"><strong>Balanced and unbalanced counts:</strong> balanced tags sum to zero across a complete deck, so their running count is converted to True Count by dividing by exact decks remaining. Hi-Lo, Hi-Opt I/II, Zen, Omega II, and Wong Halves use that path here. KO and Red 7 have a net positive tag total per deck, so the selected IRC offsets that natural drift; their running counts are read against their system's published key/pivot conventions without the app's balanced-count division.</div>
           <div class="info-box"><strong>IRC, key count, and pivot:</strong> IRC is the starting running-count offset after a shuffle. A KO key count is its published first betting threshold; its +4 pivot is a separate reference where KO's running count corresponds to approximately TC +4 across shoe sizes. Red 7's adjusted IRC makes its pivot 0; the original guide describes this as about a 1% increase over the game's starting expectation and first raises the bet at zero. A key count and a pivot answer different questions and must not be substituted for one another. KO key-count data for 3, 5, and 7 decks was not established in the references used here, so the app shows no fabricated key and applies only the conservative +4 pivot fallback at those sizes.</div>
-          <div class="info-box"><strong>Betting correlation and limitations:</strong> systems differ in how well tag values track the remaining cards' effect on betting (betting correlation), playing decisions (playing efficiency), and insurance (insurance correlation). Different counts and true-count conventions can therefore give different signals. This app intentionally applies one simplified ramp to all six balanced systems and distinct sourced guidelines to KO and Red 7; it does not simulate a specific table's expected value or produce bankroll-sized bets. The bet suggestion does not account for table rules, penetration, bankroll, or risk tolerance. Index plays are not implemented.</div>
+          <div class="info-box"><strong>Betting correlation and limitations:</strong> systems differ in how well tag values track the remaining cards' effect on betting (betting correlation), playing decisions (playing efficiency), and insurance (insurance correlation). Different counts and true-count conventions can therefore give different signals. This app intentionally applies one simplified ramp to all six balanced systems and distinct sourced guidelines to KO and Red 7; it does not simulate a specific table's expected value or produce bankroll-sized bets. The bet suggestion does not account for table rules, penetration, bankroll, or risk tolerance. A theoretical ramp is not equivalent to conditions at a real casino table. Labels such as <b>Max</b> are training categories, not advice about an appropriate wager. Index plays are not implemented.</div>
           <div class="info-box"><strong>Ace side count:</strong> Ace density for Hi-Opt I, Hi-Opt II, and Omega II compares remaining aces with the number expected from exact remaining cards. Ace density is shown as additional information and does not automatically change the betting recommendation.</div>
         </div>
 
         <div id="aboutPanel" class="help-panel" role="tabpanel" aria-labelledby="aboutTab" tabindex="0">
           <p class="help-section-title">About Blackjack Counter Tool</p>
+          <div class="info-box practice-notice">This project is for learning counting systems, understanding how counts evolve, comparing methods, practising card values and count tracking, and seeing how remaining shoe size affects True Count. It is not designed for use during actual casino play or real-money gambling.</div>
           <div class="about-help-grid">
             <section class="about-help-card">
-              <h3>A focused practice tool</h3>
-              <p>Blackjack Counter Tool is an independently developed browser-based practice tool. It supports eight counting systems, 1–8 deck shoes, Running Count and True Count, KO and Red 7 references, a half-deck shoe display, ace side counting where applicable, and educational betting suggestions. It works offline when opened from a local copy; no account is required.</p>
+              <h3>A tool for learning</h3>
+              <p>Blackjack Counter Tool is an independently developed browser tool for learning and practising card-counting systems. It supports eight systems, 1–8 deck shoes, Running Count and True Count, KO and Red 7 references, a half-deck shoe display, ace side counting where applicable, and educational betting examples. A local copy works offline; no account is required.</p>
             </section>
             <section class="about-help-card">
               <h3>Why I built it</h3>
@@ -723,20 +738,20 @@
               <h3>Privacy and independence</h3>
               <p>Counting happens in your browser. The app has no advertising or behavioral tracking, and it does not upload counting sessions. Your theme preference is stored locally. External project and donation links open only when you choose them. See the <a class="help-link" href="privacy_policy.html">Privacy Policy</a> for details.</p>
             </section>
-            <section class="about-help-card">
-              <h3>Amanda Hernow — Independent developer</h3>
-              <p>I build practical software with a focus on usability, privacy, accessibility, and avoiding unnecessary subscription-based features.</p>
+            <section class="about-help-card developer-help">
+              <img class="developer-help-photo" src="assets/amanda.jpg" alt="Amanda Hernow, developer of Blackjack Counter Tool" width="640" height="640" loading="lazy" decoding="async">
+              <div><h3>Amanda Hernow</h3><p><strong>Independent developer.</strong> I build useful software with privacy as a default, avoid unnecessary subscriptions and ad-driven design, and aim to be transparent about how applications work. I do not sell personal information.</p><p><a class="help-link" href="mailto:bjcountertoolandroidsupport@hernow.net">Email project support</a></p></div>
             </section>
           </div>
           <h3 style="margin:18px 0 10px">Related projects</h3>
           <div class="related-projects">
             <section class="related-project-card">
-              <h3>Text Encryption and Decryption Utility Tool</h3>
-              <p>A separate utility for encrypting and decrypting text locally, designed with user privacy in mind. <a class="help-link" href="https://amandahernow.github.io/EncryptionDecryptionUtilityTool/" target="_blank" rel="noopener noreferrer">Open the utility</a>.</p>
+              <div class="help-project-heading"><a class="help-project-icon-link" href="https://amandahernow.github.io/EncryptionDecryptionUtilityTool/" target="_blank" rel="noopener noreferrer" aria-label="Open Text Encryption and Decryption Utility Tool"><img class="help-project-icon" src="assets/encryption-utility-icon.png" alt="Text Encryption and Decryption Utility Tool icon" loading="lazy" decoding="async"></a><h3><a href="https://amandahernow.github.io/EncryptionDecryptionUtilityTool/" target="_blank" rel="noopener noreferrer">Text Encryption and Decryption Utility Tool</a></h3></div>
+              <p>A separate utility for encrypting and decrypting text locally in the browser. <a class="help-link" href="https://amandahernow.github.io/EncryptionDecryptionUtilityTool/" target="_blank" rel="noopener noreferrer">Open the utility</a>.</p>
             </section>
             <section class="related-project-card">
-              <h3>HernowNet</h3>
-              <p>A privacy-focused personal software platform built around encrypted personal tools, including a Note Vault. It is under active development, and functionality may change. <a class="help-link" href="https://hernow.net" target="_blank" rel="noopener noreferrer">Visit HernowNet</a>.</p>
+              <div class="help-project-heading"><a class="help-project-icon-link" href="https://hernow.net" target="_blank" rel="noopener noreferrer" aria-label="Visit HernowNet"><img class="help-project-icon" src="assets/hernownet-icon.png" alt="HernowNet application icon" loading="lazy" decoding="async"></a><h3><a href="https://hernow.net" target="_blank" rel="noopener noreferrer">HernowNet</a></h3></div>
+              <p>A privacy-focused personal software platform with encrypted personal tools, including a Note Vault. It is under active development and its features may change. <a class="help-link" href="https://hernow.net" target="_blank" rel="noopener noreferrer">Visit HernowNet</a> · <a class="help-link" href="https://hernow.net/about" target="_blank" rel="noopener noreferrer">About HernowNet</a>.</p>
             </section>
           </div>
           <div class="info-box" style="margin-top:12px"><strong>Project links:</strong> <a class="help-link" href="about.html">Full About page</a> · <a class="help-link" href="privacy_policy.html">Privacy Policy</a> · <a class="help-link" href="https://github.com/AmandaHernow/BlackJackCounterTool" target="_blank" rel="noopener noreferrer">GitHub Repository</a> · <a class="help-link" href="https://github.com/AmandaHernow/BlackJackCounterTool/releases/latest" target="_blank" rel="noopener noreferrer">Latest Release</a></div>
@@ -748,6 +763,7 @@
             <h3>Enjoying Blackjack Counter Tool?</h3>
             <p>Blackjack Counter Tool is free to use and independently developed. If it helps you practise your card-counting skills, you can support its continued development with a small donation. Every coffee helps me maintain the project and improve it over time.</p>
             <p>Donations are completely optional, and no features are locked behind payment. The button and QR code open PayPal; this app does not process donations.</p>
+            <p>For questions, email <a class="help-link" href="mailto:bjcountertoolandroidsupport@hernow.net">bjcountertoolandroidsupport@hernow.net</a>.</p>
             <img class="support-qr" src="assets/paypal-qr.png" alt="QR code linking to Amanda Hernow’s PayPal donation page">
             <a class="support-button" href="https://www.paypal.me/AmandaHernow" target="_blank" rel="noopener noreferrer">Buy Me a Coffee <span class="sr-only">via PayPal (opens in a new tab)</span></a>
             <p style="margin-top:10px;font-size:12px">PayPal is a separate service and applies its own privacy practices.</p>
@@ -756,10 +772,9 @@
 
         <div id="disclaimerPanel" class="help-panel" role="tabpanel" aria-labelledby="disclaimerTab" tabindex="0">
           <p class="help-section-title">Disclaimer</p>
-          <div class="info-box"><strong>Legality:</strong> card counting using only your own brain is not illegal in most jurisdictions. Casinos are private property and may ask you to leave, restrict your bets, or ban you if they suspect counting. This varies by location.</div>
-          <div class="info-box"><strong>No guarantee of winnings:</strong> card counting shifts the mathematical edge slightly in your favour over a very large number of hands. It does not guarantee a win on any individual session or hand. Short-term variance can be severe even with a positive edge.</div>
-          <div class="info-box"><strong>What this tool does not replace:</strong> memorised basic strategy, proper bankroll management, game selection, bet spread discipline, and camouflage play. Using a count without solid basic strategy will not produce a meaningful advantage.</div>
-          <div class="info-box muted">This tool is for personal practice and training only. Use it responsibly and in accordance with the rules and policies of wherever you play.</div>
+          <div class="info-box practice-notice">This tool is intended for educational and practice purposes only. It is not designed for use inside casinos, during live blackjack games, or while gambling with real money.</div>
+          <div class="info-box">The count displays and betting suggestions are learning examples. They do not calculate the actual advantage at a specific table, recommend real-money wagers, or guarantee any gambling outcome.</div>
+          <div class="info-box muted">The app helps you study counting methods and observe how their calculations behave in practice.</div>
         </div>
 
       </div>

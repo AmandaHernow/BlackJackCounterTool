@@ -357,3 +357,48 @@ test('About, Support, privacy, and sitemap links use the intended local pages an
   assert.match(sitemap, /<loc>https:\/\/amandahernow\.github\.io\/BlackJackCounterTool\/about\.html<\/loc>/);
   assert.match(html, /href="about\.html"/);
 });
+
+test('developer and related-project artwork is local, accessible, and linked to the right destinations', () => {
+  const root = path.join(__dirname, '..');
+  const about = fs.readFileSync(path.join(root, 'about.html'), 'utf8');
+  for (const asset of ['amanda.jpg', 'encryption-utility-icon.png', 'hernownet-icon.png', 'paypal-qr.png']) {
+    assert.ok(fs.existsSync(path.join(root, 'assets', asset)), `local asset exists: ${asset}`);
+  }
+  assert.match(about, /class="developer-photo" src="assets\/amanda\.jpg" alt="Amanda Hernow, developer of Blackjack Counter Tool"/);
+  assert.match(html, /class="developer-help-photo" src="assets\/amanda\.jpg" alt="Amanda Hernow, developer of Blackjack Counter Tool"/);
+  assert.match(about, /class="project-icon-link" href="https:\/\/amandahernow\.github\.io\/EncryptionDecryptionUtilityTool\/"[^>]*><img[^>]*src="assets\/encryption-utility-icon\.png"[^>]*alt="Text Encryption and Decryption Utility Tool icon"/);
+  assert.match(about, /class="project-icon-link" href="https:\/\/hernow\.net"[^>]*><img[^>]*src="assets\/hernownet-icon\.png"[^>]*alt="HernowNet application icon"/);
+  assert.match(html, /class="help-project-icon-link" href="https:\/\/amandahernow\.github\.io\/EncryptionDecryptionUtilityTool\/[^>]*><img[^>]*src="assets\/encryption-utility-icon\.png"/);
+  assert.match(html, /class="help-project-icon-link" href="https:\/\/hernow\.net"[^>]*><img[^>]*src="assets\/hernownet-icon\.png"/);
+  assert.match(about, /href="https:\/\/github\.com\/AmandaHernow\/EncryptionDecryptionUtilityTool"/);
+  assert.match(about, /href="https:\/\/hernow\.net\/about"/);
+  assert.match(about, /encrypts and decrypts text locally/);
+  for (const page of [html, about]) {
+    for (const [, attrs] of page.matchAll(/<img\b([^>]*)>/g)) assert.match(attrs, /\balt="[^"]+"/, 'every image has nonempty alt text');
+    assert.doesNotMatch(page, /<img\b[^>]*\bsrc="https?:/i, 'images are not hotlinked');
+    assert.doesNotMatch(page, /<script\b[^>]*\bsrc="https?:/i, 'no external scripts are loaded');
+  }
+  assert.match(html, /href="mailto:bjcountertoolandroidsupport@hernow\.net"/);
+  assert.match(about, /href="mailto:bjcountertoolandroidsupport@hernow\.net"/);
+});
+
+test('practice-only messaging is present throughout the app, About page, metadata, and README', () => {
+  const root = path.join(__dirname, '..');
+  const about = fs.readFileSync(path.join(root, 'about.html'), 'utf8');
+  const readme = fs.readFileSync(path.join(root, 'README.md'), 'utf8');
+  for (const panel of ['usagePanel', 'bettingPanel', 'aboutPanel', 'disclaimerPanel']) {
+    const start = html.indexOf(`id="${panel}"`);
+    const end = html.indexOf('<div id="', start + 10);
+    const content = html.slice(start, end < 0 ? undefined : end);
+    assert.match(content, /practice|educational/i, `${panel} explains educational use`);
+  }
+  assert.match(html, /Practice and educational use only — not intended for live casino or real-money play/);
+  assert.match(html, /not designed for use inside casinos, during live blackjack games, or while gambling with real money/);
+  assert.match(about, /Designed for practice, not live gambling/);
+  assert.match(about, /not intended for casino tables, live blackjack games, or real-money play/i);
+  assert.match(readme, /not intended for use at casino tables, during live blackjack games, or while gambling with real money/i);
+  assert.match(readme, /not instructions for real-money wagering/);
+  assert.match(html, /Free educational blackjack card-counting practice tool/);
+  assert.match(about, /educational browser practice tool for learning, practising, and understanding eight blackjack card-counting systems/);
+  assert.match(about, /not intended for use during casino play or real-money gambling/);
+});
