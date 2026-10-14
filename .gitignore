@@ -15,3 +15,6 @@
 local.properties
 
 /.idea/
+
+# Local Codex handoff notes (never publish)
+/HANDOFF.md
