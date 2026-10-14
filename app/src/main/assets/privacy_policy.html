@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data:; connect-src 'none'; img-src 'self' data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'; form-action 'none';">
+  <meta name="description" content="Privacy policy for the Blackjack Counter Tool web application, including local counting, browser storage, GitHub Pages hosting, and external links.">
+  <meta name="robots" content="index,follow">
+  <meta name="author" content="Amanda Hansson Hernow">
+  <meta name="theme-color" content="#f4f6fa">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iIzAwMDAwMCIvPgogIDxyZWN0IHg9IjEiIHk9IjEiIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgcng9IjMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2IzMDAwMCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8cGF0aCBkPSJNMTYgNSBDMTYgNSwgNyAxMSwgNyAxNyBDNyAyMC41IDkuNSAyMiAxMiAyMSBDMTEgMjMgMTAgMjUgOCAyNiBMMjQgMjYgQzIyIDI1IDIxIDIzIDIwIDIxIEMyMi41IDIyIDI1IDIwLjUgMjUgMTcgQzI1IDExIDE2IDUgMTYgNSBaIiBmaWxsPSIjZmZmZmZmIi8+CiAgPHJlY3QgeD0iMTQiIHk9IjI0IiB3aWR0aD0iNCIgaGVpZ2h0PSIzIiByeD0iMSIgZmlsbD0iI2ZmZmZmZiIvPgo8L3N2Zz4=">
+  <link rel="canonical" href="https://amandahernow.github.io/BlackJackCounterTool/privacy_policy.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Privacy Policy — Blackjack Counter Tool">
+  <meta property="og:description" content="How the Blackjack Counter Tool web application handles browser data and external links.">
+  <meta property="og:url" content="https://amandahernow.github.io/BlackJackCounterTool/privacy_policy.html">
+  <meta property="og:site_name" content="Blackjack Counter Tool">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Privacy Policy — Blackjack Counter Tool">
+  <meta name="twitter:description" content="How the Blackjack Counter Tool web application handles browser data and external links.">
+  <title>Privacy Policy | Blackjack Counter Tool</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f4f6fa;
+      --surface: #ffffff;
+      --ink: #172033;
+      --muted: #536078;
+      --line: #dce2ec;
+      --accent: #6655b5;
+      --accent-strong: #51419b;
+      --accent-rgb: 102, 85, 181;
+      --shadow: 0 12px 32px rgba(24, 36, 60, .07), 0 2px 6px rgba(24, 36, 60, .04);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0c121c;
+        --surface: #141d2a;
+        --ink: #e8edf5;
+        --muted: #b3bfd0;
+        --line: #2c3a4d;
+        --accent: #b8aaff;
+        --accent-strong: #d0c8ff;
+        --accent-rgb: 184, 170, 255;
+        --shadow: 0 16px 38px rgba(0, 0, 0, .22), 0 2px 8px rgba(0, 0, 0, .16);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 16px/1.7 system-ui, -apple-system, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-underline-offset: 3px; overflow-wrap: anywhere; }
+    a:hover { color: var(--accent-strong); }
+    a:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; border-radius: 8px; }
+    .site-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      max-width: 1120px;
+      margin: auto;
+      padding: 12px clamp(18px, 4vw, 40px);
+    }
+    .brand { color: var(--ink); font-size: .92rem; font-weight: 750; text-decoration: none; }
+    .nav-links, .footer-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; }
+    .nav-links a, .footer-nav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 40px;
+      padding: 7px 12px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: .88rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background-color .18s ease, border-color .18s ease, color .18s ease;
+    }
+    .nav-links a:hover, .footer-nav a:hover { background: var(--surface); border-color: var(--line); color: var(--ink); }
+    .nav-links a[aria-current="page"] { background: var(--surface); border-color: var(--line); color: var(--accent); }
+    .hero {
+      border-block: 1px solid var(--line);
+      background: linear-gradient(125deg, rgba(var(--accent-rgb), .09), transparent 48%),
+        radial-gradient(ellipse at 85% 5%, rgba(64, 157, 145, .08), transparent 38%),
+        var(--bg);
+    }
+    .hero-inner { width: min(100% - 40px, 900px); margin: auto; padding: clamp(38px, 6vw, 66px) 0; }
+    .eyebrow { display: inline-block; color: var(--accent); font-size: .76rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+    h1 { max-width: 760px; margin: 9px 0 10px; font-size: clamp(2.15rem, 5vw, 3.6rem); font-weight: 780; line-height: 1.08; letter-spacing: -.045em; }
+    .updated { margin: 0; color: var(--muted); font-size: .94rem; }
+    main { width: min(100% - 40px, 900px); margin: 0 auto; padding: clamp(26px, 5vw, 52px) 0 58px; }
+    .content-flow { display: grid; gap: 16px; }
+    .intro, .policy-section {
+      min-width: 0;
+      padding: clamp(20px, 3.4vw, 30px);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+    .intro { border-color: rgba(var(--accent-rgb), .2); background: linear-gradient(135deg, rgba(var(--accent-rgb), .07), var(--surface) 72%); }
+    h2 { margin: 0 0 12px; color: var(--ink); font-size: clamp(1.18rem, 2vw, 1.4rem); line-height: 1.3; letter-spacing: -.02em; }
+    p { margin: 0 0 13px; color: var(--muted); }
+    p:last-child { margin-bottom: 0; }
+    ul { margin: 8px 0 0; padding-left: 1.25rem; color: var(--muted); }
+    li + li { margin-top: 7px; }
+    code { overflow-wrap: anywhere; }
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      width: min(100% - 40px, 900px);
+      margin: 0 auto;
+      padding: 18px 0 30px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .84rem;
+    }
+    .footer-nav { gap: 5px; }
+    .footer-nav a { min-height: 38px; }
+    @media (max-width: 600px) {
+      .site-nav { align-items: flex-start; flex-direction: column; gap: 5px; padding-block: 10px; }
+      .nav-links { gap: 3px; margin-left: -10px; }
+      .hero-inner { width: min(100% - 32px, 560px); padding-block: 34px; }
+      main { width: min(100% - 28px, 560px); padding-block: 20px 40px; }
+      .content-flow { gap: 12px; }
+      .intro, .policy-section { padding: 20px 18px; border-radius: 14px; }
+      footer { align-items: flex-start; flex-direction: column; width: min(100% - 28px, 560px); padding-bottom: 24px; }
+      .footer-nav { margin-left: -10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Main navigation">
+    <a class="brand" href="index.html">Blackjack Counter Tool</a>
+    <div class="nav-links"><a href="index.html">Back to Counter</a><a href="about.html">About</a><a href="privacy_policy.html" aria-current="page">Privacy</a><a href="https://github.com/AmandaHernow/BlackJackCounterTool" rel="noopener noreferrer">GitHub</a></div>
+  </nav>
+  <header class="hero">
+    <div class="hero-inner">
+      <span class="eyebrow">Blackjack Counter Tool</span>
+      <h1>Privacy Policy</h1>
+      <p class="updated"><strong>Last updated:</strong> October 14, 2026</p>
+    </div>
+  </header>
+  <main>
+    <div class="content-flow">
+      <section class="intro" aria-label="Android app privacy details">
+        <h2>Android app information</h2>
+        <p>The counter and these supporting pages are bundled with the Android app and load locally. Card entries and counting sessions remain in the current WebView page; the optional theme preference is stored in WebView local storage. The app does not upload counting data or request Internet permission. External websites and email apps are opened only when you select their links and are handled by separate apps.</p>
+      </section>
+      <section class="intro">
+        <p>The Android app is a separate implementation. Android-specific storage and navigation details are summarized above; the remaining policy sections describe the static browser version of Blackjack Counter Tool hosted on GitHub Pages and its self-contained HTML file.</p>
+      </section>
+    <section class="policy-section" aria-labelledby="hosting"><h2 id="hosting">Website delivery and hosting</h2>
+      <p>When you open the hosted web page, your browser connects to GitHub Pages to request the site files. GitHub provides the hosting service and may process request data under its own policies. This initial delivery is separate from the counter's calculations.</p>
+      <p>You can also download the web project, including its local image assets, and open <code>BJCounterTool.html</code> from that folder. Counting calculations run in the browser and do not require network requests. Keeping the <code>assets/</code> folder alongside the HTML file also makes the local QR code, developer photograph, and project icons available offline.</p>
+    </section>
+    <section class="policy-section" aria-labelledby="local"><h2 id="local">Counting data and browser storage</h2>
+      <p>The web counter does not upload your cards, running count, shoe state, action log, or counting sessions. Calculations and action-log display happen locally in the current browser page. No account is required.</p>
+      <p>The app stores only your optional dark or light theme preference in browser local storage under the key <code>bj-theme</code>. This preference remains on your device unless you clear browser storage. Counting-session state is not saved to local storage.</p>
+    </section>
+    <section class="policy-section" aria-labelledby="tracking"><h2 id="tracking">Analytics, advertising, and third parties</h2>
+      <p>The web application contains no analytics or behavioral-tracking scripts, advertising trackers, third-party SDKs, or remotely loaded fonts and images. The local PayPal QR image does not contact PayPal when the page loads.</p>
+      <p>Links to GitHub, related projects, email, and PayPal are user-initiated. If you choose to open PayPal, PayPal handles that visit under its own privacy practices. Your browser or email provider may also handle a mail link according to its settings.</p>
+    </section>
+    <section class="policy-section" aria-labelledby="permissions"><h2 id="permissions">Permissions and children</h2>
+      <p>The browser version does not request device permissions. It is not directed at children under 13.</p>
+    </section>
+    <section class="policy-section" aria-labelledby="changes"><h2 id="changes">Changes to this policy</h2>
+      <p>If the web application's data handling or this policy changes, the updated policy will be published at this address with a revised date.</p>
+    </section>
+    <section class="policy-section" aria-labelledby="contact"><h2 id="contact">Contact</h2>
+      <p>Questions about this policy can be sent to <a href="mailto:bjcountertoolandroidsupport@hernow.net">bjcountertoolandroidsupport@hernow.net</a>.</p>
+    </section>
+    </div>
+  </main>
+  <footer><span>© 2026 Amanda Hansson Hernow — All rights reserved.</span><nav class="footer-nav" aria-label="Footer navigation"><a href="about.html">About</a><a href="index.html">Counter</a><a href="https://hernow.net" rel="noopener noreferrer">HernowNet</a><a href="https://github.com/AmandaHernow/BlackJackCounterTool" rel="noopener noreferrer">GitHub Repository</a></nav></footer>
+</body>
+</html>

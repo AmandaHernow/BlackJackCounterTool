@@ -1,6 +1,7 @@
 package net.hernow.bjcountertool
 
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -15,6 +16,11 @@ import androidx.core.view.WindowInsetsCompat
 class MainActivity : AppCompatActivity() {
 
     private lateinit var webView: WebView
+    private val bundledPages = setOf(
+        "/android_asset/index.html",
+        "/android_asset/about.html",
+        "/android_asset/privacy_policy.html"
+    )
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,20 +57,32 @@ class MainActivity : AppCompatActivity() {
                 view: WebView,
                 request: WebResourceRequest
             ): Boolean {
-                val url = request.url.toString()
-                // Open http/https links (PayPal, email etc.) in the system browser
-                if (url.startsWith("https://") || url.startsWith("http://")) {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                    startActivity(intent)
-                    return true
+                if (!request.isForMainFrame) return true
+
+                val uri = request.url
+                when (uri.scheme?.lowercase()) {
+                    "file" -> {
+                        // Only the bundled application pages may navigate inside the WebView.
+                        return uri.host != null || uri.path !in bundledPages
+                    }
+                    "https" -> {
+                        try {
+                            startActivity(Intent(Intent.ACTION_VIEW, uri))
+                        } catch (_: ActivityNotFoundException) {
+                            // No browser is installed; leave the bundled app open.
+                        }
+                        return true
+                    }
+                    "mailto" -> {
+                        try {
+                            startActivity(Intent(Intent.ACTION_SENDTO, uri))
+                        } catch (_: ActivityNotFoundException) {
+                            // No email app is installed; leave the bundled app open.
+                        }
+                        return true
+                    }
                 }
-                // Open mailto links in the email app
-                if (url.startsWith("mailto:")) {
-                    val intent = Intent(Intent.ACTION_SENDTO, Uri.parse(url))
-                    startActivity(intent)
-                    return true
-                }
-                // Block everything else — app stays offline
+                // Other schemes and unbundled local files are blocked.
                 return true
             }
         }
@@ -78,10 +96,11 @@ class MainActivity : AppCompatActivity() {
         // Handle hardware back button — navigate within WebView history
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (webView.canGoBack()) {
-                    webView.goBack()
-                } else {
-                    finish()
+                webView.evaluateJavascript(
+                    "(function(){var modal=document.getElementById('helpModal');if(modal&&modal.style.display==='flex'){document.getElementById('helpClose').click();return true;}return false;})()"
+                ) { closedHelp ->
+                    if (closedHelp == "true") return@evaluateJavascript
+                    if (webView.canGoBack()) webView.goBack() else finish()
                 }
             }
         })
