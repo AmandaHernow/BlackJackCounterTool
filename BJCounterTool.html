@@ -136,6 +136,7 @@
     .titlebar button { background: var(--bg-tab); border: 1px solid var(--brd-main); color: var(--txt-main); cursor: pointer; width: 32px; height: 28px; font-size: 14px; line-height: 1; }
     .titlebar button:hover { background: var(--brd-main); color: #fff; }
     .titlebar button:active { transform: scale(0.98); }
+    .titlebar button:focus-visible { outline: 2px solid var(--brd-btn); outline-offset: 2px; }
 
     /* ── Buttons/tabs shared ── */
     .system-tab, .help-tab, #helpClose { background: var(--bg-tab); border: 1px solid var(--brd-main); color: var(--txt-main); cursor: pointer; }
@@ -180,7 +181,6 @@
     .main-panel { width: min(920px, 100%); margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 14px; min-width: 0; }
 
     /* ── Side panel: toggle (hidden by default, slides in from right) ── */
-    /* Applies to all non-mobile screens; mobile overrides with display:none */
     .side-panel {
       position: fixed;
       top: 40px;
@@ -259,6 +259,7 @@
     .action-log { border: 1px solid var(--brd-main); background: var(--bg-deep); height: 100%; display: flex; flex-direction: column; overflow: hidden; }
     .action-log-header { padding: 12px 14px; border-bottom: 1px solid var(--brd-sep); font-size: 16px; font-weight: 700; color: var(--txt-main); background: var(--bg-raised); }
     .action-log-body { flex: 1; padding: 10px 12px; overflow-y: auto; overflow-x: hidden; font-family: Consolas, Monaco, monospace; font-size: 13px; color: var(--txt-log); line-height: 1.5; white-space: pre-wrap; word-break: break-word; }
+    .action-log-body:focus-visible { outline: 2px solid var(--brd-btn); outline-offset: -2px; }
     .action-line { margin-bottom: 6px; color: var(--txt-log); }
     .log-button-tag { display: inline-block; border: 1px solid var(--brd-main); padding: 0 6px; margin: 0 4px; color: var(--txt-main); background: var(--bg-tab); }
 
@@ -457,12 +458,38 @@
       .stat-value { font-size: clamp(18px, 2.8vw, 24px); }
     }
 
+    /* Keep the log beside the controls in the page flow on narrow viewports. */
+    @media (max-width: 900px) {
+      .side-panel {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        height: min(42vh, 260px);
+        height: min(42dvh, 260px);
+        max-height: 0;
+        flex: none;
+        overflow: hidden;
+        z-index: auto;
+        transition: max-height 0.25s ease;
+        transform: none;
+        opacity: 1;
+        pointer-events: none;
+        border: 0;
+        box-shadow: none;
+      }
+      .side-panel.log-open {
+        max-height: min(42vh, 260px);
+        max-height: min(42dvh, 260px);
+        pointer-events: auto;
+        border-top: 2px solid var(--brd-main);
+      }
+      .side-panel:not(.log-open) > * { pointer-events: none; }
+      .action-log { min-height: 0; }
+      .action-log-body { min-height: 0; overscroll-behavior: contain; }
+    }
+
     /* ══ MOBILE ≤640px ══ */
     @media (max-width: 640px) {
-      /* Hide log panel and toggle entirely on mobile */
-      .side-panel { display: none !important; }
-      #btnLog { display: none !important; }
-
       /* System selector: label + dropdown on one row */
       .system-selector-row { flex-direction: row; align-items: center; gap: 8px; margin: 6px 12px 0; padding-bottom: 5px; flex-wrap: wrap; }
       .system-selector-label { font-size: 14px; font-weight: 700; min-width: unset; white-space: nowrap; }
@@ -517,6 +544,11 @@
       .about-help-card, .related-project-card { padding: 14px; }
     }
     @media (max-width: 480px) {
+      .titlebar { height: 44px; }
+      .titlebar-buttons { flex-shrink: 0; gap: 2px; }
+      .titlebar button { flex: 0 0 36px; width: 36px; height: 36px; }
+      .titlebar .icon { margin-right: 5px; }
+      .titlebar .title { min-width: 0; font-size: 13px; }
       .developer-help { grid-template-columns: 1fr; gap: 12px; }
       .developer-help-photo { width: 112px; height: 112px; margin: 0 auto; }
     }
@@ -533,7 +565,7 @@
       </div>
       <div class="title">Blackjack Counter Tool</div>
       <div class="titlebar-buttons">
-        <button id="btnLog" title="Toggle action log" style="font-size:11px;letter-spacing:-1px;font-family:Consolas,Monaco,monospace;">&gt;_</button>
+        <button id="btnLog" title="Toggle action log" aria-label="Open action log" aria-controls="sidePanel" aria-expanded="false" style="font-size:11px;letter-spacing:-1px;font-family:Consolas,Monaco,monospace;">&gt;_</button>
         <button id="btnTheme" title="Switch theme">☀</button>
         <button id="btnHelp" title="Help">?</button>
         <button id="btnClose" title="Close">X</button>
@@ -652,10 +684,10 @@
       </div>
     </main>
 
-    <div class="side-panel" id="sidePanel">
+    <div class="side-panel" id="sidePanel" role="region" aria-label="Action log" aria-hidden="true">
       <div class="action-log">
         <div class="action-log-header">Latest Actions</div>
-        <div id="actionLogBody" class="action-log-body"></div>
+        <div id="actionLogBody" class="action-log-body" tabindex="0" aria-label="Recent counting actions"></div>
       </div>
     </div>
 
@@ -1297,6 +1329,26 @@
     /* ── Init ── */
     setActiveSystem('hilo');
     render();
+  }());
+  </script>
+  <script>
+  (function () {
+    var button = document.getElementById('btnLog');
+    var panel = document.getElementById('sidePanel');
+    var help = document.getElementById('helpModal');
+
+    button.addEventListener('click', function () {
+      var isOpen = panel.classList.contains('log-open');
+      button.setAttribute('aria-expanded', String(isOpen));
+      button.setAttribute('aria-label', isOpen ? 'Close action log' : 'Open action log');
+      panel.setAttribute('aria-hidden', String(!isOpen));
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key !== 'Escape' || help.style.display === 'flex' || !panel.classList.contains('log-open')) return;
+      button.click();
+      button.focus();
+    }, true);
   }());
   </script>
 </body>

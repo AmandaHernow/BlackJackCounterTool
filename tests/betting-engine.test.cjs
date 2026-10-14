@@ -81,8 +81,8 @@ function createApp() {
     Date,
     console
   };
-  const script = html.match(/<script>([\s\S]*?)<\/script>/)[1];
-  vm.runInNewContext(script, sandbox, { timeout: 2000 });
+  const scripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map((match) => match[1]);
+  scripts.forEach((script) => vm.runInNewContext(script, sandbox, { timeout: 2000 }));
   return { get, elements, systemTabs, helpTabs, documentHandlers, sandbox };
 }
 
@@ -266,18 +266,49 @@ test('counting state, ace information, undo, resets, and system/deck changes rem
 test('action log toggle opens and closes without changing the counting session', () => {
   const app = createApp();
   clickCount(app, '+1');
+  clickCount(app, '+1');
   const before = {
     count: app.get('counterDisplay').textContent,
     cards: app.get('cardsRemainingDisplay').textContent,
-    logEntries: app.get('actionLogBody').children.length
+    entries: app.get('actionLogBody').children.map((entry) => entry._innerHTML)
   };
+  const clickListenerCount = app.get('btnLog').handlers.click.length;
   app.get('btnLog').click();
   assert.equal(app.get('sidePanel').classList.contains('log-open'), true);
+  assert.equal(app.get('btnLog').getAttribute('aria-expanded'), 'true');
+  assert.equal(app.get('sidePanel').getAttribute('aria-hidden'), 'false');
   app.get('btnLog').click();
   assert.equal(app.get('sidePanel').classList.contains('log-open'), false);
+  assert.equal(app.get('btnLog').getAttribute('aria-expanded'), 'false');
+  assert.equal(app.get('sidePanel').getAttribute('aria-hidden'), 'true');
+  app.get('btnLog').click();
+  assert.deepEqual(app.get('actionLogBody').children.map((entry) => entry._innerHTML), before.entries);
   assert.equal(app.get('counterDisplay').textContent, before.count);
   assert.equal(app.get('cardsRemainingDisplay').textContent, before.cards);
-  assert.equal(app.get('actionLogBody').children.length, before.logEntries);
+  assert.equal(app.get('actionLogBody').children.length, 2);
+  assert.equal(app.get('btnLog').handlers.click.length, clickListenerCount, 'opening and reopening do not add event listeners');
+  let prevented = false;
+  for (const handler of app.documentHandlers.keydown || []) handler({ key: 'Escape', preventDefault() { prevented = true; } });
+  assert.equal(app.get('sidePanel').classList.contains('log-open'), false);
+  assert.equal(app.get('btnLog').focused, true);
+  assert.equal(prevented, false);
+});
+
+test('web action log remains visible and uses an in-flow drawer at requested narrow widths', () => {
+  const mobileRules = html.match(/@media \(max-width: 900px\) \{([\s\S]*?)\n    \}/)?.[1];
+  assert.ok(mobileRules, 'narrow viewport drawer rules exist');
+  assert.match(mobileRules, /\.side-panel\s*\{[\s\S]*?position:\s*relative;[\s\S]*?width:\s*100%;[\s\S]*?overflow:\s*hidden/);
+  assert.match(mobileRules, /\.side-panel\.log-open\s*\{[^}]*pointer-events:\s*auto/);
+  assert.match(html, /\.action-log-body\s*\{[^}]*overflow-y:\s*auto/);
+  assert.doesNotMatch(html, /#btnLog\s*\{[^}]*display:\s*none/i);
+  for (const id of ['btnLog', 'btnTheme', 'btnHelp', 'btnClose']) {
+    assert.match(html, new RegExp(`<button id="${id}"`), `${id} is present in the title bar`);
+  }
+  assert.match(html, /id="btnLog"[^>]*aria-controls="sidePanel" aria-expanded="false"/);
+  assert.match(html, /id="sidePanel"[^>]*aria-label="Action log" aria-hidden="true"/);
+  assert.match(html, /id="actionLogBody"[^>]*tabindex="0" aria-label="Recent counting actions"/);
+  for (const width of [320, 375, 390, 430, 640, 768]) assert.ok(width <= 900, `${width}px uses the responsive drawer`);
+  assert.ok(1024 > 900, 'desktop widths retain the fixed right-side panel');
 });
 
 test('card tags, exact fractional True Count, half-deck display, and shoe limits work', () => {
