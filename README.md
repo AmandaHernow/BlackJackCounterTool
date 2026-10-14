@@ -189,7 +189,7 @@ For Hi-Opt I, Hi-Opt II, and Omega II, ace density is shown as additional inform
 
 | Version | Platform | Status |
 |---|---|---|
-| Web Version 1.0 | Browser | ✅ Released |
+| Web Version 3.0 | Browser | ✅ Current |
 | Desktop Version 1.0 | Windows / macOS / Linux (Java) | 🔄 In progress |
 
 ---
