@@ -263,6 +263,23 @@ test('counting state, ace information, undo, resets, and system/deck changes rem
   assert.equal(app.get('actionLogBody').children.length, 0);
 });
 
+test('action log toggle opens and closes without changing the counting session', () => {
+  const app = createApp();
+  clickCount(app, '+1');
+  const before = {
+    count: app.get('counterDisplay').textContent,
+    cards: app.get('cardsRemainingDisplay').textContent,
+    logEntries: app.get('actionLogBody').children.length
+  };
+  app.get('btnLog').click();
+  assert.equal(app.get('sidePanel').classList.contains('log-open'), true);
+  app.get('btnLog').click();
+  assert.equal(app.get('sidePanel').classList.contains('log-open'), false);
+  assert.equal(app.get('counterDisplay').textContent, before.count);
+  assert.equal(app.get('cardsRemainingDisplay').textContent, before.cards);
+  assert.equal(app.get('actionLogBody').children.length, before.logEntries);
+});
+
 test('card tags, exact fractional True Count, half-deck display, and shoe limits work', () => {
   const app = createApp();
   const sampleTags = {

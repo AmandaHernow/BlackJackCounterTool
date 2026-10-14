@@ -1,23 +1,32 @@
 ![banner-readme](https://github.com/user-attachments/assets/cae0c7a2-0fc6-4384-8853-5e2ab4191b3d)
 # Blackjack Counter Tool
 
-> An educational blackjack card-counting practice tool with self-contained counter logic, local supporting images, no runtime dependencies, and offline use from a downloaded project folder.
+> An educational practice tool for learning blackjack card counting, available as a browser-based web app and an Android application. Both versions support eight counting systems and shoes from 1–8 decks.
 
 ---
 
-## Use it instantly — no download needed
+## Web version
 
-The web version is hosted live and works directly in your browser:
+The browser-based version is hosted live and works directly in a modern browser:
 
 **[Open Blackjack Counter Tool](https://amandahernow.github.io/BlackJackCounterTool/BJCounterTool.html)**
 
-No installation or account. The hosted page is delivered by GitHub Pages; a downloaded copy can be opened locally and used offline.
+No installation or account is required. GitHub Pages delivers the hosted files; the counter calculations run locally in your browser.
 
----
+### Download and use offline
 
-## Download
+The [Web Version 3.0 GitHub Release](https://github.com/AmandaHernow/BlackJackCounterTool/releases/tag/web-v3.0) includes `BJCounterTool.html`. To use all supporting About and Help images from a local copy, download the project files and keep the `assets/` folder next to `BJCounterTool.html`, then open the HTML file in a modern browser. The web counter works offline once its files are available locally.
 
-If you prefer to run it locally, download the web project, keep the `assets/` folder next to `BJCounterTool.html`, and open the HTML file in any modern browser.
+## Android version
+
+The Android app is a Kotlin application that displays bundled HTML, CSS, and JavaScript in an Android WebView. Its counter interface is [stored in `app/src/main/assets/index.html`](app/src/main/assets/index.html), and its counting JavaScript is shared with the web implementation. The app bundles its About and Privacy pages and supporting images, so counting and informational pages work offline. The local information pages open separately so returning to them does not replace the live counter page. Android Help also retains its Licence section. External project, support, and email links open only when selected.
+
+Android development uses Android Studio and Gradle. The Android source is included in this repository. The app has an existing [Google Play listing](https://play.google.com/store/apps/details?id=net.hernow.bjcountertool); Android Version 3.0 from the `android` branch is pending Android Studio testing and preparation for a future Play Store update. Android APKs or AABs are not distributed through the web GitHub Releases.
+
+## Downloads
+
+- **Web:** Download the browser HTML from [GitHub Releases](https://github.com/AmandaHernow/BlackJackCounterTool/releases). For the complete offline web project, use the repository files with the `assets/` folder.
+- **Android:** Source code is available in this repository. The [Google Play listing](https://play.google.com/store/apps/details?id=net.hernow.bjcountertool) is the app distribution channel; check it for the currently published version.
 
 ---
 
@@ -57,20 +66,22 @@ If you prefer to run it locally, download the web project, keep the `assets/` fo
 - Undo, New Shoe, and Clear controls
 - Built-in Help covering usage, systems, betting logic, expert notes, About, optional Support, and disclaimer
 - A focused main counter interface; project information and links are available from Help → About
-- Standalone [About page](https://amandahernow.github.io/BlackJackCounterTool/about.html) with project background and related projects
-- Redesigned [Privacy Policy](https://amandahernow.github.io/BlackJackCounterTool/privacy_policy.html) and sitemap entry for the About page
 - Optional PayPal donations through a user-initiated external link; no features are locked behind payment
 
+**Web-specific pages**
+- Standalone [About page](https://amandahernow.github.io/BlackJackCounterTool/about.html) with project background and related projects
+- Redesigned [Privacy Policy](https://amandahernow.github.io/BlackJackCounterTool/privacy_policy.html) and sitemap entry for the About page
+
 **Technical**
-- Open `BJCounterTool.html` directly in any modern browser, with no install or build process
-- Supporting QR, developer, and project images are local files in `assets/`; keep that folder alongside the HTML file for complete offline Help and About content
-- Content Security Policy blocks app-initiated outbound connections and remote resources; external links navigate only when selected
-- No external scripts, fonts, or stylesheets
-- Counting sessions remain in the current page and are not uploaded; only the optional theme preference is saved in local browser storage
+- The web counter opens `BJCounterTool.html` directly in a modern browser, with no install or build process
+- Web QR, developer, and project images are local files in `assets/`; keep that folder alongside the HTML file for complete offline Help and About content
+- The web Content Security Policy blocks app-initiated outbound connections and remote resources; external links navigate only when selected
+- The web pages use no external scripts, fonts, or stylesheets
+- Counting sessions remain in the current page and are not uploaded; the web version stores only the optional theme preference in browser local storage
 
 ---
 
-## Usage
+## Web usage
 
 1. Open the [live version](https://amandahernow.github.io/BlackJackCounterTool/BJCounterTool.html) in your browser, or download and open `BJCounterTool.html` locally
 2. Select the number of decks in the shoe (1–8)
@@ -88,7 +99,7 @@ The built-in Help panel covers each system's card values, betting ramp, expert n
 
 ## About, privacy and support
 
-The [About page](https://amandahernow.github.io/BlackJackCounterTool/about.html) introduces the independently developed project, its privacy and accessibility goals, and related projects: the [Text Encryption and Decryption Utility Tool](https://amandahernow.github.io/EncryptionDecryptionUtilityTool/) and [HernowNet](https://hernow.net), which is under active development. It also links to the [GitHub repository](https://github.com/AmandaHernow/BlackJackCounterTool) and [latest release](https://github.com/AmandaHernow/BlackJackCounterTool/releases/latest).
+In the web version, the [About page](https://amandahernow.github.io/BlackJackCounterTool/about.html) introduces the independently developed project, its privacy and accessibility goals, and related projects: the [Text Encryption and Decryption Utility Tool](https://amandahernow.github.io/EncryptionDecryptionUtilityTool/) and [HernowNet](https://hernow.net), which is under active development. It also links to the [GitHub repository](https://github.com/AmandaHernow/BlackJackCounterTool) and [latest release](https://github.com/AmandaHernow/BlackJackCounterTool/releases/latest). In Android, About and Privacy information is bundled locally and available from Help → About.
 
 Support is optional. Users can choose the PayPal link or a local QR code for the same PayPal destination; the app does not process payments, load PayPal automatically, or lock features behind donations. Visiting PayPal is subject to PayPal's own privacy practices. The [Privacy Policy](https://amandahernow.github.io/BlackJackCounterTool/privacy_policy.html) explains GitHub Pages delivery, local calculations and storage, offline use of a downloaded file, and user-initiated external links.
 
@@ -189,20 +200,38 @@ For Hi-Opt I, Hi-Opt II, and Omega II, ace density is shown as additional inform
 
 | Version | Platform | Status |
 |---|---|---|
-| Web Version 3.0 | Browser | ✅ Current |
-| Desktop Version 1.0 | Windows / macOS / Linux (Java) | 🔄 In progress |
+| Web Version 3.0 | Browser | Current |
+| Android Version 3.0 | Android | Development completed in the `android` branch; pending Android Studio testing and preparation for the next Play Store update |
+| Desktop Version 1.0 | Windows / macOS / Linux (Java) | In progress |
+
+### Planned language support
+
+The application is currently available in English. Additional languages are planned, but translation work has not started:
+
+- French — **Planned — Not started**
+- German — **Planned — Not started**
+- Spanish — **Planned — Not started**
+
+No translations or language-selection controls are available yet.
 
 ---
 
 ## Tech
 
-Built with plain HTML, CSS, and JavaScript. No frameworks, no build tools, no package manager.
+The web version uses plain HTML, CSS, and JavaScript without a framework or required build process. The Android application additionally uses Kotlin, Android WebView, Android Studio, and Gradle.
 
 ```
-BJCounterTool.html   ← counter interface and application logic
-about.html           ← standalone project About page
-privacy_policy.html  ← web privacy policy
-assets/              ← local developer, related-project, and PayPal QR images
+BJCounterTool.html                     ← web counter interface and counting logic
+about.html                             ← standalone About page
+privacy_policy.html                    ← web privacy policy
+assets/                                ← web developer, project, and PayPal QR images
+app/src/main/java/net/hernow/bjcountertool/
+  MainActivity.kt                      ← Android WebView host and navigation
+  InfoActivity.kt                      ← local About/Privacy page viewer
+app/src/main/assets/
+  index.html                           ← bundled Android counter
+  about.html, privacy_policy.html       ← bundled Android information pages
+  assets/                              ← bundled Android images
 ```
 
 ---
@@ -214,6 +243,4 @@ This tool is intended for educational and practice purposes only. It is not desi
 ---
 
 © 2026 Amanda Hernow — All rights reserved.
-Unauthorised copying, modification, or distribution of this software is prohibited.
-© 2026 Amanda Hernow — All rights reserved.  
 Unauthorised copying, modification, or distribution of this software is prohibited.
