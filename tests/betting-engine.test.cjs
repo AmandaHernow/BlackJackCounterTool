@@ -44,6 +44,7 @@ class FakeElement {
 
 function createApp() {
   const elements = new Map();
+  const documentHandlers = {};
   const get = (id) => {
     if (!elements.has(id)) elements.set(id, new FakeElement(id));
     return elements.get(id);
@@ -69,7 +70,7 @@ function createApp() {
       return [];
     },
     createElement(tagName) { const el = new FakeElement(); el.tagName = tagName; return el; },
-    addEventListener() {}
+    addEventListener(type, callback) { (documentHandlers[type] ||= []).push(callback); }
   };
   const sandbox = {
     document,
@@ -82,7 +83,7 @@ function createApp() {
   };
   const script = html.match(/<script>([\s\S]*?)<\/script>/)[1];
   vm.runInNewContext(script, sandbox, { timeout: 2000 });
-  return { get, elements, systemTabs, helpTabs, sandbox };
+  return { get, elements, systemTabs, helpTabs, documentHandlers, sandbox };
 }
 
 function selectSystem(app, name) {
@@ -336,6 +337,13 @@ test('Help has seven working accessible tabs and the counter intro is removed', 
   assert.equal(app.get('systemsPanel').classList.contains('active'), true);
   app.helpTabs[1].dispatch('keydown', { key: 'End', preventDefault() {} });
   assert.equal(app.get('disclaimerPanel').classList.contains('active'), true);
+  app.get('btnHelp').click();
+  assert.equal(app.get('helpModal').style.display, 'flex');
+  assert.equal(app.get('helpModal').getAttribute('aria-hidden'), 'false');
+  app.documentHandlers.keydown[0]({ key: 'Escape' });
+  assert.equal(app.get('helpModal').style.display, 'none');
+  assert.equal(app.get('helpModal').getAttribute('aria-hidden'), 'true');
+  assert.equal(app.get('btnHelp').focused, true);
   assert.doesNotMatch(html, /class="seo-intro"|class="seo-links"/);
   assert.match(html, /<h1 class="sr-only">Blackjack Card Counting Tool<\/h1>/);
   assert.match(html, /img-src 'self' data:/);
@@ -380,6 +388,27 @@ test('developer and related-project artwork is local, accessible, and linked to 
   }
   assert.match(html, /href="mailto:bjcountertoolandroidsupport@hernow\.net"/);
   assert.match(about, /href="mailto:bjcountertoolandroidsupport@hernow\.net"/);
+});
+
+test('developer portraits use the intended reference-inspired, non-distorting treatments', () => {
+  const root = path.join(__dirname, '..');
+  const about = fs.readFileSync(path.join(root, 'about.html'), 'utf8');
+  const frameRule = about.match(/\.hero-photo-frame\s*\{([^}]+)\}/)?.[1] || '';
+  const portraitRule = about.match(/\.hero-photo\s*\{([^}]+)\}/)?.[1] || '';
+  const helpPhotoRule = html.match(/\.developer-help-photo\s*\{([^}]+)\}/)?.[1] || '';
+
+  assert.match(frameRule, /border-radius:\s*50%/);
+  assert.doesNotMatch(frameRule, /transform\s*:/, 'standalone portrait is not tilted');
+  assert.match(portraitRule, /object-fit:\s*cover/);
+  assert.match(portraitRule, /object-position:\s*center/);
+  assert.match(helpPhotoRule, /width:\s*104px/);
+  assert.match(helpPhotoRule, /height:\s*104px/);
+  assert.match(helpPhotoRule, /object-fit:\s*contain/);
+  assert.doesNotMatch(helpPhotoRule, /border-radius:\s*50%/, 'Help portrait is not a tiny circular avatar');
+  assert.match(html, /function openHelp\(\)\s*\{\s*helpModal\.style\.display\s*=\s*'flex'/);
+  assert.match(html, /\.help-header-top/);
+  assert.match(html, /\.step-item\s*\{[^}]*border-radius:\s*12px/s);
+  assert.match(html, /\.support-panel\s*\{[^}]*border-radius:\s*16px/s);
 });
 
 test('practice-only messaging is present throughout the app, About page, metadata, and README', () => {

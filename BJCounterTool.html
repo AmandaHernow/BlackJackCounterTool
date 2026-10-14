@@ -267,44 +267,53 @@
     .footer-practice-note { margin-bottom: 2px; color: var(--txt-sub); font-size: 11px; line-height: 1.35; }
 
     /* ── Help modal ── */
-    #helpModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.78); z-index: 9999; padding: 24px; }
-    #helpBox { width: min(1040px, 100%); max-height: calc(100vh - 48px); margin: 0 auto; background: var(--bg-deep); border: 2px solid var(--brd-main); display: flex; flex-direction: column; overflow: hidden; }
-    #helpHeader { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--brd-sep); padding: 10px 12px; background: var(--bg-raised); flex-wrap: wrap; }
-    #helpTabs { display: flex; gap: 8px; flex-wrap: wrap; flex: 1 1 0; min-width: 0; }
-    .help-tab, #helpClose { padding: 8px 14px; font-size: 14px; font-weight: 700; }
-    .help-tab:focus-visible, #helpClose:focus-visible, .help-link:focus-visible { outline: 3px solid #ff7777; outline-offset: 2px; }
+    #helpModal { display: none; position: fixed; inset: 0; align-items: center; justify-content: center; background: rgba(0,0,0,0.56); backdrop-filter: blur(3px); z-index: 9999; padding: 24px; }
+    #helpBox { width: min(1080px, 100%); max-height: calc(100vh - 48px); margin: 0; background: var(--bg-deep); border: 1px solid var(--brd-sep); border-radius: 16px; box-shadow: 0 24px 80px rgba(0,0,0,.42); display: flex; flex-direction: column; overflow: hidden; }
+    #helpHeader { display: flex; flex-direction: column; gap: 12px; border-bottom: 1px solid var(--brd-sep); padding: 16px 18px 0; background: linear-gradient(135deg, var(--bg-raised), var(--bg-deep)); flex-shrink: 0; }
+    .help-header-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .help-title { margin: 0; color: var(--txt-main); font-size: 19px; line-height: 1.25; }
+    .help-subtitle { display: block; margin-top: 3px; color: var(--txt-muted); font-size: 12px; font-weight: 400; }
+    #helpTabs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 112px), 1fr)); gap: 6px; min-width: 0; }
+    .help-tab { min-width: 0; min-height: 40px; padding: 8px 10px; border: 1px solid var(--brd-sep); border-radius: 9px 9px 0 0; background: var(--bg-tab); color: var(--txt-muted); font-size: 13px; font-weight: 650; line-height: 1.2; }
+    #helpTabs .help-tab:hover { border-color: var(--brd-main); background: var(--bg-tab-act); color: var(--txt-main); }
+    #helpTabs .help-tab.active { border-color: var(--brd-main); border-bottom: 2px solid var(--brd-btn); background: var(--bg-surface); color: var(--txt-main); }
+    #helpClose { flex: none; min-width: 44px; min-height: 40px; padding: 7px 12px; border-radius: 9px; font-size: 13px; font-weight: 700; }
+    .help-tab:focus-visible, #helpClose:focus-visible, .help-link:focus-visible, .help-project-icon-link:focus-visible { outline: 3px solid #ff7777; outline-offset: 3px; }
     .help-panel { display: none; }
     .help-panel.active { display: block; }
-    #helpContent { padding: 20px 22px; overflow: auto; line-height: 1.5; font-size: 14px; }
+    #helpContent { min-height: 0; padding: clamp(16px, 2.5vw, 28px); overflow: auto; line-height: 1.6; font-size: 14px; overscroll-behavior: contain; }
 
     /* ── Help content ── */
-    .help-section-title { font-size: 17px; font-weight: 700; color: #ff4d4d; border-bottom: 1px solid var(--brd-sep); padding-bottom: 8px; margin: 0 0 18px; letter-spacing: 0.03em; }
-    .step-list { display: flex; flex-direction: column; gap: 10px; margin: 0 0 18px; }
-    .step-item { display: flex; gap: 12px; align-items: flex-start; }
-    .step-num { min-width: 28px; height: 28px; border: 1px solid var(--brd-main); background: var(--bg-step); color: #ff4d4d; font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .step-text { padding-top: 5px; font-size: 14px; color: var(--txt-muted); }
+    .help-section-title { font-size: 17px; font-weight: 750; color: #ff7070; border-bottom: 1px solid var(--brd-sep); padding-bottom: 9px; margin: 0 0 16px; letter-spacing: .015em; }
+    [data-theme="light"] .help-section-title { color: #9b2020; }
+    .step-list { display: flex; flex-direction: column; gap: 9px; margin: 0 0 18px; }
+    .step-item { display: flex; gap: 13px; align-items: flex-start; padding: 12px 14px; border: 1px solid var(--brd-sep); border-radius: 12px; background: var(--bg-surface); }
+    .step-num { width: 30px; min-width: 30px; height: 30px; border: 1px solid var(--brd-main); border-radius: 50%; background: var(--bg-step); color: #ff7070; font-weight: 750; font-size: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    [data-theme="light"] .step-num { color: #8d1111; }
+    .step-text { padding-top: 2px; font-size: 14px; color: var(--txt-muted); }
     .step-text strong { color: var(--txt-main); }
-    .info-box { border: 1px solid var(--brd-sep); background: var(--bg-infobox); padding: 12px 14px; margin: 0 0 12px; font-size: 13px; color: var(--txt-muted); line-height: 1.6; }
+    .info-box { border: 1px solid var(--brd-sep); border-radius: 11px; background: var(--bg-infobox); padding: 13px 15px; margin: 0 0 12px; font-size: 13px; color: var(--txt-muted); line-height: 1.65; }
     .info-box strong { color: var(--txt-main); }
     .info-box.muted { color: var(--txt-dim); }
     .help-link { color: #ff7a7a; text-decoration: underline; text-underline-offset: 2px; }
     [data-theme="light"] .help-link { color: #900000; }
     .about-help-grid, .related-projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px; }
-    .about-help-card, .related-project-card { border: 1px solid var(--brd-card); background: var(--bg-surface); padding: 14px 16px; }
+    .about-help-card, .related-project-card { min-width: 0; border: 1px solid var(--brd-card); border-radius: 12px; background: var(--bg-surface); padding: 16px 18px; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
     .about-help-card h3, .related-project-card h3 { margin: 0 0 8px; font-size: 15px; color: var(--txt-main); }
     .about-help-card p, .related-project-card p { margin: 0; color: var(--txt-muted); line-height: 1.6; }
-    .support-panel { max-width: 640px; margin: 0 auto; text-align: center; }
+    .support-panel { max-width: 640px; margin: 0 auto; padding: clamp(18px, 4vw, 32px); border: 1px solid var(--brd-card); border-radius: 16px; background: var(--bg-surface); box-shadow: 0 4px 18px rgba(0,0,0,.12); text-align: center; }
     .support-panel h3 { margin: 0 0 8px; font-size: 21px; }
     .support-panel p { margin: 0 0 12px; color: var(--txt-muted); line-height: 1.65; }
-    .support-qr { display: block; width: min(180px, 60vw); height: auto; margin: 14px auto; border: 2px solid var(--brd-main); background: #fff; }
-    .support-button { display: inline-block; padding: 11px 18px; background: var(--bg-btn); border: 1px solid var(--brd-btn); color: #fff; font-weight: 700; text-decoration: none; }
-    .support-button:hover { background: var(--brd-main); }
+    .support-qr { display: block; width: min(170px, 60vw); height: auto; margin: 16px auto; padding: 7px; border: 1px solid var(--brd-sep); border-radius: 12px; background: #fff; box-shadow: 0 4px 16px rgba(0,0,0,.14); }
+    .support-button { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 11px 20px; border-radius: 10px; background: var(--bg-btn); border: 1px solid var(--brd-btn); color: #fff; font-weight: 700; text-decoration: none; box-shadow: 0 4px 12px rgba(120,0,0,.2); }
+    .support-button:hover { background: var(--brd-main); color: #fff; }
+    .support-button:focus-visible { outline: 3px solid #ff7777; outline-offset: 3px; }
     .practice-notice { border-left: 3px solid var(--brd-btn); background: var(--bg-infobox); color: var(--txt-main); font-size: 13px; font-weight: 700; }
-    .developer-help { display: flex; align-items: center; gap: 12px; }
+    .developer-help { display: grid; grid-template-columns: 104px minmax(0, 1fr); align-items: center; gap: 18px; }
     .developer-help > div { min-width: 0; overflow-wrap: anywhere; }
-    .developer-help-photo { display: block; width: 64px; height: 64px; object-fit: cover; object-position: center; border-radius: 50%; border: 2px solid var(--brd-main); flex: none; }
+    .developer-help-photo { display: block; width: 104px; height: 104px; object-fit: contain; object-position: center; border-radius: 14px; border: 1px solid var(--brd-sep); background: var(--bg-tab); box-shadow: 0 3px 12px rgba(0,0,0,.16); }
     .help-project-heading { display: flex; align-items: center; gap: 9px; margin-bottom: 8px; }
-    .help-project-icon-link { display: block; width: 38px; height: 38px; flex: none; border: 1px solid var(--brd-card); background: #fff; }
+    .help-project-icon-link { display: block; width: 42px; height: 42px; flex: none; overflow: hidden; border: 1px solid var(--brd-card); border-radius: 10px; background: #fff; }
     .help-project-icon { width: 100%; height: 100%; object-fit: contain; padding: 2px; display: block; }
     .help-project-heading h3 { margin: 0; }
     .help-project-heading h3 a { color: var(--txt-main); text-decoration: none; }
@@ -312,7 +321,7 @@
 
     /* ── System cards ── */
     .sys-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; margin-bottom: 10px; }
-    .sys-card { border: 1px solid var(--brd-card); background: var(--bg-surface); padding: 14px 16px; }
+    .sys-card { border: 1px solid var(--brd-card); border-radius: 12px; background: var(--bg-surface); padding: 14px 16px; }
     .sys-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
     .sys-card-name { font-size: 15px; font-weight: 700; color: var(--txt-main); }
     .sys-tags { display: flex; gap: 5px; flex-wrap: wrap; }
@@ -345,7 +354,7 @@
 
     /* ── Expert compare ── */
     .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
-    .compare-box { border: 1px solid var(--brd-card); background: var(--bg-surface); padding: 14px 16px; }
+    .compare-box { border: 1px solid var(--brd-card); border-radius: 12px; background: var(--bg-surface); padding: 14px 16px; }
     .compare-box h4 { margin: 0 0 10px; font-size: 14px; color: #ff4d4d; border-bottom: 1px solid var(--brd-card); padding-bottom: 6px; }
     .compare-box ul { margin: 0; padding-left: 16px; color: var(--txt-sub); font-size: 13px; line-height: 1.8; }
 
@@ -495,12 +504,21 @@
       .stat-value { font-size: clamp(18px, 5vw, 24px); }
 
       #helpModal { padding: 8px; }
-      #helpBox { max-height: calc(100vh - 16px); }
-      #helpHeader { align-items: stretch; padding: 8px; }
-      #helpTabs { flex: 1 1 100%; gap: 6px; }
-      .help-tab { flex: 1 1 auto; padding: 7px 9px; font-size: 12px; }
-      #helpClose { align-self: flex-end; padding: 6px 12px; }
-      #helpContent { padding: 14px 12px; }
+      #helpBox { max-height: calc(100vh - 16px); border-radius: 14px; }
+      #helpHeader { gap: 10px; padding: 12px 12px 0; }
+      .help-title { font-size: 17px; }
+      .help-subtitle { font-size: 11px; }
+      #helpTabs { grid-template-columns: repeat(auto-fit, minmax(min(100%, 102px), 1fr)); gap: 5px; }
+      .help-tab { min-height: 38px; padding: 7px 6px; font-size: 12px; }
+      #helpClose { min-height: 38px; padding: 6px 11px; }
+      #helpContent { padding: 14px 12px; font-size: 13px; }
+      .step-item { padding: 10px; gap: 10px; }
+      .step-text { font-size: 13px; }
+      .about-help-card, .related-project-card { padding: 14px; }
+    }
+    @media (max-width: 480px) {
+      .developer-help { grid-template-columns: 1fr; gap: 12px; }
+      .developer-help-photo { width: 112px; height: 112px; margin: 0 auto; }
     }
   </style>
 </head>
@@ -648,7 +666,10 @@
   <div id="helpModal" aria-hidden="true">
     <div id="helpBox" role="dialog" aria-modal="true" aria-labelledby="helpDialogTitle">
       <div id="helpHeader">
-        <h2 id="helpDialogTitle" class="sr-only">Blackjack Counter Tool Help</h2>
+        <div class="help-header-top">
+          <h2 id="helpDialogTitle" class="help-title">Help &amp; Guide<span class="help-subtitle">Blackjack Counter Tool · Version 3.0</span></h2>
+          <button id="helpClose" title="Close help" aria-label="Close help">Close</button>
+        </div>
         <div id="helpTabs" role="tablist" aria-label="Help sections">
           <button class="help-tab active" id="usageTab" role="tab" tabindex="0" aria-selected="true" aria-controls="usagePanel" data-help-tab="usagePanel">Usage</button>
           <button class="help-tab" id="systemsTab" role="tab" tabindex="-1" aria-selected="false" aria-controls="systemsPanel" data-help-tab="systemsPanel">Systems</button>
@@ -658,7 +679,6 @@
           <button class="help-tab" id="supportTab" role="tab" tabindex="-1" aria-selected="false" aria-controls="supportPanel" data-help-tab="supportPanel">Support</button>
           <button class="help-tab" id="disclaimerTab" role="tab" tabindex="-1" aria-selected="false" aria-controls="disclaimerPanel" data-help-tab="disclaimerPanel">Disclaimer</button>
         </div>
-        <button id="helpClose" title="Close help" aria-label="Close help">Close</button>
       </div>
       <div id="helpContent">
 
@@ -1199,7 +1219,7 @@
     }
 
     /* ── Help modal ── */
-    function openHelp()  { helpModal.style.display = 'block'; helpModal.setAttribute('aria-hidden', 'false'); document.getElementById('usageTab').focus(); }
+    function openHelp()  { helpModal.style.display = 'flex'; helpModal.setAttribute('aria-hidden', 'false'); document.getElementById('usageTab').focus(); }
     function closeHelp() { helpModal.style.display = 'none';  helpModal.setAttribute('aria-hidden', 'true'); btnHelp.focus(); }
 
     /* ── Event listeners ── */
@@ -1271,7 +1291,7 @@
     btnHelp.addEventListener('click', openHelp);
     helpClose.addEventListener('click', closeHelp);
     helpModal.addEventListener('click', function (e) { if (e.target === helpModal) closeHelp(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && helpModal.style.display === 'block') closeHelp(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && helpModal.style.display === 'flex') closeHelp(); });
     btnClose.addEventListener('click', function () { if (confirm('Are you sure you want to exit?')) window.close(); });
 
     /* ── Init ── */
