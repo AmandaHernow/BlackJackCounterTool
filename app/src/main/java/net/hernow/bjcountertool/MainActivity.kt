@@ -100,13 +100,13 @@ class MainActivity : AppCompatActivity() {
             webView.loadUrl("file:///android_asset/index.html")
         }
 
-        // Close Help first; otherwise leave the counter activity.
+        // Close Help first, then the action log, before normal navigation.
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (backPressPending) return
                 backPressPending = true
                 webView.evaluateJavascript(
-                    "(function(){var modal=document.getElementById('helpModal');if(modal&&modal.style.display==='flex'){document.getElementById('helpClose').click();return true;}return false;})()"
+                    "(function(){var modal=document.getElementById('helpModal');if(modal&&modal.style.display==='flex'){document.getElementById('helpClose').click();return true;}var panel=document.getElementById('sidePanel');if(panel&&panel.classList.contains('log-open')){document.getElementById('btnLog').click();return true;}return false;})()"
                 ) { closedHelp ->
                     backPressPending = false
                     if (isFinishing || isDestroyed || closedHelp == "true") return@evaluateJavascript

@@ -30,6 +30,25 @@ test('Android bundle has the v3.0 shoe options, half-deck display, and preserved
   assert.match(android, /Android Version 3\.0/);
 });
 
+test('Android mobile action log stays reachable in a responsive, scrollable drawer', () => {
+  const mobileCss = android.match(/@media \(max-width: 640px\) \{([\s\S]*?)\n    \}/)?.[1];
+  assert.ok(mobileCss, 'mobile breakpoint exists');
+  assert.doesNotMatch(mobileCss, /#btnLog\s*\{[^}]*display:\s*none/i);
+  assert.doesNotMatch(mobileCss, /\.side-panel\s*\{[^}]*display:\s*none/i);
+  assert.match(mobileCss, /\.side-panel\s*\{[\s\S]*?width:\s*auto;[\s\S]*?height:\s*calc\(100dvh - 40px\)/);
+  assert.match(mobileCss, /\.titlebar-buttons\s*\{[^}]*flex-shrink:\s*0/);
+  for (const id of ['btnLog', 'btnTheme', 'btnHelp', 'btnClose']) {
+    assert.match(android, new RegExp(`<button id="${id}"`), `${id} remains in the title bar`);
+  }
+  assert.match(android, /id="btnLog"[^>]*aria-controls="sidePanel" aria-expanded="false"/);
+  assert.match(android, /id="sidePanel"[^>]*aria-label="Action log" aria-hidden="true"/);
+  assert.match(android, /id="actionLogBody" class="action-log-body"/);
+  assert.match(android, /\.action-log-body\s*\{[^}]*overflow-y:\s*auto/);
+  assert.match(android, /button\.addEventListener\('click',[\s\S]*?panel\.classList\.contains\('log-open'\)[\s\S]*?aria-expanded[\s\S]*?aria-hidden/);
+  assert.doesNotMatch(android, /<meta http-equiv="(?:Cache-Control|Pragma|Expires)"/i);
+  assert.match(android, /http-equiv="Content-Security-Policy"/);
+});
+
 test('Android About and Privacy pages and their images are bundled for offline navigation', () => {
   for (const name of ['index.html', 'about.html', 'privacy_policy.html']) {
     const file = path.join(androidRoot, name);
@@ -62,6 +81,11 @@ test('Android counter and information pages use separate, allowlisted WebViews',
   assert.match(activity, /"\/android_asset\/privacy_policy\.html"/);
   assert.match(activity, /Intent\(this@MainActivity, InfoActivity::class\.java\)/);
   assert.match(activity, /backPressPending/);
+  const backHandling = activity.match(/evaluateJavascript\(\s*"([^"]+)"/s)?.[1];
+  assert.ok(backHandling, 'Android Back evaluates the open UI state');
+  assert.ok(backHandling.indexOf("modal.style.display==='flex'") < backHandling.indexOf("panel.classList.contains('log-open')"), 'Help closes before the action log');
+  assert.match(backHandling, /document\.getElementById\('btnLog'\)\.click\(\)/);
+  assert.match(backHandling, /return false;\}\)\(\)/, 'normal Android Back behavior remains available when overlays are closed');
   assert.match(infoActivity, /ABOUT_PATH, PRIVACY_PATH -> return false/);
   assert.match(infoActivity, /COUNTER_PATH ->\s*\{\s*finish\(\)/);
   assert.match(infoActivity, /javaScriptEnabled = false/);

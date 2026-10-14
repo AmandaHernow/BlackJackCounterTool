@@ -4,9 +4,6 @@
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self' data:; connect-src 'none'; img-src 'self' data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'; form-action 'none';">
   <meta name="referrer" content="no-referrer">
-  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blackjack Card Counting Tool | Free Online Blackjack Counter</title>
   <meta name="description" content="Free educational blackjack card-counting practice tool with eight systems, 1–8 deck shoes, precise True Count, and learning examples. Not intended for live casino or real-money play.">
@@ -180,7 +177,6 @@
     .main-panel { width: min(920px, 100%); margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 14px; min-width: 0; }
 
     /* ── Side panel: toggle (hidden by default, slides in from right) ── */
-    /* Applies to all non-mobile screens; mobile overrides with display:none */
     .side-panel {
       position: fixed;
       top: 40px;
@@ -459,9 +455,29 @@
 
     /* ══ MOBILE ≤640px ══ */
     @media (max-width: 640px) {
-      /* Hide log panel and toggle entirely on mobile */
-      .side-panel { display: none !important; }
-      #btnLog { display: none !important; }
+      /* Keep the title bar usable while preserving all four controls. */
+      .titlebar { min-width: 0; }
+      .titlebar .icon { margin-right: 5px; }
+      .titlebar .title { min-width: 0; font-size: 13px; }
+      .titlebar-buttons { flex-shrink: 0; gap: 2px; }
+      .titlebar button { flex: 0 0 30px; width: 30px; height: 32px; }
+
+      /* Reuse the desktop action log as a full-width drawer below the title bar. */
+      .side-panel {
+        display: block;
+        top: 40px;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: auto;
+        height: calc(100vh - 40px);
+        height: calc(100dvh - 40px);
+        border-left: 0;
+        border-top: 2px solid var(--brd-main);
+        box-shadow: 0 -4px 24px rgba(0,0,0,0.6);
+      }
+      .action-log-header { padding: 12px 14px; }
+      .action-log-body { min-height: 0; overscroll-behavior: contain; }
 
       /* System selector: label + dropdown on one row */
       .system-selector-row { flex-direction: row; align-items: center; gap: 8px; margin: 6px 12px 0; padding-bottom: 5px; flex-wrap: wrap; }
@@ -533,7 +549,7 @@
       </div>
       <div class="title">Blackjack Counter Tool</div>
       <div class="titlebar-buttons">
-        <button id="btnLog" title="Toggle action log" style="font-size:11px;letter-spacing:-1px;font-family:Consolas,Monaco,monospace;">&gt;_</button>
+        <button id="btnLog" title="Toggle action log" aria-label="Open action log" aria-controls="sidePanel" aria-expanded="false" style="font-size:11px;letter-spacing:-1px;font-family:Consolas,Monaco,monospace;">&gt;_</button>
         <button id="btnTheme" title="Switch theme">☀</button>
         <button id="btnHelp" title="Help">?</button>
         <button id="btnClose" title="Close">X</button>
@@ -652,7 +668,7 @@
       </div>
     </main>
 
-    <div class="side-panel" id="sidePanel">
+    <div class="side-panel" id="sidePanel" role="region" aria-label="Action log" aria-hidden="true">
       <div class="action-log">
         <div class="action-log-header">Latest Actions</div>
         <div id="actionLogBody" class="action-log-body"></div>
@@ -1325,6 +1341,18 @@
     /* ── Init ── */
     setActiveSystem('hilo');
     render();
+  }());
+  </script>
+  <script>
+  (function () {
+    var button = document.getElementById('btnLog');
+    var panel = document.getElementById('sidePanel');
+    button.addEventListener('click', function () {
+      var isOpen = panel.classList.contains('log-open');
+      button.setAttribute('aria-expanded', String(isOpen));
+      button.setAttribute('aria-label', isOpen ? 'Close action log' : 'Open action log');
+      panel.setAttribute('aria-hidden', String(!isOpen));
+    });
   }());
   </script>
 </body>
