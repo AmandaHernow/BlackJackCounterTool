@@ -252,25 +252,25 @@
     .stat-label { font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--txt-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .stat-value { font-size: clamp(24px, 5vw, 34px); font-weight: 700; color: var(--txt-main); }
 
-    /* ── Desktop stats grid: equal top boxes and five equal shoe-stat boxes ── */
+    /* ── Desktop stats grid: split the lower row in the same halves as the top row. ── */
     @media (min-width: 641px) {
       #mainGrid {
         display: grid;
-        grid-template-columns: repeat(10, minmax(0, 1fr));
+        grid-template-columns: repeat(12, minmax(0, 1fr));
         grid-template-rows: auto auto;
         gap: 12px;
         flex-wrap: unset;
         align-items: unset;
       }
       #mainGrid .true-count-box, #mainGrid .betting-box { grid-row: 1; flex: none; min-width: 0; }
-      #mainGrid .true-count-box { grid-column: 1 / span 5; }
-      #mainGrid .betting-box { grid-column: 6 / span 5; }
+      #mainGrid .true-count-box { grid-column: 1 / span 6; }
+      #mainGrid .betting-box { grid-column: 7 / span 6; }
       #mainGrid .stat-box { grid-row: 2; flex: none; max-width: none; min-width: 0; min-height: 92px; }
       #mainGrid #cardsPlayedBox    { grid-column: 1 / span 2; }
       #mainGrid #cardsRemainingBox { grid-column: 3 / span 2; }
       #mainGrid #decksRemainingBox { grid-column: 5 / span 2; }
-      #mainGrid #extraStatOneBox, #mainGrid #acesPlayedBox { grid-column: 7 / span 2; }
-      #mainGrid #extraStatTwoBox, #mainGrid #acesRemainingBox { grid-column: 9 / span 2; }
+      #mainGrid #extraStatOneBox, #mainGrid #acesPlayedBox { grid-column: 7 / span 3; }
+      #mainGrid #extraStatTwoBox, #mainGrid #acesRemainingBox { grid-column: 10 / span 3; }
       #mainGrid .stat-label { white-space: normal; line-height: 1.15; }
       #mainGrid.three-stats { grid-template-columns: repeat(6, minmax(0, 1fr)); }
       #mainGrid.three-stats .true-count-box { grid-column: 1 / span 3; }
