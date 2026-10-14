@@ -1,51 +1,87 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Privacy policy for the Blackjack Counter Tool web and Android versions. No analytics, no tracking, and no personal data collection.">
-    <meta name="robots" content="index,follow">
-    <meta name="author" content="Amanda Hansson Hernow">
-    <meta name="theme-color" content="#7a0000">
-    <link rel="canonical" href="https://amandahernow.github.io/BlackJackCounterTool/privacy_policy.html">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="Privacy Policy — Blackjack Counter Tool">
-    <meta property="og:description" content="Privacy policy for Blackjack Counter Tool. No analytics, no tracking, and no personal data collection.">
-    <meta property="og:url" content="https://amandahernow.github.io/BlackJackCounterTool/privacy_policy.html">
-    <title>Privacy Policy — Blackjack Counter Tool</title>
-    <style>
-        body { max-width: 720px; margin: 40px auto; padding: 0 20px; font-family: sans-serif; line-height: 1.7; color: #222; }
-        h1 { font-size: 24px; }
-        h2 { font-size: 18px; margin-top: 32px; }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Privacy policy for the Blackjack Counter Tool web application, including local counting, browser storage, GitHub Pages hosting, and external links.">
+  <meta name="robots" content="index,follow">
+  <meta name="author" content="Amanda Hansson Hernow">
+  <meta name="theme-color" content="#7a0000">
+  <link rel="canonical" href="https://amandahernow.github.io/BlackJackCounterTool/privacy_policy.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Privacy Policy — Blackjack Counter Tool">
+  <meta property="og:description" content="How the Blackjack Counter Tool web application handles browser data and external links.">
+  <meta property="og:url" content="https://amandahernow.github.io/BlackJackCounterTool/privacy_policy.html">
+  <meta property="og:site_name" content="Blackjack Counter Tool">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Privacy Policy — Blackjack Counter Tool">
+  <meta name="twitter:description" content="How the Blackjack Counter Tool web application handles browser data and external links.">
+  <title>Privacy Policy | Blackjack Counter Tool</title>
+  <style>
+    :root { color-scheme:light dark; --bg:#f5f0f0; --surface:#fff; --ink:#211919; --muted:#514747; --line:#d8c2c2; --accent:#940000; --accent-dark:#760000; --soft:#fff7f7; }
+    @media(prefers-color-scheme:dark) { :root { --bg:#0b0808; --surface:#151010; --ink:#f5eeee; --muted:#c7b8b8; --line:#4e2b2b; --accent:#ff7777; --accent-dark:#ff9999; --soft:#1c1010; } }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.72 system-ui,-apple-system,"Segoe UI",sans-serif; }
+    a { color:var(--accent); text-underline-offset:3px; }
+    a:hover { color:var(--accent-dark); }
+    a:focus-visible { outline:3px solid var(--accent); outline-offset:3px; border-radius:3px; }
+    header { padding:clamp(34px,7vw,72px) 20px 30px; background:linear-gradient(145deg,var(--soft),var(--bg)); border-bottom:1px solid var(--line); }
+    .header-inner, main, footer { width:min(100% - 32px,850px); margin-inline:auto; }
+    .eyebrow { font-size:.78rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); }
+    h1 { font-size:clamp(2rem,5vw,3.2rem); letter-spacing:-.035em; line-height:1.12; margin:8px 0 10px; }
+    .updated { color:var(--muted); margin:0; }
+    .navigation { display:flex; flex-wrap:wrap; gap:10px 20px; margin-top:20px; }
+    main { padding:28px 0 44px; }
+    .intro, .policy-section { background:var(--surface); border:1px solid var(--line); padding:clamp(18px,3vw,26px); margin-bottom:14px; }
+    .intro { border-left:4px solid var(--accent); background:var(--soft); }
+    h2 { font-size:1.2rem; line-height:1.3; margin:0 0 10px; }
+    p { margin:0 0 12px; color:var(--muted); }
+    p:last-child { margin-bottom:0; }
+    ul { color:var(--muted); margin:8px 0 0; padding-left:1.25rem; }
+    li + li { margin-top:6px; }
+    footer { border-top:1px solid var(--line); padding:18px 0 30px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px 20px; color:var(--muted); font-size:.9rem; }
+    @media(max-width:520px) { .header-inner,main,footer { width:min(100% - 24px,850px); } .navigation { gap:10px 14px; } }
+  </style>
 </head>
 <body>
-<h1>Privacy Policy — Blackjack Counter Tool</h1>
-<p><strong>Last updated:</strong> March 2026</p>
-<p><a href="https://amandahernow.github.io/BlackJackCounterTool/BJCounterTool.html">Back to the web app</a></p>
-<p>Blackjack Counter Tool is a free, offline card counting aid developed by Amanda Hansson Hernow. This privacy policy explains how the app handles your data.</p>
-
-<h2>Data collection</h2>
-<p>This app does not collect, store, transmit, or share any personal data or usage information of any kind. No analytics, no tracking, no advertising networks, and no third-party SDKs are used.</p>
-
-<h2>Internet access</h2>
-<p>The app does not require an internet connection and does not make any network requests during normal use. The only exception is if you choose to tap the PayPal donate link or the support email link in the Support section, which will open your device's browser or email app respectively. No data is sent by the app itself.</p>
-
-<h2>Local storage</h2>
-<p>The app saves one item to your device's local storage: your dark/light theme preference. This data never leaves your device.</p>
-
-<h2>Permissions</h2>
-<p>The app does not request any device permissions.</p>
-
-<h2>Children</h2>
-<p>This app is not directed at children under the age of 13 and does not knowingly collect data from children.</p>
-
-<h2>Changes to this policy</h2>
-<p>If this policy is updated, the revised version will be published at this URL with an updated date.</p>
-
-<h2>Contact</h2>
-<p>If you have any questions about this privacy policy, contact: <a href="mailto:bjcountertoolandroidsupport@hernow.net">bjcountertoolandroidsupport@hernow.net</a></p>
-
-<p style="margin-top:40px;color:#888;font-size:13px;">© 2026 Amanda Hansson Hernow — <a href="https://hernow.net">hernow.net</a></p>
+  <header>
+    <div class="header-inner">
+      <span class="eyebrow">Blackjack Counter Tool</span>
+      <h1>Privacy Policy</h1>
+      <p class="updated"><strong>Last updated:</strong> October 14, 2026</p>
+      <nav class="navigation" aria-label="Page navigation">
+        <a href="BJCounterTool.html">Back to Counter</a>
+        <a href="about.html">About</a>
+        <a href="https://github.com/AmandaHernow/BlackJackCounterTool" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="intro">
+      <p>This policy describes the static browser version of Blackjack Counter Tool hosted on GitHub Pages and the self-contained HTML file. The Android application is a separate implementation; this page does not describe Android platform behavior.</p>
+    </section>
+    <section class="policy-section" aria-labelledby="hosting"><h2 id="hosting">Website delivery and hosting</h2>
+      <p>When you open the hosted web page, your browser connects to GitHub Pages to request the site files. GitHub provides the hosting service and may process request data under its own policies. This initial delivery is separate from the counter's calculations.</p>
+      <p>You can also download the self-contained HTML application and open it locally. Once the file is available on your device, counting calculations run in the browser and do not require network requests. A locally saved copy is the reliable way to use it offline.</p>
+    </section>
+    <section class="policy-section" aria-labelledby="local"><h2 id="local">Counting data and browser storage</h2>
+      <p>The web counter does not upload your cards, running count, shoe state, action log, or counting sessions. Calculations and action-log display happen locally in the current browser page. No account is required.</p>
+      <p>The app stores only your optional dark or light theme preference in browser local storage under the key <code>bj-theme</code>. This preference remains on your device unless you clear browser storage. Counting-session state is not saved to local storage.</p>
+    </section>
+    <section class="policy-section" aria-labelledby="tracking"><h2 id="tracking">Analytics, advertising, and third parties</h2>
+      <p>The web application contains no analytics or behavioral-tracking scripts, advertising trackers, third-party SDKs, or remotely loaded fonts and images. The local PayPal QR image does not contact PayPal when the page loads.</p>
+      <p>Links to GitHub, related projects, email, and PayPal are user-initiated. If you choose to open PayPal, PayPal handles that visit under its own privacy practices. Your browser or email provider may also handle a mail link according to its settings.</p>
+    </section>
+    <section class="policy-section" aria-labelledby="permissions"><h2 id="permissions">Permissions and children</h2>
+      <p>The browser version does not request device permissions. It is not directed at children under 13.</p>
+    </section>
+    <section class="policy-section" aria-labelledby="changes"><h2 id="changes">Changes to this policy</h2>
+      <p>If the web application's data handling or this policy changes, the updated policy will be published at this address with a revised date.</p>
+    </section>
+    <section class="policy-section" aria-labelledby="contact"><h2 id="contact">Contact</h2>
+      <p>Questions about this policy can be sent to <a href="mailto:bjcountertoolandroidsupport@hernow.net">bjcountertoolandroidsupport@hernow.net</a>.</p>
+    </section>
+  </main>
+  <footer><span>© 2026 Amanda Hansson Hernow — All rights reserved.</span><span><a href="about.html">About this project</a> · <a href="BJCounterTool.html">Counter</a> · <a href="https://hernow.net">hernow.net</a></span></footer>
 </body>
 </html>

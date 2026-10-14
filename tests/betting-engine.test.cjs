@@ -33,6 +33,7 @@ class FakeElement {
   addEventListener(type, callback) { (this.handlers[type] ||= []).push(callback); }
   dispatch(type, event = {}) { for (const callback of this.handlers[type] || []) callback({ target: this, ...event }); }
   click() { if (!this.disabled) this.dispatch('click'); }
+  focus() { this.focused = true; }
   appendChild(child) { this.children.push(child); return child; }
   querySelectorAll(selector) { return selector === 'button' ? this.children.filter((child) => child.tagName === 'button') : []; }
   setAttribute(name, value) { this.attributes[name] = value; }
@@ -51,7 +52,7 @@ function createApp() {
   const root = new FakeElement('documentElement');
   const systemTabs = [...html.matchAll(/<button class="[^"]*system-tab[^\"]*" data-system="([^"]+)"/g)]
     .map((match) => new FakeElement('', 'system-tab', { system: match[1] }));
-  const helpTabs = [...html.matchAll(/<button class="[^"]*help-tab[^\"]*" data-help-tab="([^"]+)"/g)]
+  const helpTabs = [...html.matchAll(/<button\b[^>]*class="[^"]*\bhelp-tab\b[^"]*"[^>]*data-help-tab="([^"]+)"[^>]*>/g)]
     .map((match) => new FakeElement('', 'help-tab', { helpTab: match[1] }));
   const helpPanels = [...html.matchAll(/<div id="([^"]+)" class="help-panel[^\"]*"/g)]
     .map((match) => get(match[1]));
@@ -81,7 +82,7 @@ function createApp() {
   };
   const script = html.match(/<script>([\s\S]*?)<\/script>/)[1];
   vm.runInNewContext(script, sandbox, { timeout: 2000 });
-  return { get, elements, systemTabs, sandbox };
+  return { get, elements, systemTabs, helpTabs, sandbox };
 }
 
 function selectSystem(app, name) {
@@ -316,4 +317,43 @@ test('README and built-in help document all systems, thresholds, limitations, an
   assert.match(readme, /corrects earlier app values of 0, −2, and −5 for 2, 4, and 6 decks/);
   assert.match(html, /Ace density is shown as additional information and does not automatically change the betting recommendation/);
   assert.ok(html.includes('Standard published key counts were not established here for 3, 5, and 7 decks'));
+});
+
+test('Help has seven working accessible tabs and the counter intro is removed', () => {
+  const app = createApp();
+  const expected = ['usagePanel', 'systemsPanel', 'bettingPanel', 'expertPanel', 'aboutPanel', 'supportPanel', 'disclaimerPanel'];
+  assert.deepEqual(app.systemTabs.map((tab) => tab.dataset.system), ['hilo', 'ko', 'red7', 'hiopt1', 'hiopt2', 'zen', 'omega2', 'wonghalves']);
+  assert.deepEqual(app.helpTabs.map((tab) => tab.dataset.helpTab), expected);
+  for (const tab of app.helpTabs) {
+    tab.click();
+    assert.equal(app.get(tab.dataset.helpTab).classList.contains('active'), true, `${tab.dataset.helpTab} opens`);
+    assert.equal(tab.getAttribute('aria-selected'), 'true');
+    assert.equal(app.helpTabs.filter((candidate) => candidate.getAttribute('aria-selected') === 'true').length, 1);
+  }
+  const usageTab = app.helpTabs[0];
+  usageTab.dispatch('keydown', { key: 'ArrowRight', preventDefault() {} });
+  assert.equal(app.helpTabs[1].focused, true);
+  assert.equal(app.get('systemsPanel').classList.contains('active'), true);
+  app.helpTabs[1].dispatch('keydown', { key: 'End', preventDefault() {} });
+  assert.equal(app.get('disclaimerPanel').classList.contains('active'), true);
+  assert.doesNotMatch(html, /class="seo-intro"|class="seo-links"/);
+  assert.match(html, /<h1 class="sr-only">Blackjack Card Counting Tool<\/h1>/);
+  assert.match(html, /img-src 'self' data:/);
+});
+
+test('About, Support, privacy, and sitemap links use the intended local pages and PayPal destination', () => {
+  const root = path.join(__dirname, '..');
+  const about = fs.readFileSync(path.join(root, 'about.html'), 'utf8');
+  const privacy = fs.readFileSync(path.join(root, 'privacy_policy.html'), 'utf8');
+  const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
+  assert.match(about, /rel="canonical" href="https:\/\/amandahernow\.github\.io\/BlackJackCounterTool\/about\.html"/);
+  assert.match(about, /href="https:\/\/www\.paypal\.me\/AmandaHernow" target="_blank" rel="noopener noreferrer"/);
+  assert.match(html, /href="https:\/\/www\.paypal\.me\/AmandaHernow" target="_blank" rel="noopener noreferrer"/);
+  assert.match(html, /src="assets\/paypal-qr\.png"/);
+  assert.match(about, /under active development/i);
+  assert.match(privacy, /bjcountertoolandroidsupport@hernow\.net/);
+  assert.match(privacy, /GitHub Pages/);
+  assert.match(privacy, /Android application is a separate implementation/);
+  assert.match(sitemap, /<loc>https:\/\/amandahernow\.github\.io\/BlackJackCounterTool\/about\.html<\/loc>/);
+  assert.match(html, /href="about\.html"/);
 });

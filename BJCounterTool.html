@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data:; connect-src 'none'; img-src data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'; form-action 'none';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data:; connect-src 'none'; img-src 'self' data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'; form-action 'none';">
   <meta name="referrer" content="no-referrer">
   <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
   <meta http-equiv="Pragma" content="no-cache">
@@ -155,37 +155,6 @@
     .header-info { display: flex; justify-content: space-between; gap: 18px; padding: 10px 12px 6px; color: var(--txt-main); font-size: 12px; line-height: 1.5; flex-shrink: 0; }
     .header-info-text { flex: 1; min-width: 0; }
     .header-info-text > div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .seo-intro {
-      width: min(920px, 100%);
-      border: 1px solid var(--brd-sep);
-      background: linear-gradient(180deg, var(--bg-raised), var(--bg-surface));
-      padding: 14px 16px;
-      color: var(--txt-sub);
-    }
-    .seo-intro h1 {
-      margin: 0 0 8px;
-      font-size: clamp(22px, 4vw, 30px);
-      line-height: 1.15;
-      color: var(--txt-main);
-    }
-    .seo-intro p {
-      margin: 0;
-      font-size: 14px;
-      line-height: 1.6;
-    }
-    .seo-links {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 10px;
-      font-size: 13px;
-    }
-    .seo-links a {
-      color: #ff7a7a;
-      text-decoration: none;
-    }
-    .seo-links a:hover { text-decoration: underline; }
-    [data-theme="light"] .seo-links a { color: #9a0000; }
 
     /* ── Use badge (red squares around button values in system header) ── */
     .use-badge {
@@ -299,8 +268,9 @@
     #helpModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.78); z-index: 9999; padding: 24px; }
     #helpBox { width: min(1040px, 100%); max-height: calc(100vh - 48px); margin: 0 auto; background: var(--bg-deep); border: 2px solid var(--brd-main); display: flex; flex-direction: column; overflow: hidden; }
     #helpHeader { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--brd-sep); padding: 10px 12px; background: var(--bg-raised); flex-wrap: wrap; }
-    #helpTabs { display: flex; gap: 8px; flex-wrap: wrap; }
+    #helpTabs { display: flex; gap: 8px; flex-wrap: wrap; flex: 1 1 0; min-width: 0; }
     .help-tab, #helpClose { padding: 8px 14px; font-size: 14px; font-weight: 700; }
+    .help-tab:focus-visible, #helpClose:focus-visible, .help-link:focus-visible { outline: 3px solid #ff7777; outline-offset: 2px; }
     .help-panel { display: none; }
     .help-panel.active { display: block; }
     #helpContent { padding: 20px 22px; overflow: auto; line-height: 1.5; font-size: 14px; }
@@ -315,6 +285,18 @@
     .info-box { border: 1px solid var(--brd-sep); background: var(--bg-infobox); padding: 12px 14px; margin: 0 0 12px; font-size: 13px; color: var(--txt-muted); line-height: 1.6; }
     .info-box strong { color: var(--txt-main); }
     .info-box.muted { color: var(--txt-dim); }
+    .help-link { color: #ff7a7a; text-decoration: underline; text-underline-offset: 2px; }
+    [data-theme="light"] .help-link { color: #900000; }
+    .about-help-grid, .related-projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px; }
+    .about-help-card, .related-project-card { border: 1px solid var(--brd-card); background: var(--bg-surface); padding: 14px 16px; }
+    .about-help-card h3, .related-project-card h3 { margin: 0 0 8px; font-size: 15px; color: var(--txt-main); }
+    .about-help-card p, .related-project-card p { margin: 0; color: var(--txt-muted); line-height: 1.6; }
+    .support-panel { max-width: 640px; margin: 0 auto; text-align: center; }
+    .support-panel h3 { margin: 0 0 8px; font-size: 21px; }
+    .support-panel p { margin: 0 0 12px; color: var(--txt-muted); line-height: 1.65; }
+    .support-qr { display: block; width: min(180px, 60vw); height: auto; margin: 14px auto; border: 2px solid var(--brd-main); background: #fff; }
+    .support-button { display: inline-block; padding: 11px 18px; background: var(--bg-btn); border: 1px solid var(--brd-btn); color: #fff; font-weight: 700; text-decoration: none; }
+    .support-button:hover { background: var(--brd-main); }
 
     /* ── System cards ── */
     .sys-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; margin-bottom: 10px; }
@@ -500,7 +482,13 @@
       .stat-label { font-size: 11px; margin-bottom: 2px; }
       .stat-value { font-size: clamp(18px, 5vw, 24px); }
 
-      #helpModal { padding: 12px; }
+      #helpModal { padding: 8px; }
+      #helpBox { max-height: calc(100vh - 16px); }
+      #helpHeader { align-items: stretch; padding: 8px; }
+      #helpTabs { flex: 1 1 100%; gap: 6px; }
+      .help-tab { flex: 1 1 auto; padding: 7px 9px; font-size: 12px; }
+      #helpClose { align-self: flex-end; padding: 6px 12px; }
+      #helpContent { padding: 14px 12px; }
     }
   </style>
 </head>
@@ -556,15 +544,7 @@
 
     <main class="app-body">
       <div class="main-panel">
-        <section class="seo-intro" aria-labelledby="pageHeading">
-          <h1 id="pageHeading">Blackjack Card Counting Tool</h1>
-          <p>This free blackjack card counting tool helps you practise with 1–8 deck shoes using Hi-Lo, KO, Red 7, Hi-Opt I, Hi-Opt II, Zen Count, Omega II, and Wong Halves. Cards and decks remaining update as you count, alongside true count conversion, ace side count tracking, and betting guidance. The app works offline with no account required.</p>
-          <div class="seo-links">
-            <a href="privacy_policy.html">Privacy Policy</a>
-            <a href="https://github.com/AmandaHernow/BlackJackCounterTool" rel="noreferrer">GitHub Repository</a>
-            <a href="https://github.com/AmandaHernow/BlackJackCounterTool/releases/latest" rel="noreferrer">Latest Release</a>
-          </div>
-        </section>
+        <h1 class="sr-only">Blackjack Card Counting Tool</h1>
 
         <div id="shoeSelectorRow" class="shoe-selector-row">
           <label for="deckCount">Decks in Shoe:</label>
@@ -654,20 +634,23 @@
 
   <!-- ══════════════════ HELP MODAL ══════════════════ -->
   <div id="helpModal" aria-hidden="true">
-    <div id="helpBox" role="dialog" aria-modal="true">
+    <div id="helpBox" role="dialog" aria-modal="true" aria-labelledby="helpDialogTitle">
       <div id="helpHeader">
-        <div id="helpTabs">
-          <button class="help-tab active" data-help-tab="usagePanel">Usage</button>
-          <button class="help-tab" data-help-tab="systemsPanel">Systems</button>
-          <button class="help-tab" data-help-tab="bettingPanel">Betting</button>
-          <button class="help-tab" data-help-tab="expertPanel">Expert Notes</button>
-          <button class="help-tab" data-help-tab="disclaimerPanel">Disclaimer</button>
+        <h2 id="helpDialogTitle" class="sr-only">Blackjack Counter Tool Help</h2>
+        <div id="helpTabs" role="tablist" aria-label="Help sections">
+          <button class="help-tab active" id="usageTab" role="tab" tabindex="0" aria-selected="true" aria-controls="usagePanel" data-help-tab="usagePanel">Usage</button>
+          <button class="help-tab" id="systemsTab" role="tab" tabindex="-1" aria-selected="false" aria-controls="systemsPanel" data-help-tab="systemsPanel">Systems</button>
+          <button class="help-tab" id="bettingTab" role="tab" tabindex="-1" aria-selected="false" aria-controls="bettingPanel" data-help-tab="bettingPanel">Betting</button>
+          <button class="help-tab" id="expertTab" role="tab" tabindex="-1" aria-selected="false" aria-controls="expertPanel" data-help-tab="expertPanel">Expert Notes</button>
+          <button class="help-tab" id="aboutTab" role="tab" tabindex="-1" aria-selected="false" aria-controls="aboutPanel" data-help-tab="aboutPanel">About</button>
+          <button class="help-tab" id="supportTab" role="tab" tabindex="-1" aria-selected="false" aria-controls="supportPanel" data-help-tab="supportPanel">Support</button>
+          <button class="help-tab" id="disclaimerTab" role="tab" tabindex="-1" aria-selected="false" aria-controls="disclaimerPanel" data-help-tab="disclaimerPanel">Disclaimer</button>
         </div>
-        <button id="helpClose" title="Close help">Close</button>
+        <button id="helpClose" title="Close help" aria-label="Close help">Close</button>
       </div>
       <div id="helpContent">
 
-        <div id="usagePanel" class="help-panel active">
+        <div id="usagePanel" class="help-panel active" role="tabpanel" aria-labelledby="usageTab" tabindex="0">
           <p class="help-section-title">How to Use the Counter</p>
           <div class="step-list">
             <div class="step-item"><div class="step-num">1</div><div class="step-text"><strong>Select shoe size</strong> — choose 1–8 decks, including the common 8-deck shoe. Changing the size starts a fresh shoe for the selected system.</div></div>
@@ -685,7 +668,7 @@
           <div class="info-box"><strong>True Count vs Running Count:</strong> balanced systems divide the running count by exact decks remaining (with a 0.5-deck minimum divisor near an empty shoe). KO and Red 7 use their unbalanced running-count conventions and system-specific thresholds; the displayed comparison is not a True Count. Open Betting for the rules. A new shoe starts at the selected system's initial count.</div>
         </div>
 
-        <div id="systemsPanel" class="help-panel">
+        <div id="systemsPanel" class="help-panel" role="tabpanel" aria-labelledby="systemsTab" tabindex="0">
           <p class="help-section-title">Counting Systems</p>
           <div class="sys-grid">
             <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Hi-Lo</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag lvl1">Level 1</span></div></div><table class="val-table"><thead class="sr-only"><tr><th scope="col">Value</th><th scope="col">Cards</th></tr></thead><tbody><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 4, 5, 6</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">7, 8, 9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K, A</td></tr></tbody></table></div>
@@ -700,7 +683,7 @@
           <div class="info-box"><strong>Starting counts:</strong> the six balanced systems start at 0 and sum to 0 over a complete deck. KO starts at <code>4 − 4 × decks</code> and Red 7 starts at <code>−2 × decks</code>; both unbalanced tag sets gain +4 or +2 per full deck counted, respectively. KO uses a key count and +4 pivot; Red 7 uses pivot 0 and its deck-specific running-count betting guide. The Betting section explains the implemented thresholds.</div>
         </div>
 
-        <div id="bettingPanel" class="help-panel">
+        <div id="bettingPanel" class="help-panel" role="tabpanel" aria-labelledby="bettingTab" tabindex="0">
           <p class="help-section-title">How Betting Suggestions Are Calculated</p>
           <div class="info-box"><strong>Balanced systems — Hi-Lo, Hi-Opt I, Hi-Opt II, Zen, Omega II, Wong Halves:</strong> all six currently share this application-specific training ramp, using the unrounded True Count (TC = running count ÷ max(exact decks remaining, 0.5)). TC ≥ +4: <b>Max</b>; +3 ≤ TC &lt; +4: <b>High</b>; +2 ≤ TC &lt; +3: <b>Raise</b>; +1 ≤ TC &lt; +2: <b>Slight Increase</b>; 0 ≤ TC &lt; +1: <b>Standard</b>; −2 &lt; TC &lt; 0: <b>Minimum</b>; TC ≤ −2: <b>Sit Out / Minimum</b>. The common bands do not account for differences in betting correlation, rules, penetration, or bankroll, and are not a validated or optimized spread.</div>
           <div class="info-box"><strong>KO:</strong> the standard KO IRC is 4 − 4 × starting decks and the pivot is +4. For the published key counts available for 1, 2, 4, 6, and 8 decks (+2, +1, −1, −4, −6), this app says <b>Minimum</b> below key, <b>Raise</b> from key up to but not including +4, and <b>Max</b> at +4 or above. KO Rookie starts increasing at the key; its source describes the maximum bet as at or near pivot. Standard published key counts were not established here for 3, 5, and 7 decks. For those sizes, this app uses an explicitly conservative fallback: Minimum below +4, Max at/above +4, with no key count claimed.</div>
@@ -711,7 +694,7 @@
           <div class="info-box muted">These suggestions are educational signals, not bankroll-optimized advice. They do not account for table rules (including S17/H17, blackjack payout, doubling, splitting, or surrender), penetration, bankroll, risk tolerance, table limits, or camouflage. No recommendation guarantees a player edge or a win.</div>
         </div>
 
-        <div id="expertPanel" class="help-panel">
+        <div id="expertPanel" class="help-panel" role="tabpanel" aria-labelledby="expertTab" tabindex="0">
           <p class="help-section-title">What Changes at Expert Level</p>
           <div class="compare-grid">
             <div class="compare-box"><h4>Beginner — Hi-Lo</h4><ul><li>Three card groups only</li><li>All values are +1, 0, or −1</li><li>Balanced — starts and ends at 0</li><li>True Count uses precise fractional decks remaining</li><li>No ace side count needed</li><li>Easiest to maintain under pressure</li></ul></div>
@@ -725,7 +708,53 @@
           <div class="info-box"><strong>Ace side count:</strong> Ace density for Hi-Opt I, Hi-Opt II, and Omega II compares remaining aces with the number expected from exact remaining cards. Ace density is shown as additional information and does not automatically change the betting recommendation.</div>
         </div>
 
-        <div id="disclaimerPanel" class="help-panel">
+        <div id="aboutPanel" class="help-panel" role="tabpanel" aria-labelledby="aboutTab" tabindex="0">
+          <p class="help-section-title">About Blackjack Counter Tool</p>
+          <div class="about-help-grid">
+            <section class="about-help-card">
+              <h3>A focused practice tool</h3>
+              <p>Blackjack Counter Tool is an independently developed browser-based practice tool. It supports eight counting systems, 1–8 deck shoes, Running Count and True Count, KO and Red 7 references, a half-deck shoe display, ace side counting where applicable, and educational betting suggestions. It works offline when opened from a local copy; no account is required.</p>
+            </section>
+            <section class="about-help-card">
+              <h3>Why I built it</h3>
+              <p>I believe useful software should be accessible without forcing people into unnecessary subscriptions. I built this as a straightforward tool you can use for free, without an account, advertisements, or giving away personal information. Software should do what it promises without unnecessary paywalls or data harvesting.</p>
+            </section>
+            <section class="about-help-card">
+              <h3>Privacy and independence</h3>
+              <p>Counting happens in your browser. The app has no advertising or behavioral tracking, and it does not upload counting sessions. Your theme preference is stored locally. External project and donation links open only when you choose them. See the <a class="help-link" href="privacy_policy.html">Privacy Policy</a> for details.</p>
+            </section>
+            <section class="about-help-card">
+              <h3>Amanda Hernow — Independent developer</h3>
+              <p>I build practical software with a focus on usability, privacy, accessibility, and avoiding unnecessary subscription-based features.</p>
+            </section>
+          </div>
+          <h3 style="margin:18px 0 10px">Related projects</h3>
+          <div class="related-projects">
+            <section class="related-project-card">
+              <h3>Text Encryption and Decryption Utility Tool</h3>
+              <p>A separate utility for encrypting and decrypting text locally, designed with user privacy in mind. <a class="help-link" href="https://amandahernow.github.io/EncryptionDecryptionUtilityTool/" target="_blank" rel="noopener noreferrer">Open the utility</a>.</p>
+            </section>
+            <section class="related-project-card">
+              <h3>HernowNet</h3>
+              <p>A privacy-focused personal software platform built around encrypted personal tools, including a Note Vault. It is under active development, and functionality may change. <a class="help-link" href="https://hernow.net" target="_blank" rel="noopener noreferrer">Visit HernowNet</a>.</p>
+            </section>
+          </div>
+          <div class="info-box" style="margin-top:12px"><strong>Project links:</strong> <a class="help-link" href="about.html">Full About page</a> · <a class="help-link" href="privacy_policy.html">Privacy Policy</a> · <a class="help-link" href="https://github.com/AmandaHernow/BlackJackCounterTool" target="_blank" rel="noopener noreferrer">GitHub Repository</a> · <a class="help-link" href="https://github.com/AmandaHernow/BlackJackCounterTool/releases/latest" target="_blank" rel="noopener noreferrer">Latest Release</a></div>
+        </div>
+
+        <div id="supportPanel" class="help-panel" role="tabpanel" aria-labelledby="supportTab" tabindex="0">
+          <div class="support-panel">
+            <p class="help-section-title">Support</p>
+            <h3>Enjoying Blackjack Counter Tool?</h3>
+            <p>Blackjack Counter Tool is free to use and independently developed. If it helps you practise your card-counting skills, you can support its continued development with a small donation. Every coffee helps me maintain the project and improve it over time.</p>
+            <p>Donations are completely optional, and no features are locked behind payment. The button and QR code open PayPal; this app does not process donations.</p>
+            <img class="support-qr" src="assets/paypal-qr.png" alt="QR code linking to Amanda Hernow’s PayPal donation page">
+            <a class="support-button" href="https://www.paypal.me/AmandaHernow" target="_blank" rel="noopener noreferrer">Buy Me a Coffee <span class="sr-only">via PayPal (opens in a new tab)</span></a>
+            <p style="margin-top:10px;font-size:12px">PayPal is a separate service and applies its own privacy practices.</p>
+          </div>
+        </div>
+
+        <div id="disclaimerPanel" class="help-panel" role="tabpanel" aria-labelledby="disclaimerTab" tabindex="0">
           <p class="help-section-title">Disclaimer</p>
           <div class="info-box"><strong>Legality:</strong> card counting using only your own brain is not illegal in most jurisdictions. Casinos are private property and may ask you to leave, restrict your bets, or ban you if they suspect counting. This varies by location.</div>
           <div class="info-box"><strong>No guarantee of winnings:</strong> card counting shifts the mathematical edge slightly in your favour over a very large number of hands. It does not guarantee a win on any individual session or hand. Short-term variance can be severe even with a positive edge.</div>
@@ -1155,19 +1184,32 @@
     }
 
     /* ── Help modal ── */
-    function openHelp()  { helpModal.style.display = 'block'; helpModal.setAttribute('aria-hidden', 'false'); }
-    function closeHelp() { helpModal.style.display = 'none';  helpModal.setAttribute('aria-hidden', 'true');  }
+    function openHelp()  { helpModal.style.display = 'block'; helpModal.setAttribute('aria-hidden', 'false'); document.getElementById('usageTab').focus(); }
+    function closeHelp() { helpModal.style.display = 'none';  helpModal.setAttribute('aria-hidden', 'true'); btnHelp.focus(); }
 
     /* ── Event listeners ── */
     systemTabs.forEach(function (t) { t.addEventListener('click', function () { setActiveSystem(t.dataset.system); }); });
 
     helpTabs.forEach(function (t) {
       t.addEventListener('click', function () {
-        helpTabs.forEach(function (x)  { x.classList.remove('active'); });
+        helpTabs.forEach(function (x)  { x.classList.remove('active'); x.setAttribute('aria-selected', 'false'); x.setAttribute('tabindex', '-1'); });
         helpPanels.forEach(function (p) { p.classList.remove('active'); });
         t.classList.add('active');
+        t.setAttribute('aria-selected', 'true');
+        t.setAttribute('tabindex', '0');
         var panel = document.getElementById(t.dataset.helpTab);
         if (panel) panel.classList.add('active');
+      });
+      t.addEventListener('keydown', function (e) {
+        var index = Array.prototype.indexOf.call(helpTabs, t);
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft' || e.key === 'Home' || e.key === 'End') {
+          e.preventDefault();
+          var nextIndex = e.key === 'Home' ? 0 : e.key === 'End' ? helpTabs.length - 1
+            : (index + (e.key === 'ArrowRight' ? 1 : helpTabs.length - 1)) % helpTabs.length;
+          var nextTab = helpTabs[nextIndex];
+          nextTab.focus();
+          nextTab.click();
+        }
       });
     });
 
