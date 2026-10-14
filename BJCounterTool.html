@@ -9,20 +9,20 @@
   <meta http-equiv="Expires" content="0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blackjack Card Counting Tool | Free Online Blackjack Counter</title>
-  <meta name="description" content="Free blackjack card counting tool for browser use. Practice blackjack card counting with Hi-Lo, KO, Red 7, Hi-Opt I, Hi-Opt II, Zen Count, Omega II, and Wong Halves, with true count, ace side count, and betting guidance.">
+  <meta name="description" content="Free offline blackjack card counting tool with 1–8 deck shoes, decks remaining, accurate true count, eight counting systems, ace side count, and betting guidance.">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   <meta name="author" content="Amanda Hansson Hernow">
   <meta name="theme-color" content="#7a0000">
   <link rel="canonical" href="https://amandahernow.github.io/BlackJackCounterTool/BJCounterTool.html">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Blackjack Card Counting Tool">
-  <meta property="og:description" content="Free browser-based blackjack card counting practice tool with multiple counting systems, true count conversion, ace side count tracking, and offline use.">
+  <meta property="og:description" content="Free offline blackjack card counting practice tool with 1–8 deck shoes, decks remaining, true count conversion, ace side count tracking, and betting guidance.">
   <meta property="og:url" content="https://amandahernow.github.io/BlackJackCounterTool/BJCounterTool.html">
   <meta property="og:site_name" content="Blackjack Counter Tool">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Blackjack Card Counting Tool">
-  <meta name="twitter:description" content="Free browser-based blackjack card counting practice tool with multiple counting systems and offline use.">
+  <meta name="twitter:description" content="Free offline blackjack card counting practice tool with 1–8 deck shoes, decks remaining, true count, and eight systems.">
   <meta name="google-site-verification" content="idjCoV1cpdkScdzsT6ueb69RU5e9Sec1jk3MIDmB9Ik" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iIzAwMDAwMCIvPgogIDxyZWN0IHg9IjEiIHk9IjEiIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgcng9IjMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2IzMDAwMCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8cGF0aCBkPSJNMTYgNSBDMTYgNSwgNyAxMSwgNyAxNyBDNyAyMC41IDkuNSAyMiAxMiAyMSBDMTEgMjMgMTAgMjUgOCAyNiBMMjQgMjYgQzIyIDI1IDIxIDIzIDIwIDIxIEMyMi41IDIyIDI1IDIwLjUgMjUgMTcgQzI1IDExIDE2IDUgMTYgNSBaIiBmaWxsPSIjZmZmZmZmIi8+CiAgPHJlY3QgeD0iMTQiIHk9IjI0IiB3aWR0aD0iNCIgaGVpZ2h0PSIzIiByeD0iMSIgZmlsbD0iI2ZmZmZmZiIvPgo8L3N2Zz4=">
   <script type="application/ld+json">
@@ -35,7 +35,7 @@
     "browserRequirements": "Requires JavaScript. Works in modern desktop and mobile browsers.",
     "url": "https://amandahernow.github.io/BlackJackCounterTool/BJCounterTool.html",
     "downloadUrl": "https://github.com/AmandaHernow/BlackJackCounterTool/releases/latest",
-    "description": "Free browser-based blackjack card counting practice tool with multiple counting systems, true count conversion, ace side count tracking, and betting guidance.",
+    "description": "Free offline blackjack card counting practice tool with 1–8 deck shoes, decks remaining, accurate true count conversion, ace side count tracking, and betting guidance.",
     "author": {
       "@type": "Person",
       "name": "Amanda Hansson Hernow",
@@ -54,6 +54,7 @@
     "featureList": [
       "Hi-Lo, KO, Red 7, Hi-Opt I, Hi-Opt II, Zen Count, Omega II, and Wong Halves systems",
       "True count calculation for balanced systems",
+      "Shoe size selection from 1 to 8 decks with cards and decks remaining",
       "Ace side count tracking for supported systems",
       "Offline browser use with no external dependencies",
       "Betting suggestion guidance and action log"
@@ -251,30 +252,37 @@
     .stat-label { font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--txt-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .stat-value { font-size: clamp(24px, 5vw, 34px); font-weight: 700; color: var(--txt-main); }
 
-    /* ── Grid layout — MEDIUM ONLY (641–1399px): True Count + Betting as tall left pair ── */
-    @media (min-width: 641px) and (max-width: 1399px) {
+    /* ── Desktop stats grid: equal top boxes and five equal shoe-stat boxes ── */
+    @media (min-width: 641px) {
       #mainGrid {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-template-rows: minmax(52px, auto) minmax(52px, auto);
-        gap: 8px;
+        grid-template-columns: repeat(10, minmax(0, 1fr));
+        grid-template-rows: auto auto;
+        gap: 12px;
         flex-wrap: unset;
         align-items: unset;
       }
-      #mainGrid .true-count-box  { grid-column: 1; grid-row: 1 / span 2; flex: none; min-width: 0; }
-      #mainGrid .betting-box     { grid-column: 2; grid-row: 1 / span 2; flex: none; min-width: 0; }
-      #mainGrid #cardsPlayedBox    { grid-column: 3; grid-row: 1; flex: none; max-width: none; }
-      #mainGrid #cardsRemainingBox { grid-column: 4; grid-row: 1; flex: none; max-width: none; }
-      #mainGrid #extraStatOneBox   { grid-column: 3; grid-row: 2; flex: none; max-width: none; }
-      #mainGrid #extraStatTwoBox   { grid-column: 4; grid-row: 2; flex: none; max-width: none; }
-      #mainGrid #acesPlayedBox     { grid-column: 3; grid-row: 2; flex: none; max-width: none; }
-      #mainGrid #acesRemainingBox  { grid-column: 4; grid-row: 2; flex: none; max-width: none; }
-      /* 4-box systems (Hi-Lo, Zen, Wong Halves): collapse to single row */
-      #mainGrid.two-box { grid-template-rows: auto; }
-      #mainGrid.two-box .true-count-box  { grid-row: 1; }
-      #mainGrid.two-box .betting-box     { grid-row: 1; }
-      #mainGrid.two-box #cardsPlayedBox    { grid-column: 3; grid-row: 1; }
-      #mainGrid.two-box #cardsRemainingBox { grid-column: 4; grid-row: 1; }
+      #mainGrid .true-count-box, #mainGrid .betting-box { grid-row: 1; flex: none; min-width: 0; }
+      #mainGrid .true-count-box { grid-column: 1 / span 5; }
+      #mainGrid .betting-box { grid-column: 6 / span 5; }
+      #mainGrid .stat-box { grid-row: 2; flex: none; max-width: none; min-width: 0; min-height: 92px; }
+      #mainGrid #cardsPlayedBox    { grid-column: 1 / span 2; }
+      #mainGrid #cardsRemainingBox { grid-column: 3 / span 2; }
+      #mainGrid #decksRemainingBox { grid-column: 5 / span 2; }
+      #mainGrid #extraStatOneBox, #mainGrid #acesPlayedBox { grid-column: 7 / span 2; }
+      #mainGrid #extraStatTwoBox, #mainGrid #acesRemainingBox { grid-column: 9 / span 2; }
+      #mainGrid .stat-label { white-space: normal; line-height: 1.15; }
+      #mainGrid.three-stats { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+      #mainGrid.three-stats .true-count-box { grid-column: 1 / span 3; }
+      #mainGrid.three-stats .betting-box { grid-column: 4 / span 3; }
+      #mainGrid.three-stats #cardsPlayedBox { grid-column: 1 / span 2; }
+      #mainGrid.three-stats #cardsRemainingBox { grid-column: 3 / span 2; }
+      #mainGrid.three-stats #decksRemainingBox { grid-column: 5 / span 2; }
+    }
+
+    @media (min-width: 641px) and (max-width: 1399px) {
+      #mainGrid { gap: 8px; }
+      #mainGrid .stat-box { min-height: 76px; padding: 8px; }
     }
 
     /* ── Action log ── */
@@ -378,28 +386,10 @@
     @media (max-width: 700px) { .sys-grid { grid-template-columns: 1fr; } .compare-grid { grid-template-columns: 1fr; } }
     @media (min-height: 1150px) { .window { zoom: 0.75; } }
 
-    /* ══ LARGE SCREEN ≥1400px ══
-       Original layout: TC + Betting as equal top row, stats as bottom row */
+    /* ══ LARGE SCREEN ≥1400px ══ */
     @media (min-width: 1400px) {
       .system-tabs { display: flex !important; }
       .system-select-mobile { display: none !important; }
-      #mainGrid {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-template-rows: auto auto;
-        gap: 12px;
-      }
-      #mainGrid .true-count-box  { grid-column: 1 / span 2; grid-row: 1; flex: none; min-width: 0; }
-      #mainGrid .betting-box     { grid-column: 3 / span 2; grid-row: 1; flex: none; min-width: 0; }
-      #mainGrid #cardsPlayedBox    { grid-column: 1; grid-row: 2; flex: none; max-width: none; }
-      #mainGrid #cardsRemainingBox { grid-column: 2; grid-row: 2; flex: none; max-width: none; }
-      #mainGrid #extraStatOneBox   { grid-column: 3; grid-row: 2; flex: none; max-width: none; }
-      #mainGrid #extraStatTwoBox   { grid-column: 4; grid-row: 2; flex: none; max-width: none; }
-      #mainGrid #acesPlayedBox     { grid-column: 3; grid-row: 2; flex: none; max-width: none; }
-      #mainGrid #acesRemainingBox  { grid-column: 4; grid-row: 2; flex: none; max-width: none; }
-      /* two-box: cards span wider in row 2 */
-      #mainGrid.two-box #cardsPlayedBox    { grid-column: 1 / span 2; grid-row: 2; }
-      #mainGrid.two-box #cardsRemainingBox { grid-column: 3 / span 2; grid-row: 2; }
     }
 
     /* ══ MEDIUM / LAPTOP  641–1399px ══
@@ -583,7 +573,7 @@
       <div class="main-panel">
         <section class="seo-intro" aria-labelledby="pageHeading">
           <h1 id="pageHeading">Blackjack Card Counting Tool</h1>
-          <p>This free blackjack card counting tool helps you practise blackjack card counting in your browser with Hi-Lo, KO, Red 7, Hi-Opt I, Hi-Opt II, Zen Count, Omega II, and Wong Halves. It includes true count conversion, ace side count tracking, betting guidance, and offline-friendly play with no account required.</p>
+          <p>This free blackjack card counting tool helps you practise with 1–8 deck shoes using Hi-Lo, KO, Red 7, Hi-Opt I, Hi-Opt II, Zen Count, Omega II, and Wong Halves. Cards and decks remaining update as you count, alongside true count conversion, ace side count tracking, and betting guidance. The app works offline with no account required.</p>
           <div class="seo-links">
             <a href="privacy_policy.html">Privacy Policy</a>
             <a href="https://github.com/AmandaHernow/BlackJackCounterTool" rel="noreferrer">GitHub Repository</a>
@@ -601,6 +591,7 @@
             <option value="5">5</option>
             <option value="6">6</option>
             <option value="7">7</option>
+            <option value="8">8</option>
           </select>
         </div>
 
@@ -641,6 +632,10 @@
           <div id="cardsRemainingBox" class="stat-box">
             <div class="stat-label">Cards Left in Shoe</div>
             <div id="cardsRemainingDisplay" class="stat-value">52</div>
+          </div>
+          <div id="decksRemainingBox" class="stat-box">
+            <div class="stat-label">Decks Left in Shoe</div>
+            <div id="decksRemainingDisplay" class="stat-value">= 1</div>
           </div>
           <div id="extraStatOneBox" class="stat-box">
             <div id="extraStatOneLabel" class="stat-label">Key Count Status</div>
@@ -690,18 +685,19 @@
         <div id="usagePanel" class="help-panel active">
           <p class="help-section-title">How to Use the Counter</p>
           <div class="step-list">
-            <div class="step-item"><div class="step-num">1</div><div class="step-text"><strong>Select shoe size</strong> — choose how many decks are in the shoe. This affects true count calculation and unbalanced system starting counts.</div></div>
+            <div class="step-item"><div class="step-num">1</div><div class="step-text"><strong>Select shoe size</strong> — choose 1–8 decks, including the common 8-deck shoe. Changing the size starts a fresh shoe for the selected system.</div></div>
             <div class="step-item"><div class="step-num">2</div><div class="step-text"><strong>Choose a system</strong> — click the tab for the counting system you want to use. The buttons and display update automatically.</div></div>
             <div class="step-item"><div class="step-num">3</div><div class="step-text"><strong>Press buttons as cards are dealt</strong> — each button adjusts the running count by its value. The large number in the centre is always the current running count.</div></div>
-            <div class="step-item"><div class="step-num">4</div><div class="step-text"><strong>Read the True Count box</strong> — for balanced systems this shows running count ÷ decks remaining. For KO and Red 7 it shows your position relative to the key count instead.</div></div>
-            <div class="step-item"><div class="step-num">5</div><div class="step-text"><strong>Ace button (where shown)</strong> — in Hi-Opt I, Hi-Opt II, and Omega II, aces are tracked separately. Pressing Ace does not change the running count but updates the ace density stats.</div></div>
-            <div class="step-item"><div class="step-num">6</div><div class="step-text"><strong>New Shoe</strong> — resets the count to the correct starting value for the selected system and shoe size. Use this at the start of each new shoe.</div></div>
-            <div class="step-item"><div class="step-num">7</div><div class="step-text"><strong>Undo / Clear</strong> — Undo steps back one action at a time. Clear resets the entire shoe, same as New Shoe.</div></div>
-            <div class="step-item"><div class="step-num">8</div><div class="step-text"><strong>Theme toggle</strong> — the ☀ button in the top right switches between dark and light mode. Your preference is saved automatically.</div></div>
-            <div class="step-item"><div class="step-num">9</div><div class="step-text"><strong>Action log</strong> — the <code style="font-size:12px;border:1px solid #b30000;padding:0 4px;">&gt;_</code> button toggles the action log panel, which slides in from the right on all screen sizes.</div></div>
+            <div class="step-item"><div class="step-num">4</div><div class="step-text"><strong>Read the shoe and count stats</strong> — Cards Left and Decks Left update automatically after each counted card. <code>= 8</code> means exactly eight decks remain; <code>&lt; 8</code> means fewer than eight but more than 7.5. Likewise, <code>= 7.5</code> is exactly seven and a half decks, while <code>&lt; 7.5</code> means fewer than 7.5 but more than seven. Undo restores the previous shoe state; New Shoe and Clear reset it.</div></div>
+            <div class="step-item"><div class="step-num">5</div><div class="step-text"><strong>Read the True Count box</strong> — for balanced systems this is running count ÷ actual decks remaining. Near the end of a shoe, the calculation uses a minimum divisor of 0.5 decks to avoid extreme values; the displayed decks remaining stays accurate. For KO and Red 7 it shows your position relative to the key count instead.</div></div>
+            <div class="step-item"><div class="step-num">6</div><div class="step-text"><strong>Ace button (where shown)</strong> — in Hi-Opt I, Hi-Opt II, and Omega II, aces are tracked separately. Pressing Ace does not change the running count but updates the ace density stats.</div></div>
+            <div class="step-item"><div class="step-num">7</div><div class="step-text"><strong>New Shoe</strong> — starts the selected shoe size over with the correct starting count. Undo can restore the shoe that was active before New Shoe.</div></div>
+            <div class="step-item"><div class="step-num">8</div><div class="step-text"><strong>Undo / Clear</strong> — Undo reverses the last card, shoe reset, or shoe-size change. Clear resets the entire shoe, same as New Shoe.</div></div>
+            <div class="step-item"><div class="step-num">9</div><div class="step-text"><strong>Theme toggle</strong> — the ☀ button in the top right switches between dark and light mode. Your preference is saved automatically.</div></div>
+            <div class="step-item"><div class="step-num">10</div><div class="step-text"><strong>Action log</strong> — the <code style="font-size:12px;border:1px solid #b30000;padding:0 4px;">&gt;_</code> button toggles the action log panel, which slides in from the right on supported screen sizes.</div></div>
           </div>
           <div class="info-box"><strong>Ace density:</strong> in systems with ace side counting, the betting note shows <em>Aces rich</em>, <em>Aces poor</em>, or <em>Aces neutral</em>. A rich shoe has more aces remaining than expected and slightly favours the player beyond what the count alone shows.</div>
-          <div class="info-box"><strong>True Count vs Running Count:</strong> the true count normalises the running count for decks remaining. A running count of +6 in a 6-deck shoe is much weaker than the same count with one deck left. Unbalanced systems (KO, Red 7) skip this step and use the running count against fixed key thresholds.</div>
+          <div class="info-box"><strong>True Count vs Running Count:</strong> balanced systems divide the running count by the decks actually left in the shoe, not the starting shoe size. For example, +8 with 4.00 decks left is a true count of +2.00. The calculation uses at least 0.5 decks as its divisor near the end of the shoe; this is a safety convention, while the Decks Left display continues to show the actual amount down to 0.00. Unbalanced systems (KO, Red 7) use the running count and key thresholds instead.</div>
         </div>
 
         <div id="systemsPanel" class="help-panel">
@@ -731,17 +727,18 @@
           </div>
           <div class="info-box"><strong>Unbalanced systems (KO, Red 7):</strong> the ramp uses the running count relative to the key count threshold rather than true count. Once you are above the key, conditions are favourable. The further above the key, the stronger the advantage.</div>
           <div class="info-box"><strong>Ace density modifier:</strong> in systems with ace side counting (Hi-Opt I, Hi-Opt II, Omega II), the betting note shows whether the shoe is ace-rich or ace-poor. Ace-rich shoes are slightly more favourable and may justify pushing a bet one level higher.</div>
+          <div class="info-box"><strong>Balanced systems:</strong> the suggested ramp uses the true count calculated from the running count and actual decks remaining, with a 0.5-deck minimum calculation divisor near an empty shoe. The visible Decks Left value remains the actual shoe amount. Ace density notes are applied for Hi-Opt I, Hi-Opt II, and Omega II.</div>
           <div class="info-box muted">This ramp is a practical training guide, not a bankroll-optimised professional spread. Real advantage play requires strict bet sizing discipline, risk-of-ruin calculations, and awareness of table bet limits.</div>
         </div>
 
         <div id="expertPanel" class="help-panel">
           <p class="help-section-title">What Changes at Expert Level</p>
           <div class="compare-grid">
-            <div class="compare-box"><h4>Beginner — Hi-Lo</h4><ul><li>Three card groups only</li><li>All values are +1, 0, or −1</li><li>Balanced — starts and ends at 0</li><li>True count = running ÷ decks</li><li>No ace side count needed</li><li>Easiest to maintain under pressure</li></ul></div>
+            <div class="compare-box"><h4>Beginner — Hi-Lo</h4><ul><li>Three card groups only</li><li>All values are +1, 0, or −1</li><li>Balanced — starts and ends at 0</li><li>True Count uses precise fractional decks remaining</li><li>No ace side count needed</li><li>Easiest to maintain under pressure</li></ul></div>
             <div class="compare-box"><h4>Advanced — Level 2 Systems</h4><ul><li>More card groups with different weights</li><li>Values of ±2 require separate mental tracking</li><li>Fractional steps in Wong Halves</li><li>Ace side counting adds a parallel track</li><li>Higher accuracy over many decks</li><li>Significantly harder to maintain error-free</li></ul></div>
           </div>
           <div class="info-box"><strong>Index plays:</strong> advanced players deviate from basic strategy at certain count thresholds (index numbers). For example, standing on 16 vs dealer 10 when the count is sufficiently positive. This app focuses on the count and betting signal only — index plays are not implemented.</div>
-          <div class="info-box"><strong>Deck estimation:</strong> true count accuracy depends on correctly estimating decks remaining. Expert players estimate to the nearest half-deck. An error of one full deck in a 6-deck shoe can shift the true count by a full point.</div>
+          <div class="info-box"><strong>Half-deck estimation:</strong> blackjack players often estimate the remaining shoe in half-deck increments. The Decks Left indicator shows the interval containing the exact remaining amount: <code>=</code> marks an exact whole- or half-deck boundary, and <code>&lt;</code> means fewer decks remain than the next half-deck boundary. This avoids suggesting an exact amount when the shoe is between boundaries. Internally, remaining decks are calculated from the exact number of cards left (cards ÷ 52); the display rounding never changes True Count, which continues to use precise fractional decks remaining. Near an empty shoe, the calculation divisor has a 0.5-deck minimum for stability, while the indicator still reports the actual amount down to <code>= 0</code>.</div>
           <div class="info-box"><strong>System efficiency:</strong> systems are evaluated on Betting Correlation (BC), Playing Efficiency (PE), and Insurance Correlation (IC). Hi-Lo has solid BC. Hi-Opt II and Omega II score higher across all three but at the cost of mental complexity.</div>
         </div>
 
@@ -885,6 +882,7 @@
     var bettingNoteDisplay       = document.getElementById('bettingNoteDisplay');
     var cardsPlayedDisplay       = document.getElementById('cardsPlayedDisplay');
     var cardsRemainingDisplay    = document.getElementById('cardsRemainingDisplay');
+    var decksRemainingDisplay    = document.getElementById('decksRemainingDisplay');
     var acesPlayedDisplay        = document.getElementById('acesPlayedDisplay');
     var acesRemainingDisplay     = document.getElementById('acesRemainingDisplay');
     var extraStatOneBox          = document.getElementById('extraStatOneBox');
@@ -913,6 +911,7 @@
     var systemHeaderDetails      = document.getElementById('systemHeaderDetails');
     var systemHeaderUse          = document.getElementById('systemHeaderUse');
     var actionLogBody            = document.getElementById('actionLogBody');
+    var previousDeckCount        = Number(deckCount.value) || 1;
 
     /* ── Helpers ── */
     function getIRC(name, decks) {
@@ -923,6 +922,15 @@
     function getKeyCount(name, decks) {
       if (name === 'ko') { var t = {1:2,2:0,3:-1,4:-2,5:-4,6:-5,7:-6,8:-6}; return t[decks] != null ? t[decks] : 0; }
       return 0;
+    }
+    function saveHistory(decksOverride) {
+      history.push({
+        count: count,
+        cardsPlayed: cardsPlayed,
+        acesPlayed: acesPlayed,
+        decks: decksOverride || Number(deckCount.value) || 1,
+        actionLogEntries: actionLogEntries.slice()
+      });
     }
     function getBet(v, note) {
       var s = 'Standard';
@@ -976,15 +984,20 @@
       var decks    = Number(deckCount.value) || 1;
       var total    = decks * 52, totalAces = decks * 4;
       var cardsRem = Math.max(total - cardsPlayed, 0);
+      var decksRemaining = cardsRem / 52;
+      var halfDeckUnits = Math.ceil(cardsRem / 26);
+      var displayDecks = halfDeckUnits / 2;
+      var deckBoundarySign = cardsRem % 26 === 0 ? '=' : '<';
+      var displayDeckText = Number.isInteger(displayDecks) ? String(displayDecks) : displayDecks.toFixed(1);
+      var safeDecksRemaining = Math.max(decksRemaining, 0.5);
       var acesRem  = Math.max(totalAces - acesPlayed, 0);
-      var metric   = systems[activeSystem].usesRunningCountOnly ? count : count / decks;
+      var metric   = systems[activeSystem].usesRunningCountOnly ? count : count / safeDecksRemaining;
       var note     = systems[activeSystem].usesRunningCountOnly ? 'Based on running count' : 'Based on true count';
 
       if (systems[activeSystem].aceSideCount && cardsRem > 0) {
         var exp     = (cardsRem / total) * totalAces;
         var surplus = acesRem - exp;
-        var decksRem = Math.max(cardsRem / 52, 0.5);
-        var bias    = surplus / decksRem;
+        var bias    = surplus / safeDecksRemaining;
         note = bias >= 0.5 ? 'Aces rich' : bias <= -0.5 ? 'Aces poor' : 'Aces neutral';
       }
 
@@ -1017,8 +1030,12 @@
       bettingNoteDisplay.textContent       = bet.note;
       cardsPlayedDisplay.textContent       = cardsPlayed;
       cardsRemainingDisplay.textContent    = cardsRem;
+      decksRemainingDisplay.textContent    = deckBoundarySign + ' ' + displayDeckText;
       acesPlayedDisplay.textContent        = acesPlayed;
       acesRemainingDisplay.textContent     = acesRem;
+      counterButtons.querySelectorAll('button').forEach(function (button) {
+        button.disabled = cardsRem === 0;
+      });
     }
 
     /* ── Counter buttons ── */
@@ -1027,7 +1044,9 @@
       btn.type = 'button';
       btn.textContent = def.label;
       btn.addEventListener('click', function () {
-        history.push({ count: count, cardsPlayed: cardsPlayed, acesPlayed: acesPlayed, logLength: actionLogEntries.length });
+        var total = (Number(deckCount.value) || 1) * 52;
+        if (cardsPlayed >= total) return;
+        saveHistory();
         count += def.delta;
         cardsPlayed++;
         if (def.ace) acesPlayed++;
@@ -1078,10 +1097,10 @@
       acesPlayedBox.style.display    = sys.aceSideCount ? 'block' : 'none';
       acesRemainingBox.style.display = sys.aceSideCount ? 'block' : 'none';
 
-      /* Stats grid class for medium-screen layout */
-      mainGrid.classList.remove('two-box');
+      /* Grid variant for systems with only three shoe statistics. */
+      mainGrid.classList.remove('three-stats');
       if (!sys.aceSideCount && !sys.usesRunningCountOnly) {
-        mainGrid.classList.add('two-box');
+        mainGrid.classList.add('three-stats');
       }
 
       cardsPlayed  = 0;
@@ -1113,22 +1132,31 @@
     });
 
     deckCount.addEventListener('change', function () {
-      if (systems[activeSystem].usesRunningCountOnly && cardsPlayed === 0) {
-        count = getIRC(activeSystem, Number(deckCount.value) || 1);
-      }
+      saveHistory(previousDeckCount);
+      var d = Number(deckCount.value) || 1;
+      previousDeckCount = d;
+      count = systems[activeSystem].usesRunningCountOnly ? getIRC(activeSystem, d) : 0;
+      cardsPlayed = 0;
+      acesPlayed = 0;
+      actionLogEntries.length = 0;
+      renderLog();
       render();
     });
 
     btnUndo.addEventListener('click', function () {
       var p = history.pop();
       if (!p) return;
-      count = p.count; cardsPlayed = p.cardsPlayed; acesPlayed = p.acesPlayed;
-      actionLogEntries.length = p.logLength || 0;
+      count = p.count;
+      cardsPlayed = p.cardsPlayed;
+      acesPlayed = p.acesPlayed;
+      deckCount.value = String(p.decks);
+      previousDeckCount = p.decks;
+      actionLogEntries = p.actionLogEntries.slice();
       renderLog(); render();
     });
 
     function doNewShoe() {
-      history.push({ count: count, cardsPlayed: cardsPlayed, acesPlayed: acesPlayed, logLength: actionLogEntries.length });
+      saveHistory();
       var d = Number(deckCount.value) || 1;
       count = systems[activeSystem].usesRunningCountOnly ? getIRC(activeSystem, d) : 0;
       cardsPlayed = 0; acesPlayed = 0;

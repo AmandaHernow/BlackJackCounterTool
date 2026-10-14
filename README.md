@@ -40,14 +40,15 @@ If you prefer to run it locally, download `BJCounterTool.html` from the [latest 
 
 **Counting**
 - Running count displayed prominently at all times
-- True count (running ÷ decks remaining) for all balanced systems
+- True count (running count ÷ actual decks remaining) for all balanced systems
 - Key count tracking and threshold comparison for unbalanced systems (KO, Red 7)
 - Ace side count with density tracking for Hi-Opt I, Hi-Opt II, and Omega II
 - Correct IRC (initial running count) for unbalanced systems based on shoe size
 
 **Interface**
 - Dark and light mode with preference saved automatically
-- Configurable shoe size from 1 to 7 decks
+- Configurable shoe size from 1 to 8 decks, including common 8-deck shoes
+- Cards Left and a half-deck Decks Left indicator that update automatically as cards are counted
 - System-specific button layouts that change per counting method
 - Betting suggestion panel with visual ramp tied to true count or running count
 - Ace density indicator — rich, poor, or neutral — for ace side count systems
@@ -59,19 +60,23 @@ If you prefer to run it locally, download `BJCounterTool.html` from the [latest 
 - Single `.html` file — open directly in any browser, no install needed
 - Strict CSP header blocking all outbound connections
 - No external scripts, fonts, or stylesheets
-- No data stored, no network requests made
+- No counting-session data stored, no network requests made
 
 ---
 
 ## Usage
 
 1. Open the [live version](https://amandahernow.github.io/BlackJackCounterTool/BJCounterTool.html) in your browser, or download and open `BJCounterTool.html` locally
-2. Select the number of decks in the shoe
+2. Select the number of decks in the shoe (1–8)
 3. Click the counting system tab you want to use
 4. Press the buttons as cards are dealt
-5. Read the true count or key count status and the betting suggestion
+5. Read Cards Left, Decks Left, the true count or key count status, and the betting suggestion. Decks Left shows the remaining-shoe interval in half-deck steps: `= 7.5` means exactly 7.5 decks remain; `< 7.5` means fewer than 7.5 but more than 7 decks remain.
 6. Hit **New Shoe** when the shoe is shuffled and restarted
-7. Use **Undo** to step back one action at a time
+7. Use **Undo** to step back one card, shoe reset, or shoe-size change at a time. Changing the shoe size starts a fresh shoe; Undo can restore the previous shoe and its count history.
+
+Cards and decks remaining update after each counted card, including zero-value and fractional-value buttons. **New Shoe** and **Clear** reset the selected shoe; **Undo** restores the previous card or shoe state. Counting buttons stop accepting cards when the selected shoe is empty.
+
+The Decks Left display uses `=` at an exact whole- or half-deck boundary and `<` between boundaries (for example, `= 8`, `< 8`, and `= 7.5`). This is display formatting only: the app tracks exact remaining cards and uses the precise fractional decks for True Count and other shoe calculations. Near an empty shoe, True Count uses a minimum divisor of 0.5 decks; the display still shows the actual remaining amount.
 
 The full built-in help panel covers each system's card values, the betting ramp, expert-level notes, and a disclaimer — press **?** to open it.
 
@@ -80,7 +85,7 @@ The full built-in help panel covers each system's card values, the betting ramp,
 ## System Reference
 
 ### Balanced systems
-Balanced systems start at 0 and return to 0 after a full deck — the true count is calculated as running count ÷ decks remaining.
+Balanced systems start at 0 and return to 0 after a full deck — the true count is calculated from the running count and precise fractional decks remaining, not the half-deck display. Near an empty shoe, the calculation uses a minimum divisor of 0.5 decks to avoid extreme values. The Decks Left indicator continues to show the actual remaining interval down to `= 0`.
 
 | System | Values used |
 |---|---|
