@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Learn about Blackjack Counter Tool, a free educational practice tool for understanding blackjack card-counting systems. Not intended for live gambling.">
+  <meta name="robots" content="index,follow">
+  <meta name="author" content="Amanda Hernow">
+  <meta name="theme-color" content="#f4f6fa">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iIzAwMDAwMCIvPgogIDxyZWN0IHg9IjEiIHk9IjEiIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgcng9IjMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2IzMDAwMCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8cGF0aCBkPSJNMTYgNSBDMTYgNSwgNyAxMSwgNyAxNyBDNyAyMC41IDkuNSAyMiAxMiAyMSBDMTEgMjMgMTAgMjUgOCAyNiBMMjQgMjYgQzIyIDI1IDIxIDIzIDIwIDIxIEMyMi41IDIyIDI1IDIwLjUgMjUgMTcgQzI1IDExIDE2IDUgMTYgNSBaIiBmaWxsPSIjZmZmZmZmIi8+CiAgPHJlY3QgeD0iMTQiIHk9IjI0IiB3aWR0aD0iNCIgaGVpZ2h0PSIzIiByeD0iMSIgZmlsbD0iI2ZmZmZmZiIvPgo8L3N2Zz4=">
+  <link rel="canonical" href="https://amandahernow.github.io/BlackJackCounterTool/about.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="About Blackjack Counter Tool">
+  <meta property="og:description" content="An educational browser practice tool for learning and comparing blackjack card-counting systems. Not intended for casino or real-money play.">
+  <meta property="og:url" content="https://amandahernow.github.io/BlackJackCounterTool/about.html">
+  <meta property="og:site_name" content="Blackjack Counter Tool">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="About Blackjack Counter Tool">
+  <meta name="twitter:description" content="Learn and practise blackjack card-counting systems with an educational browser tool. Not intended for live gambling.">
+  <title>About Blackjack Counter Tool | Amanda Hernow</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Blackjack Counter Tool",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web Browser",
+    "url": "https://amandahernow.github.io/BlackJackCounterTool/BJCounterTool.html",
+    "author": {"@type": "Person", "name": "Amanda Hernow"},
+    "description": "An educational browser practice tool for learning, practising, and understanding eight blackjack card-counting systems. It is not intended for use during casino play or real-money gambling."
+  }
+  </script>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f4f6fa;
+      --surface: #ffffff;
+      --ink: #172033;
+      --muted: #536078;
+      --line: #dce2ec;
+      --accent: #6655b5;
+      --accent-strong: #51419b;
+      --accent-rgb: 102, 85, 181;
+      --shadow: 0 12px 32px rgba(24, 36, 60, .07), 0 2px 6px rgba(24, 36, 60, .04);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0c121c;
+        --surface: #141d2a;
+        --ink: #e8edf5;
+        --muted: #b3bfd0;
+        --line: #2c3a4d;
+        --accent: #b8aaff;
+        --accent-strong: #d0c8ff;
+        --accent-rgb: 184, 170, 255;
+        --shadow: 0 16px 38px rgba(0, 0, 0, .22), 0 2px 8px rgba(0, 0, 0, .16);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 16px/1.7 system-ui, -apple-system, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-underline-offset: 3px; }
+    a:hover { color: var(--accent-strong); }
+    a:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; border-radius: 8px; }
+    .site-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      max-width: 1120px;
+      margin: auto;
+      padding: 12px clamp(18px, 4vw, 40px);
+    }
+    .brand { color: var(--ink); font-size: .92rem; font-weight: 750; text-decoration: none; }
+    .nav-links, .footer-nav, .project-links { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; }
+    .nav-links a, .footer-nav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 40px;
+      padding: 7px 12px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: .88rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background-color .18s ease, border-color .18s ease, color .18s ease;
+    }
+    .nav-links a:hover, .footer-nav a:hover { background: var(--surface); border-color: var(--line); color: var(--ink); }
+    .hero {
+      border-block: 1px solid var(--line);
+      background: linear-gradient(125deg, rgba(var(--accent-rgb), .09), transparent 48%),
+        radial-gradient(ellipse at 85% 5%, rgba(64, 157, 145, .08), transparent 38%),
+        var(--bg);
+    }
+    .hero-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      width: min(100% - 40px, 920px);
+      margin: auto;
+      padding: clamp(42px, 6vw, 68px) 0 clamp(46px, 6vw, 72px);
+    }
+    .hero-copy { max-width: 760px; text-align: center; }
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: var(--accent);
+      font-size: .76rem;
+      font-weight: 750;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    h1 {
+      max-width: 760px;
+      margin: 0 auto 15px;
+      font-size: clamp(2.3rem, 5vw, 4.1rem);
+      font-weight: 780;
+      line-height: 1.08;
+      letter-spacing: -.045em;
+    }
+    .hero p { max-width: 660px; margin: 0 auto 22px; color: var(--muted); font-size: clamp(1.05rem, 1.8vw, 1.2rem); }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; }
+    .button-link, .project-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 16px;
+      border: 1px solid rgba(var(--accent-rgb), .24);
+      border-radius: 11px;
+      background: rgba(var(--accent-rgb), .08);
+      color: var(--ink);
+      font-size: .9rem;
+      font-weight: 680;
+      text-decoration: none;
+      transition: transform .18s ease, background-color .18s ease, border-color .18s ease;
+    }
+    .button-link.primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 5px 14px rgba(var(--accent-rgb), .2);
+    }
+    .button-link.primary:hover { border-color: var(--accent-strong); background: var(--accent-strong); color: #fff; }
+    .button-link:hover, .project-links a:hover { transform: translateY(-1px); border-color: rgba(var(--accent-rgb), .44); background: rgba(var(--accent-rgb), .13); color: var(--ink); }
+    @media (prefers-color-scheme: dark) {
+      .button-link.primary, .button-link.primary:hover { color: #17152b; }
+    }
+    .hero-facts { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 20px; }
+    .hero-facts span { padding: 5px 10px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.45); color: var(--muted); font-size: .78rem; font-weight: 600; }
+    @media (prefers-color-scheme: dark) { .hero-facts span { background: rgba(255,255,255,.035); } }
+    .hero-portrait { display: flex; flex-direction: column; align-items: center; width: 100%; margin: 0 0 4px; }
+    .hero-photo-frame {
+      display: grid;
+      width: 156px;
+      height: 156px;
+      place-items: center;
+      overflow: hidden;
+      border: 4px solid var(--surface);
+      border-radius: 50%;
+      background: var(--surface);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, .16), 0 0 0 1px var(--line);
+    }
+    .hero-photo { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: center; }
+    .portrait-caption { margin: 12px 0 0; color: var(--muted); font-size: .88rem; line-height: 1.45; text-align: center; }
+    .portrait-caption strong { color: var(--ink); font-size: 1rem; }
+    .content { width: min(100% - 40px, 900px); margin: 0 auto; padding: clamp(28px, 5vw, 56px) 0 64px; }
+    .content-flow { display: grid; gap: 18px; }
+    .card {
+      min-width: 0;
+      padding: clamp(21px, 3.4vw, 32px);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+    .card h2, .card h3 { margin: 0 0 12px; color: var(--ink); line-height: 1.28; }
+    .card h2 { font-size: clamp(1.2rem, 2vw, 1.42rem); letter-spacing: -.02em; }
+    .card h3 { font-size: 1.02rem; }
+    .card p { margin: 0 0 13px; color: var(--muted); }
+    .card p:last-child { margin-bottom: 0; }
+    .card ul { margin: 0 0 15px; padding-left: 1.25rem; color: var(--muted); }
+    .card li + li { margin-top: 7px; }
+    .card-accent { background: linear-gradient(135deg, rgba(var(--accent-rgb), .07), var(--surface) 72%); border-color: rgba(var(--accent-rgb), .2); }
+    .practice-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 24px; }
+    .two-up { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .section-kicker { display: block; margin-bottom: 8px; color: var(--accent); font-size: .72rem; font-weight: 750; letter-spacing: .1em; text-transform: uppercase; }
+    .developer-card { display: block; }
+    .developer-copy { min-width: 0; }
+    .card .developer-name { margin: 0 0 2px; font-size: 1.25rem; }
+    .card .developer-role { margin: 0 0 10px; color: var(--accent); font-size: .88rem; font-weight: 650; }
+    .projects-section { padding: clamp(22px, 3.5vw, 34px); border: 1px solid rgba(var(--accent-rgb), .2); border-radius: 18px; background: linear-gradient(140deg, rgba(var(--accent-rgb), .055), var(--surface) 60%); box-shadow: var(--shadow); }
+    .projects-heading { margin-bottom: 18px; }
+    .projects-heading h2 { margin: 0 0 5px; font-size: clamp(1.3rem, 2vw, 1.55rem); }
+    .projects-heading p { margin: 0; color: var(--muted); font-size: .92rem; }
+    .project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .project-card { display: flex; min-width: 0; flex-direction: column; align-items: flex-start; gap: 13px; padding: clamp(17px, 2.6vw, 24px); border: 1px solid var(--line); border-radius: 14px; background: var(--surface); box-shadow: 0 3px 12px rgba(18, 30, 52, .045); }
+    .project-card-heading { display: flex; min-width: 0; align-items: center; gap: 13px; }
+    .project-icon-link { display: grid; width: 66px; height: 66px; flex: none; place-items: center; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+    .project-icon { display: block; width: 100%; height: 100%; padding: 4px; object-fit: contain; }
+    .project-card-heading h3 { min-width: 0; margin: 0; font-size: 1rem; }
+    .project-card-heading h3 a { color: var(--ink); text-decoration: none; }
+    .project-card-heading h3 a:hover { color: var(--accent); text-decoration: underline; }
+    .project-card > p { margin: 0; font-size: .92rem; }
+    .project-links { gap: 8px; margin-top: auto; padding-top: 2px; }
+    .project-links a { min-height: 40px; padding: 8px 12px; font-size: .84rem; }
+    .project-links a.primary { border-color: var(--accent); background: var(--accent); color: #fff; }
+    .project-links a.primary:hover { border-color: var(--accent-strong); background: var(--accent-strong); color: #fff; }
+    @media (prefers-color-scheme: dark) { .project-links a.primary, .project-links a.primary:hover { color: #17152b; } }
+    .support-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: clamp(20px, 4vw, 42px); background: linear-gradient(125deg, rgba(var(--accent-rgb), .07), var(--surface) 72%); }
+    .support-copy { max-width: 540px; }
+    .support-copy > p { color: var(--muted); }
+    .support-visual { display: flex; width: 190px; flex-direction: column; align-items: center; gap: 11px; }
+    .support-qr { display: block; width: min(164px, 100%); height: auto; padding: 8px; border: 1px solid var(--line); border-radius: 13px; background: #fff; box-shadow: 0 4px 16px rgba(20, 30, 50, .09); }
+    .support-visual .button-link { width: 100%; text-align: center; }
+    .small { font-size: .83rem; }
+    footer { padding: 20px 22px 30px; color: var(--muted); font-size: .84rem; text-align: center; }
+    .footer-nav { justify-content: center; gap: 5px; margin-bottom: 10px; }
+    .footer-nav a { min-height: 38px; }
+    @media (max-width: 760px) {
+      .two-up { grid-template-columns: 1fr; }
+      .project-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .site-nav { align-items: flex-start; flex-direction: column; gap: 5px; padding-block: 10px; }
+      .nav-links { gap: 3px; margin-left: -10px; }
+      .hero-inner { gap: 13px; width: min(100% - 32px, 520px); padding-block: 36px 42px; }
+      .hero-photo-frame { width: 136px; height: 136px; }
+      .content { width: min(100% - 28px, 560px); padding-block: 20px 42px; }
+      .content-flow, .two-up { gap: 12px; }
+      .two-up { grid-template-columns: 1fr; }
+      h1 { font-size: clamp(1.85rem, 8vw, 2.5rem); }
+      .card { padding: 21px 19px; border-radius: 14px; }
+      .practice-list { grid-template-columns: 1fr; gap: 6px; }
+      .projects-section { padding: 19px 16px; border-radius: 15px; }
+      .project-card { padding: 17px; }
+      .project-icon-link { width: 58px; height: 58px; }
+      .support-card { grid-template-columns: 1fr; gap: 18px; }
+      .support-visual { width: min(100%, 240px); justify-self: center; }
+      .support-qr { width: 164px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Main navigation">
+    <a class="brand" href="BJCounterTool.html">Blackjack Counter Tool</a>
+    <div class="nav-links"><a href="BJCounterTool.html">Open counter</a><a href="privacy_policy.html">Privacy</a><a href="https://github.com/AmandaHernow/BlackJackCounterTool" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+  </nav>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <span class="eyebrow">Free · Independent · Browser-based</span>
+        <h1>Blackjack Counter Tool</h1>
+        <p>Learn, practise, and understand blackjack card counting with eight counting systems, transparent calculations, and educational betting examples.</p>
+        <div class="hero-actions">
+          <a class="button-link primary" href="BJCounterTool.html">Open the counter</a>
+          <a class="button-link" href="#about-tool">About the project</a>
+        </div>
+        <div class="hero-facts"><span>Free to use</span><span>No account required</span><span>Works offline from a local copy</span></div>
+      </div>
+      <figure class="hero-portrait">
+        <div class="hero-photo-frame"><img class="hero-photo" src="assets/amanda.jpg" alt="Amanda Hernow, independent developer of Blackjack Counter Tool" width="640" height="640" fetchpriority="high"></div>
+        <figcaption class="portrait-caption"><strong>Amanda Hernow</strong><br>Independent developer</figcaption>
+      </figure>
+    </div>
+  </header>
+  <main class="content">
+    <div class="content-flow">
+      <section class="card card-accent" aria-labelledby="about-tool">
+        <h2 id="about-tool">About Blackjack Counter Tool</h2>
+        <p>Blackjack Counter Tool is an independently developed browser application for learning, practising, and understanding card-counting systems. It supports eight systems, shoes from 1–8 decks, Running Count and True Count, KO and Red 7 references, a half-deck remaining-shoe display, ace side counting where applicable, and educational betting examples.</p>
+        <p>It requires no account and has no advertising or behavioral tracking. A downloaded copy can be used offline when the complete project folder, including its local <code>assets/</code> directory, is kept together on your device. Its displays are learning aids and do not guarantee gambling outcomes.</p>
+      </section>
+      <section class="card" aria-labelledby="practice-purpose"><span class="section-kicker">A learning tool</span><h2 id="practice-purpose">Designed for practice, not live gambling</h2>
+        <p>This tool is intended to help people understand blackjack card-counting methods in a learning and practice setting. It is not intended for casino tables, live blackjack games, or real-money play. Betting suggestions are educational examples, not instructions for real-money wagering.</p>
+        <ul class="practice-list">
+          <li>Learn how different counting systems work.</li>
+          <li>Practise assigning values to cards.</li>
+          <li>Observe how counts change throughout a shoe.</li>
+          <li>Understand True Count and unbalanced-system differences.</li>
+          <li>See how remaining shoe size affects True Count.</li>
+          <li>Explore educational betting examples.</li>
+        </ul>
+      </section>
+      <div class="two-up">
+        <section class="card" aria-labelledby="why-built"><span class="section-kicker">The thinking behind it</span><h2 id="why-built">Why I built it</h2>
+          <p>I believe useful software should be accessible without forcing people into unnecessary subscriptions. I built Blackjack Counter Tool as a straightforward practice tool that you can use for free, without creating an account, watching advertisements, or giving away personal information.</p>
+          <p>Software should do what it promises without unnecessary paywalls or data harvesting. I want the counter to stay easy to open, understand, and use.</p>
+        </section>
+        <section class="card" aria-labelledby="subscriptions"><span class="section-kicker">Access without a paywall</span><h2 id="subscriptions">Software without unnecessary subscriptions</h2>
+          <p>This project is free to use. Optional donations help support continued maintenance, but no features are locked behind payment. A donation is not required to use the counter, and this page does not make a promise about every future project or feature.</p>
+        </section>
+      </div>
+      <div class="two-up">
+        <section class="card" aria-labelledby="privacy-transparency"><span class="section-kicker">Local by default</span><h2 id="privacy-transparency">Privacy and transparency</h2>
+          <ul>
+            <li>Counting calculations happen locally in your browser; counting sessions are not uploaded.</li>
+            <li>No account, advertising, analytics, or behavioral tracking is built into the web counter.</li>
+            <li>The optional theme preference is stored in your browser's local storage.</li>
+            <li>External project, GitHub, email, and PayPal destinations are reached only when you choose a link.</li>
+          </ul>
+          <p><a href="privacy_policy.html">Read the full Privacy Policy</a> for the hosting and external-link details.</p>
+        </section>
+        <section class="card" aria-labelledby="how-it-works"><span class="section-kicker">A practice exercise</span><h2 id="how-it-works">How the tool works</h2>
+          <p>In a practice exercise, select a shoe size and counting system, then simulate entering cards one by one. The app updates card totals and count references in the browser. Balanced systems use precise remaining-card counts for True Count; KO and Red 7 use their own running-count references. The Help sections explain the educational betting examples and their limitations.</p>
+        </section>
+      </div>
+      <section class="card developer-card" aria-labelledby="developer">
+        <div class="developer-copy">
+          <span class="section-kicker">About the developer</span>
+          <h2 class="developer-name" id="developer">Amanda Hernow</h2>
+          <p class="developer-role">Independent developer</p>
+          <p>I build useful, accessible software with privacy as a default, not an expensive extra. I avoid unnecessary subscription fees and advertising-driven design, and I do not sell personal information. I aim to be clear about how my applications work and what their limitations are.</p>
+        </div>
+      </section>
+      <section class="projects-section" aria-labelledby="projects">
+        <div class="projects-heading"><span class="section-kicker">Also by me</span><h2 id="projects">Other projects</h2><p>Separate projects with their own purposes, features, and privacy details.</p></div>
+        <div class="project-grid">
+          <section class="card project-card" aria-labelledby="encryption-project">
+            <div class="project-card-heading">
+              <a class="project-icon-link" href="https://amandahernow.github.io/EncryptionDecryptionUtilityTool/" target="_blank" rel="noopener noreferrer" aria-label="Open Text Encryption and Decryption Utility Tool"><img class="project-icon" src="assets/encryption-utility-icon.png" alt="Text Encryption and Decryption Utility Tool icon"></a>
+              <h3 id="encryption-project"><a href="https://amandahernow.github.io/EncryptionDecryptionUtilityTool/" target="_blank" rel="noopener noreferrer">Text Encryption and Decryption Utility Tool</a></h3>
+            </div>
+            <p>A separate utility that encrypts and decrypts text locally in the browser.</p>
+            <div class="project-links"><a class="primary" href="https://amandahernow.github.io/EncryptionDecryptionUtilityTool/" target="_blank" rel="noopener noreferrer">Open the utility</a><a href="https://github.com/AmandaHernow/EncryptionDecryptionUtilityTool" target="_blank" rel="noopener noreferrer">View GitHub repository</a></div>
+          </section>
+          <section class="card project-card" aria-labelledby="hernownet-project">
+            <div class="project-card-heading">
+              <a class="project-icon-link" href="https://hernow.net" target="_blank" rel="noopener noreferrer" aria-label="Visit HernowNet"><img class="project-icon" src="assets/hernownet-icon.png" alt="HernowNet application icon"></a>
+              <h3 id="hernownet-project"><a href="https://hernow.net" target="_blank" rel="noopener noreferrer">HernowNet</a></h3>
+            </div>
+            <p>HernowNet is a privacy-focused personal software platform built around encrypted personal tools, including a Note Vault. It is under active development, so functionality may change.</p>
+            <div class="project-links"><a class="primary" href="https://hernow.net" target="_blank" rel="noopener noreferrer">Visit HernowNet</a><a href="https://hernow.net/about" target="_blank" rel="noopener noreferrer">About HernowNet</a></div>
+          </section>
+        </div>
+      </section>
+      <section class="card support-card" aria-labelledby="support-project">
+        <div class="support-copy"><span class="section-kicker">Optional support</span><h2 id="support-project">Support the project</h2>
+          <p>Blackjack Counter Tool is free to use and independently developed. If it helps you practise your card-counting skills, you can support its continued development with a small donation. Every coffee helps me maintain the project and improve it over time.</p>
+          <p>Donations are completely optional, and no features are locked behind payment. Payment is handled by PayPal if you choose to visit its site.</p>
+          <p class="small">PayPal is a separate service and applies its own privacy practices.</p>
+        </div>
+        <div class="support-visual">
+          <img class="support-qr" src="assets/paypal-qr.png" alt="QR code linking to Amanda Hernow’s PayPal donation page" width="180" height="180" loading="lazy" decoding="async">
+          <a class="button-link primary" href="https://www.paypal.me/AmandaHernow" target="_blank" rel="noopener noreferrer">Buy Me a Coffee via PayPal</a>
+        </div>
+      </section>
+      <section class="card" aria-labelledby="contact-links"><span class="section-kicker">Say hello</span><h2 id="contact-links">Contact and project links</h2>
+        <div class="project-links"><a href="mailto:bjcountertoolandroidsupport@hernow.net">Email project support</a><a href="privacy_policy.html">Privacy Policy</a><a href="BJCounterTool.html">Open the counter</a><a href="https://github.com/AmandaHernow/BlackJackCounterTool" target="_blank" rel="noopener noreferrer">GitHub Repository</a><a href="https://github.com/AmandaHernow/BlackJackCounterTool/releases/latest" target="_blank" rel="noopener noreferrer">Latest Release</a></div>
+      </section>
+    </div>
+  </main>
+  <footer><nav class="footer-nav" aria-label="Footer navigation"><a href="BJCounterTool.html">Counter</a><a href="privacy_policy.html">Privacy Policy</a><a href="https://github.com/AmandaHernow/BlackJackCounterTool" target="_blank" rel="noopener noreferrer">GitHub Repository</a></nav>© 2026 Amanda Hernow. All rights reserved.</footer>
+</body>
+</html>

@@ -33,6 +33,7 @@ class FakeElement {
   addEventListener(type, callback) { (this.handlers[type] ||= []).push(callback); }
   dispatch(type, event = {}) { for (const callback of this.handlers[type] || []) callback({ target: this, ...event }); }
   click() { if (!this.disabled) this.dispatch('click'); }
+  focus() { this.focused = true; }
   appendChild(child) { this.children.push(child); return child; }
   querySelectorAll(selector) { return selector === 'button' ? this.children.filter((child) => child.tagName === 'button') : []; }
   setAttribute(name, value) { this.attributes[name] = value; }
@@ -43,6 +44,7 @@ class FakeElement {
 
 function createApp() {
   const elements = new Map();
+  const documentHandlers = {};
   const get = (id) => {
     if (!elements.has(id)) elements.set(id, new FakeElement(id));
     return elements.get(id);
@@ -51,7 +53,7 @@ function createApp() {
   const root = new FakeElement('documentElement');
   const systemTabs = [...html.matchAll(/<button class="[^"]*system-tab[^\"]*" data-system="([^"]+)"/g)]
     .map((match) => new FakeElement('', 'system-tab', { system: match[1] }));
-  const helpTabs = [...html.matchAll(/<button class="[^"]*help-tab[^\"]*" data-help-tab="([^"]+)"/g)]
+  const helpTabs = [...html.matchAll(/<button\b[^>]*class="[^"]*\bhelp-tab\b[^"]*"[^>]*data-help-tab="([^"]+)"[^>]*>/g)]
     .map((match) => new FakeElement('', 'help-tab', { helpTab: match[1] }));
   const helpPanels = [...html.matchAll(/<div id="([^"]+)" class="help-panel[^\"]*"/g)]
     .map((match) => get(match[1]));
@@ -68,7 +70,7 @@ function createApp() {
       return [];
     },
     createElement(tagName) { const el = new FakeElement(); el.tagName = tagName; return el; },
-    addEventListener() {}
+    addEventListener(type, callback) { (documentHandlers[type] ||= []).push(callback); }
   };
   const sandbox = {
     document,
@@ -81,7 +83,7 @@ function createApp() {
   };
   const script = html.match(/<script>([\s\S]*?)<\/script>/)[1];
   vm.runInNewContext(script, sandbox, { timeout: 2000 });
-  return { get, elements, systemTabs, sandbox };
+  return { get, elements, systemTabs, helpTabs, documentHandlers, sandbox };
 }
 
 function selectSystem(app, name) {
@@ -316,4 +318,116 @@ test('README and built-in help document all systems, thresholds, limitations, an
   assert.match(readme, /corrects earlier app values of 0, −2, and −5 for 2, 4, and 6 decks/);
   assert.match(html, /Ace density is shown as additional information and does not automatically change the betting recommendation/);
   assert.ok(html.includes('Standard published key counts were not established here for 3, 5, and 7 decks'));
+});
+
+test('Help has seven working accessible tabs and the counter intro is removed', () => {
+  const app = createApp();
+  const expected = ['usagePanel', 'systemsPanel', 'bettingPanel', 'expertPanel', 'aboutPanel', 'supportPanel', 'disclaimerPanel'];
+  assert.deepEqual(app.systemTabs.map((tab) => tab.dataset.system), ['hilo', 'ko', 'red7', 'hiopt1', 'hiopt2', 'zen', 'omega2', 'wonghalves']);
+  assert.deepEqual(app.helpTabs.map((tab) => tab.dataset.helpTab), expected);
+  for (const tab of app.helpTabs) {
+    tab.click();
+    assert.equal(app.get(tab.dataset.helpTab).classList.contains('active'), true, `${tab.dataset.helpTab} opens`);
+    assert.equal(tab.getAttribute('aria-selected'), 'true');
+    assert.equal(app.helpTabs.filter((candidate) => candidate.getAttribute('aria-selected') === 'true').length, 1);
+  }
+  const usageTab = app.helpTabs[0];
+  usageTab.dispatch('keydown', { key: 'ArrowRight', preventDefault() {} });
+  assert.equal(app.helpTabs[1].focused, true);
+  assert.equal(app.get('systemsPanel').classList.contains('active'), true);
+  app.helpTabs[1].dispatch('keydown', { key: 'End', preventDefault() {} });
+  assert.equal(app.get('disclaimerPanel').classList.contains('active'), true);
+  app.get('btnHelp').click();
+  assert.equal(app.get('helpModal').style.display, 'flex');
+  assert.equal(app.get('helpModal').getAttribute('aria-hidden'), 'false');
+  app.documentHandlers.keydown[0]({ key: 'Escape' });
+  assert.equal(app.get('helpModal').style.display, 'none');
+  assert.equal(app.get('helpModal').getAttribute('aria-hidden'), 'true');
+  assert.equal(app.get('btnHelp').focused, true);
+  assert.doesNotMatch(html, /class="seo-intro"|class="seo-links"/);
+  assert.match(html, /<h1 class="sr-only">Blackjack Card Counting Tool<\/h1>/);
+  assert.match(html, /img-src 'self' data:/);
+});
+
+test('About, Support, privacy, and sitemap links use the intended local pages and PayPal destination', () => {
+  const root = path.join(__dirname, '..');
+  const about = fs.readFileSync(path.join(root, 'about.html'), 'utf8');
+  const privacy = fs.readFileSync(path.join(root, 'privacy_policy.html'), 'utf8');
+  const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
+  assert.match(about, /rel="canonical" href="https:\/\/amandahernow\.github\.io\/BlackJackCounterTool\/about\.html"/);
+  assert.match(about, /href="https:\/\/www\.paypal\.me\/AmandaHernow" target="_blank" rel="noopener noreferrer"/);
+  assert.match(html, /href="https:\/\/www\.paypal\.me\/AmandaHernow" target="_blank" rel="noopener noreferrer"/);
+  assert.match(html, /src="assets\/paypal-qr\.png"/);
+  assert.match(about, /under active development/i);
+  assert.match(privacy, /bjcountertoolandroidsupport@hernow\.net/);
+  assert.match(privacy, /GitHub Pages/);
+  assert.match(privacy, /Android application is a separate implementation/);
+  assert.match(sitemap, /<loc>https:\/\/amandahernow\.github\.io\/BlackJackCounterTool\/about\.html<\/loc>/);
+  assert.match(html, /href="about\.html"/);
+});
+
+test('developer and related-project artwork is local, accessible, and linked to the right destinations', () => {
+  const root = path.join(__dirname, '..');
+  const about = fs.readFileSync(path.join(root, 'about.html'), 'utf8');
+  for (const asset of ['amanda.jpg', 'encryption-utility-icon.png', 'hernownet-icon.png', 'paypal-qr.png']) {
+    assert.ok(fs.existsSync(path.join(root, 'assets', asset)), `local asset exists: ${asset}`);
+  }
+  assert.match(about, /class="hero-photo" src="assets\/amanda\.jpg" alt="Amanda Hernow, independent developer of Blackjack Counter Tool"/);
+  assert.match(html, /class="developer-help-photo" src="assets\/amanda\.jpg" alt="Amanda Hernow, developer of Blackjack Counter Tool"/);
+  assert.match(about, /class="project-icon-link" href="https:\/\/amandahernow\.github\.io\/EncryptionDecryptionUtilityTool\/"[^>]*><img[^>]*src="assets\/encryption-utility-icon\.png"[^>]*alt="Text Encryption and Decryption Utility Tool icon"/);
+  assert.match(about, /class="project-icon-link" href="https:\/\/hernow\.net"[^>]*><img[^>]*src="assets\/hernownet-icon\.png"[^>]*alt="HernowNet application icon"/);
+  assert.match(html, /class="help-project-icon-link" href="https:\/\/amandahernow\.github\.io\/EncryptionDecryptionUtilityTool\/[^>]*><img[^>]*src="assets\/encryption-utility-icon\.png"/);
+  assert.match(html, /class="help-project-icon-link" href="https:\/\/hernow\.net"[^>]*><img[^>]*src="assets\/hernownet-icon\.png"/);
+  assert.match(about, /href="https:\/\/github\.com\/AmandaHernow\/EncryptionDecryptionUtilityTool"/);
+  assert.match(about, /href="https:\/\/hernow\.net\/about"/);
+  assert.match(about, /encrypts and decrypts text locally/);
+  for (const page of [html, about]) {
+    for (const [, attrs] of page.matchAll(/<img\b([^>]*)>/g)) assert.match(attrs, /\balt="[^"]+"/, 'every image has nonempty alt text');
+    assert.doesNotMatch(page, /<img\b[^>]*\bsrc="https?:/i, 'images are not hotlinked');
+    assert.doesNotMatch(page, /<script\b[^>]*\bsrc="https?:/i, 'no external scripts are loaded');
+  }
+  assert.match(html, /href="mailto:bjcountertoolandroidsupport@hernow\.net"/);
+  assert.match(about, /href="mailto:bjcountertoolandroidsupport@hernow\.net"/);
+});
+
+test('developer portraits use the intended reference-inspired, non-distorting treatments', () => {
+  const root = path.join(__dirname, '..');
+  const about = fs.readFileSync(path.join(root, 'about.html'), 'utf8');
+  const frameRule = about.match(/\.hero-photo-frame\s*\{([^}]+)\}/)?.[1] || '';
+  const portraitRule = about.match(/\.hero-photo\s*\{([^}]+)\}/)?.[1] || '';
+  const helpPhotoRule = html.match(/\.developer-help-photo\s*\{([^}]+)\}/)?.[1] || '';
+
+  assert.match(frameRule, /border-radius:\s*50%/);
+  assert.doesNotMatch(frameRule, /transform\s*:/, 'standalone portrait is not tilted');
+  assert.match(portraitRule, /object-fit:\s*cover/);
+  assert.match(portraitRule, /object-position:\s*center/);
+  assert.match(helpPhotoRule, /width:\s*104px/);
+  assert.match(helpPhotoRule, /height:\s*104px/);
+  assert.match(helpPhotoRule, /object-fit:\s*contain/);
+  assert.doesNotMatch(helpPhotoRule, /border-radius:\s*50%/, 'Help portrait is not a tiny circular avatar');
+  assert.match(html, /function openHelp\(\)\s*\{\s*helpModal\.style\.display\s*=\s*'flex'/);
+  assert.match(html, /\.help-header-top/);
+  assert.match(html, /\.step-item\s*\{[^}]*border-radius:\s*12px/s);
+  assert.match(html, /\.support-panel\s*\{[^}]*border-radius:\s*16px/s);
+});
+
+test('practice-only messaging is present throughout the app, About page, metadata, and README', () => {
+  const root = path.join(__dirname, '..');
+  const about = fs.readFileSync(path.join(root, 'about.html'), 'utf8');
+  const readme = fs.readFileSync(path.join(root, 'README.md'), 'utf8');
+  for (const panel of ['usagePanel', 'bettingPanel', 'aboutPanel', 'disclaimerPanel']) {
+    const start = html.indexOf(`id="${panel}"`);
+    const end = html.indexOf('<div id="', start + 10);
+    const content = html.slice(start, end < 0 ? undefined : end);
+    assert.match(content, /practice|educational/i, `${panel} explains educational use`);
+  }
+  assert.match(html, /Practice and educational use only — not intended for live casino or real-money play/);
+  assert.match(html, /not designed for use inside casinos, during live blackjack games, or while gambling with real money/);
+  assert.match(about, /Designed for practice, not live gambling/);
+  assert.match(about, /not intended for casino tables, live blackjack games, or real-money play/i);
+  assert.match(readme, /not intended for use at casino tables, during live blackjack games, or while gambling with real money/i);
+  assert.match(readme, /not instructions for real-money wagering/);
+  assert.match(html, /Free educational blackjack card-counting practice tool/);
+  assert.match(about, /educational browser practice tool for learning, practising, and understanding eight blackjack card-counting systems/);
+  assert.match(about, /not intended for use during casino play or real-money gambling/);
 });

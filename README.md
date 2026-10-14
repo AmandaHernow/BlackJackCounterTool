@@ -1,7 +1,7 @@
 ![banner-readme](https://github.com/user-attachments/assets/cae0c7a2-0fc6-4384-8853-5e2ab4191b3d)
 # Blackjack Counter Tool
 
-> A self-contained offline blackjack card counting tool — single HTML file, no dependencies, no internet required.
+> An educational blackjack card-counting practice tool with self-contained counter logic, local supporting images, no runtime dependencies, and offline use from a downloaded project folder.
 
 ---
 
@@ -11,13 +11,13 @@ The web version is hosted live and works directly in your browser:
 
 **[Open Blackjack Counter Tool](https://amandahernow.github.io/BlackJackCounterTool/BJCounterTool.html)**
 
-No installation. No account. Just open the link and start counting.
+No installation or account. The hosted page is delivered by GitHub Pages; a downloaded copy can be opened locally and used offline.
 
 ---
 
 ## Download
 
-If you prefer to run it locally, download `BJCounterTool.html` from the [latest release](https://github.com/AmandaHernow/BlackJackCounterTool/releases/latest) and open it in any modern browser.
+If you prefer to run it locally, download the web project, keep the `assets/` folder next to `BJCounterTool.html`, and open the HTML file in any modern browser.
 
 ---
 
@@ -51,16 +51,22 @@ If you prefer to run it locally, download `BJCounterTool.html` from the [latest 
 - Cards Left and a half-deck Decks Left indicator that update automatically as cards are counted
 - System-specific button layouts that change per counting method
 - Betting suggestion panel using a documented system-specific rule
+- Educational betting examples only; not instructions for real-money wagering or live casino use
 - Ace density note — rich, poor, or neutral — for ace side count systems; it does not change the recommendation
 - Action log with 24-hour timestamps for every card counted
 - Undo, New Shoe, and Clear controls
-- Built-in help modal covering usage, all systems, betting logic, expert notes, and disclaimer
+- Built-in Help covering usage, systems, betting logic, expert notes, About, optional Support, and disclaimer
+- A focused main counter interface; project information and links are available from Help → About
+- Standalone [About page](https://amandahernow.github.io/BlackJackCounterTool/about.html) with project background and related projects
+- Redesigned [Privacy Policy](https://amandahernow.github.io/BlackJackCounterTool/privacy_policy.html) and sitemap entry for the About page
+- Optional PayPal donations through a user-initiated external link; no features are locked behind payment
 
 **Technical**
-- Single `.html` file — open directly in any browser, no install needed
-- Strict CSP header blocking all outbound connections
+- Open `BJCounterTool.html` directly in any modern browser, with no install or build process
+- Supporting QR, developer, and project images are local files in `assets/`; keep that folder alongside the HTML file for complete offline Help and About content
+- Content Security Policy blocks app-initiated outbound connections and remote resources; external links navigate only when selected
 - No external scripts, fonts, or stylesheets
-- No counting-session data stored, no network requests made
+- Counting sessions remain in the current page and are not uploaded; only the optional theme preference is saved in local browser storage
 
 ---
 
@@ -69,7 +75,7 @@ If you prefer to run it locally, download `BJCounterTool.html` from the [latest 
 1. Open the [live version](https://amandahernow.github.io/BlackJackCounterTool/BJCounterTool.html) in your browser, or download and open `BJCounterTool.html` locally
 2. Select the number of decks in the shoe (1–8)
 3. Click the counting system tab you want to use
-4. Press the buttons as cards are dealt
+4. In a practice exercise, enter cards one by one and watch the Running Count, True Count, and other indicators change
 5. Read Cards Left, Decks Left, the applicable count reference, and the betting suggestion. Decks Left shows half-deck intervals: `= 7.5` means exactly 7.5 decks remain; `< 7.5` means fewer than 7.5 but more than 7 decks remain. Balanced systems show True Count; KO and Red 7 use unbalanced running-count conventions.
 6. Hit **New Shoe** when the shoe is shuffled and restarted
 7. Use **Undo** to step back one card, shoe reset, or shoe-size change at a time. Changing the shoe size starts a fresh shoe; Undo can restore the previous shoe and its count history.
@@ -78,7 +84,17 @@ Cards and decks remaining update after each counted card, including zero-value a
 
 The Decks Left display uses `=` at an exact whole- or half-deck boundary and `<` between boundaries (for example, `= 8`, `< 8`, and `= 7.5`). This is display formatting only: the app tracks exact remaining cards and uses precise fractional decks for balanced-system True Count calculations. Near an empty shoe, True Count uses a minimum divisor of 0.5 decks; the display still shows the actual remaining amount. Undo restores the previous shoe state; New Shoe and Clear start the selected shoe over.
 
-The full built-in help panel covers each system's card values, the betting ramp, expert-level notes, and a disclaimer — press **?** to open it.
+The built-in Help panel covers each system's card values, betting ramp, expert notes, About, optional Support, and disclaimer — press **?** to open it. About includes support email and links to the [project repository](https://github.com/AmandaHernow/BlackJackCounterTool), [latest release](https://github.com/AmandaHernow/BlackJackCounterTool/releases/latest), and [Privacy Policy](https://amandahernow.github.io/BlackJackCounterTool/privacy_policy.html).
+
+## About, privacy and support
+
+The [About page](https://amandahernow.github.io/BlackJackCounterTool/about.html) introduces the independently developed project, its privacy and accessibility goals, and related projects: the [Text Encryption and Decryption Utility Tool](https://amandahernow.github.io/EncryptionDecryptionUtilityTool/) and [HernowNet](https://hernow.net), which is under active development. It also links to the [GitHub repository](https://github.com/AmandaHernow/BlackJackCounterTool) and [latest release](https://github.com/AmandaHernow/BlackJackCounterTool/releases/latest).
+
+Support is optional. Users can choose the PayPal link or a local QR code for the same PayPal destination; the app does not process payments, load PayPal automatically, or lock features behind donations. Visiting PayPal is subject to PayPal's own privacy practices. The [Privacy Policy](https://amandahernow.github.io/BlackJackCounterTool/privacy_policy.html) explains GitHub Pages delivery, local calculations and storage, offline use of a downloaded file, and user-initiated external links.
+
+## Educational practice only
+
+Blackjack Counter Tool is intended for learning, practising, and understanding card-counting systems. It is not intended for use at casino tables, during live blackjack games, or while gambling with real money. Its betting suggestions are educational examples that illustrate how counts can relate to theoretical betting ramps; they do not calculate a player's actual advantage at a particular table and are not instructions for real-money wagering.
 
 ---
 
@@ -173,7 +189,7 @@ For Hi-Opt I, Hi-Opt II, and Omega II, ace density is shown as additional inform
 
 | Version | Platform | Status |
 |---|---|---|
-| Web Version 1.0 | Browser | ✅ Released |
+| Web Version 3.0 | Browser | ✅ Current |
 | Desktop Version 1.0 | Windows / macOS / Linux (Java) | 🔄 In progress |
 
 ---
@@ -183,14 +199,17 @@ For Hi-Opt I, Hi-Opt II, and Omega II, ace density is shown as additional inform
 Built with plain HTML, CSS, and JavaScript. No frameworks, no build tools, no package manager.
 
 ```
-BJCounterTool.html   ← the entire web application
+BJCounterTool.html   ← counter interface and application logic
+about.html           ← standalone project About page
+privacy_policy.html  ← web privacy policy
+assets/              ← local developer, related-project, and PayPal QR images
 ```
 
 ---
 
 ## Disclaimer
 
-Card counting is not illegal in most jurisdictions but casinos are private property and may restrict or remove players they suspect of counting. This tool is for personal practice and reference only. It does not guarantee any outcome and is not professional gambling advice.
+This tool is intended for educational and practice purposes only. It is not designed for use inside casinos, during live blackjack games, or while gambling with real money. Betting suggestions are learning examples, not real-money recommendations, and no gambling outcome is guaranteed.
 
 ---
 
