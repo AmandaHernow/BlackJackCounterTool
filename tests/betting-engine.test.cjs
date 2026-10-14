@@ -364,7 +364,7 @@ test('developer and related-project artwork is local, accessible, and linked to 
   for (const asset of ['amanda.jpg', 'encryption-utility-icon.png', 'hernownet-icon.png', 'paypal-qr.png']) {
     assert.ok(fs.existsSync(path.join(root, 'assets', asset)), `local asset exists: ${asset}`);
   }
-  assert.match(about, /class="developer-photo" src="assets\/amanda\.jpg" alt="Amanda Hernow, developer of Blackjack Counter Tool"/);
+  assert.match(about, /class="hero-photo" src="assets\/amanda\.jpg" alt="Amanda Hernow, independent developer of Blackjack Counter Tool"/);
   assert.match(html, /class="developer-help-photo" src="assets\/amanda\.jpg" alt="Amanda Hernow, developer of Blackjack Counter Tool"/);
   assert.match(about, /class="project-icon-link" href="https:\/\/amandahernow\.github\.io\/EncryptionDecryptionUtilityTool\/"[^>]*><img[^>]*src="assets\/encryption-utility-icon\.png"[^>]*alt="Text Encryption and Decryption Utility Tool icon"/);
   assert.match(about, /class="project-icon-link" href="https:\/\/hernow\.net"[^>]*><img[^>]*src="assets\/hernownet-icon\.png"[^>]*alt="HernowNet application icon"/);
