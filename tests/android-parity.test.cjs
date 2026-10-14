@@ -54,14 +54,43 @@ test('Android About and Privacy pages and their images are bundled for offline n
   assert.match(fs.readFileSync(path.join(androidRoot, 'privacy_policy.html'), 'utf8'), /bjcountertoolandroidsupport@hernow\.net/);
 });
 
-test('Android local routes are allowlisted and external links remain HTTPS or email', () => {
+test('Android counter and information pages use separate, allowlisted WebViews', () => {
   const activity = fs.readFileSync(path.join(root, 'app/src/main/java/net/hernow/bjcountertool/MainActivity.kt'), 'utf8');
+  const infoActivity = fs.readFileSync(path.join(root, 'app/src/main/java/net/hernow/bjcountertool/InfoActivity.kt'), 'utf8');
   const manifest = fs.readFileSync(path.join(root, 'app/src/main/AndroidManifest.xml'), 'utf8');
-  assert.match(activity, /"\/android_asset\/index\.html"/);
   assert.match(activity, /"\/android_asset\/about\.html"/);
   assert.match(activity, /"\/android_asset\/privacy_policy\.html"/);
+  assert.match(activity, /Intent\(this@MainActivity, InfoActivity::class\.java\)/);
+  assert.match(activity, /backPressPending/);
+  assert.match(infoActivity, /ABOUT_PATH, PRIVACY_PATH -> return false/);
+  assert.match(infoActivity, /COUNTER_PATH ->\s*\{\s*finish\(\)/);
+  assert.match(infoActivity, /javaScriptEnabled = false/);
+  assert.match(infoActivity, /webView\.loadUrl\("file:\/\/\$page"\)/);
+  assert.match(infoActivity, /"https"\s*->/);
+  assert.match(infoActivity, /"mailto"\s*->/);
+  assert.match(infoActivity, /ActivityNotFoundException/);
+  assert.match(infoActivity, /allowFileAccess = true/);
   assert.match(activity, /"https"\s*->/);
   assert.match(activity, /"mailto"\s*->/);
-  assert.match(activity, /webView\.canGoBack\(\)/);
+  assert.match(infoActivity, /webView\.canGoBack\(\)/);
+  assert.match(manifest, /android:name="\.InfoActivity"\s+android:exported="false"/);
   assert.doesNotMatch(manifest, /android\.permission\.INTERNET/);
+});
+
+test('Android Gradle version metadata remains unchanged for Play release management', () => {
+  const gradle = fs.readFileSync(path.join(root, 'app/build.gradle.kts'), 'utf8');
+  assert.match(gradle, /versionCode = 3/);
+  assert.match(gradle, /versionName = "1\.1"/);
+});
+
+test('README documents both platforms, verified distribution, and planned language statuses', () => {
+  const readme = fs.readFileSync(path.join(root, 'README.md'), 'utf8');
+  assert.match(readme, /1–8 decks/);
+  assert.match(readme, /app\/src\/main\/assets\/index\.html/);
+  assert.match(readme, /counting JavaScript is shared with the web implementation/);
+  assert.match(readme, /https:\/\/play\.google\.com\/store\/apps\/details\?id=net\.hernow\.bjcountertool/);
+  for (const language of ['French', 'German', 'Spanish']) {
+    assert.match(readme, new RegExp(`${language} — \\*\\*Planned — Not started\\*\\*`));
+  }
+  assert.equal((readme.match(/© 2026 Amanda Hernow — All rights reserved\./g) || []).length, 1);
 });

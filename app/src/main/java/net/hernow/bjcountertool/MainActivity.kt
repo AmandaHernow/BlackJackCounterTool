@@ -16,11 +16,7 @@ import androidx.core.view.WindowInsetsCompat
 class MainActivity : AppCompatActivity() {
 
     private lateinit var webView: WebView
-    private val bundledPages = setOf(
-        "/android_asset/index.html",
-        "/android_asset/about.html",
-        "/android_asset/privacy_policy.html"
-    )
+    private var backPressPending = false
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,8 +58,19 @@ class MainActivity : AppCompatActivity() {
                 val uri = request.url
                 when (uri.scheme?.lowercase()) {
                     "file" -> {
-                        // Only the bundled application pages may navigate inside the WebView.
-                        return uri.host != null || uri.path !in bundledPages
+                        if (uri.host != null) return true
+                        val page = when (uri.path) {
+                            "/android_asset/about.html" -> InfoActivity.PAGE_ABOUT
+                            "/android_asset/privacy_policy.html" -> InfoActivity.PAGE_PRIVACY
+                            else -> return true
+                        }
+
+                        // Keep the counter page alive while the user reads bundled information.
+                        startActivity(
+                            Intent(this@MainActivity, InfoActivity::class.java)
+                                .putExtra(InfoActivity.EXTRA_PAGE, page)
+                        )
+                        return true
                     }
                     "https" -> {
                         try {
@@ -93,17 +100,25 @@ class MainActivity : AppCompatActivity() {
             webView.loadUrl("file:///android_asset/index.html")
         }
 
-        // Handle hardware back button — navigate within WebView history
+        // Close Help first; otherwise leave the counter activity.
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
+                if (backPressPending) return
+                backPressPending = true
                 webView.evaluateJavascript(
                     "(function(){var modal=document.getElementById('helpModal');if(modal&&modal.style.display==='flex'){document.getElementById('helpClose').click();return true;}return false;})()"
                 ) { closedHelp ->
-                    if (closedHelp == "true") return@evaluateJavascript
+                    backPressPending = false
+                    if (isFinishing || isDestroyed || closedHelp == "true") return@evaluateJavascript
                     if (webView.canGoBack()) webView.goBack() else finish()
                 }
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        backPressPending = false
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
