@@ -349,21 +349,6 @@
     .val-cards { color: var(--txt-muted); }
     .sys-note  { margin-top: 10px; font-size: 12px; color: var(--txt-note); }
 
-    /* ── Betting ramp ── */
-    .bet-ramp { display: flex; flex-direction: column; gap: 5px; margin: 0 0 18px; }
-    .bet-row { display: flex; align-items: center; gap: 14px; padding: 9px 14px; border: 1px solid var(--brd-card); background: var(--bg-surface); }
-    .bet-count { min-width: 100px; font-family: Consolas, Monaco, monospace; font-size: 13px; color: var(--txt-note); }
-    .bet-label-cell { font-size: 14px; font-weight: 700; min-width: 130px; }
-    .bet-bar { flex: 1; height: 4px; background: var(--brd-row); }
-    .bet-bar-fill { height: 100%; }
-    .bet-row.r-max  { border-color: #00aa00; background: #002800; } .bet-row.r-max  .bet-label-cell { color: #55ff55; } .bet-row.r-max  .bet-bar-fill { background: #55ff55; width: 100%; }
-    .bet-row.r-high { border-color: #558800; background: #1a2600; } .bet-row.r-high .bet-label-cell { color: #aadd44; } .bet-row.r-high .bet-bar-fill { background: #aadd44; width: 80%; }
-    .bet-row.r-raise { border-color: #887700; background: #1a1800; } .bet-row.r-raise .bet-label-cell { color: #ddcc44; } .bet-row.r-raise .bet-bar-fill { background: #ddcc44; width: 60%; }
-    .bet-row.r-slight { border-color: #775500; background: #141000; } .bet-row.r-slight .bet-label-cell { color: #ddaa44; } .bet-row.r-slight .bet-bar-fill { background: #ddaa44; width: 40%; }
-    .bet-row.r-std  .bet-label-cell { color: var(--txt-dim); } .bet-row.r-std  .bet-bar-fill { background: var(--txt-dim); width: 20%; }
-    .bet-row.r-min  { border-color: #660000; background: #150000; } .bet-row.r-min  .bet-label-cell { color: #cc4444; } .bet-row.r-min  .bet-bar-fill { background: #cc4444; width: 10%; }
-    .bet-row.r-out  { border-color: #aa0000; background: #1a0000; } .bet-row.r-out  .bet-label-cell { color: #ff4444; } .bet-row.r-out  .bet-bar-fill { background: #ff4444; width: 5%; }
-
     /* ── Expert compare ── */
     .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
     .compare-box { border: 1px solid var(--brd-card); background: var(--bg-surface); padding: 14px 16px; }
@@ -638,11 +623,11 @@
             <div id="decksRemainingDisplay" class="stat-value">= 1</div>
           </div>
           <div id="extraStatOneBox" class="stat-box">
-            <div id="extraStatOneLabel" class="stat-label">Key Count Status</div>
+            <div id="extraStatOneLabel" class="stat-label">Count Position</div>
             <div id="extraStatOneDisplay" class="stat-value">—</div>
           </div>
           <div id="extraStatTwoBox" class="stat-box">
-            <div id="extraStatTwoLabel" class="stat-label">Advantage</div>
+            <div id="extraStatTwoLabel" class="stat-label">Pivot</div>
             <div id="extraStatTwoDisplay" class="stat-value">—</div>
           </div>
           <div id="acesPlayedBox" class="stat-box">
@@ -689,57 +674,55 @@
             <div class="step-item"><div class="step-num">2</div><div class="step-text"><strong>Choose a system</strong> — click the tab for the counting system you want to use. The buttons and display update automatically.</div></div>
             <div class="step-item"><div class="step-num">3</div><div class="step-text"><strong>Press buttons as cards are dealt</strong> — each button adjusts the running count by its value. The large number in the centre is always the current running count.</div></div>
             <div class="step-item"><div class="step-num">4</div><div class="step-text"><strong>Read the shoe and count stats</strong> — Cards Left and Decks Left update automatically after each counted card. <code>= 8</code> means exactly eight decks remain; <code>&lt; 8</code> means fewer than eight but more than 7.5. Likewise, <code>= 7.5</code> is exactly seven and a half decks, while <code>&lt; 7.5</code> means fewer than 7.5 but more than seven. Undo restores the previous shoe state; New Shoe and Clear reset it.</div></div>
-            <div class="step-item"><div class="step-num">5</div><div class="step-text"><strong>Read the True Count box</strong> — for balanced systems this is running count ÷ actual decks remaining. Near the end of a shoe, the calculation uses a minimum divisor of 0.5 decks to avoid extreme values; the displayed decks remaining stays accurate. For KO and Red 7 it shows your position relative to the key count instead.</div></div>
+            <div class="step-item"><div class="step-num">5</div><div class="step-text"><strong>Read the count and Betting Suggestion</strong> — balanced systems show True Count; KO and Red 7 use their running-count thresholds. The suggestion depends on the selected system. Open Betting or Expert Notes for the exact rules and examples.</div></div>
             <div class="step-item"><div class="step-num">6</div><div class="step-text"><strong>Ace button (where shown)</strong> — in Hi-Opt I, Hi-Opt II, and Omega II, aces are tracked separately. Pressing Ace does not change the running count but updates the ace density stats.</div></div>
             <div class="step-item"><div class="step-num">7</div><div class="step-text"><strong>New Shoe</strong> — starts the selected shoe size over with the correct starting count. Undo can restore the shoe that was active before New Shoe.</div></div>
             <div class="step-item"><div class="step-num">8</div><div class="step-text"><strong>Undo / Clear</strong> — Undo reverses the last card, shoe reset, or shoe-size change. Clear resets the entire shoe, same as New Shoe.</div></div>
             <div class="step-item"><div class="step-num">9</div><div class="step-text"><strong>Theme toggle</strong> — the ☀ button in the top right switches between dark and light mode. Your preference is saved automatically.</div></div>
             <div class="step-item"><div class="step-num">10</div><div class="step-text"><strong>Action log</strong> — the <code style="font-size:12px;border:1px solid #b30000;padding:0 4px;">&gt;_</code> button toggles the action log panel, which slides in from the right on supported screen sizes.</div></div>
           </div>
-          <div class="info-box"><strong>Ace density:</strong> in systems with ace side counting, the betting note shows <em>Aces rich</em>, <em>Aces poor</em>, or <em>Aces neutral</em>. A rich shoe has more aces remaining than expected and slightly favours the player beyond what the count alone shows.</div>
-          <div class="info-box"><strong>True Count vs Running Count:</strong> balanced systems divide the running count by the decks actually left in the shoe, not the starting shoe size. For example, +8 with 4.00 decks left is a true count of +2.00. The calculation uses at least 0.5 decks as its divisor near the end of the shoe; this is a safety convention, while the Decks Left display continues to show the actual amount down to 0.00. Unbalanced systems (KO, Red 7) use the running count and key thresholds instead.</div>
+          <div class="info-box"><strong>Ace density:</strong> in Hi-Opt I, Hi-Opt II, and Omega II the note reports whether remaining aces are rich, poor, or neutral versus expectation. <strong>Ace density is shown as additional information and does not automatically change the betting recommendation.</strong></div>
+          <div class="info-box"><strong>True Count vs Running Count:</strong> balanced systems divide the running count by exact decks remaining (with a 0.5-deck minimum divisor near an empty shoe). KO and Red 7 use their unbalanced running-count conventions and system-specific thresholds; the displayed comparison is not a True Count. Open Betting for the rules. A new shoe starts at the selected system's initial count.</div>
         </div>
 
         <div id="systemsPanel" class="help-panel">
           <p class="help-section-title">Counting Systems</p>
           <div class="sys-grid">
             <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Hi-Lo</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag lvl1">Level 1</span></div></div><table class="val-table"><thead class="sr-only"><tr><th scope="col">Value</th><th scope="col">Cards</th></tr></thead><tbody><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 4, 5, 6</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">7, 8, 9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K, A</td></tr></tbody></table></div>
-            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">KO (Knock-Out)</div><div class="sys-tags"><span class="sys-tag unbalanced">Unbalanced</span><span class="sys-tag lvl1">Level 1</span></div></div><table class="val-table"><thead class="sr-only"><tr><th scope="col">Value</th><th scope="col">Cards</th></tr></thead><tbody><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 4, 5, 6, 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">8, 9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K, A</td></tr></tbody></table><div class="sys-note">No true count needed. Compare running count to the key count threshold shown in the app.</div></div>
-            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Red 7</div><div class="sys-tags"><span class="sys-tag unbalanced">Unbalanced</span><span class="sys-tag lvl1">Level 1</span></div></div><table class="val-table"><thead class="sr-only"><tr><th scope="col">Value</th><th scope="col">Cards</th></tr></thead><tbody><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 4, 5, 6 and red 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">Black 7, 8, 9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K, A</td></tr></tbody></table><div class="sys-note">Red sevens count +1, black sevens count 0. Use the separate 7 Red and 7 Black buttons.</div></div>
+            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">KO (Knock-Out)</div><div class="sys-tags"><span class="sys-tag unbalanced">Unbalanced</span><span class="sys-tag lvl1">Level 1</span></div></div><table class="val-table"><thead class="sr-only"><tr><th scope="col">Value</th><th scope="col">Cards</th></tr></thead><tbody><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 4, 5, 6, 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">8, 9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K, A</td></tr></tbody></table><div class="sys-note">IRC = 4 − 4 × decks; this offset makes the full shoe end at +4 (the pivot). Published key counts are +2 (1 deck), +1 (2), −1 (4), −4 (6), and −6 (8). See Betting for the conservative fallback used at 3, 5, and 7 decks.</div></div>
+            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Red 7</div><div class="sys-tags"><span class="sys-tag unbalanced">Unbalanced</span><span class="sys-tag lvl1">Level 1</span></div></div><table class="val-table"><thead class="sr-only"><tr><th scope="col">Value</th><th scope="col">Cards</th></tr></thead><tbody><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 4, 5, 6 and red 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">Black 7, 8, 9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K, A</td></tr></tbody></table><div class="sys-note">IRC = −2 × decks and pivot = 0. At the pivot, the published shoe betting guide first raises the bet; it is a pivot convention, not a KO key count. Use the separate 7 Red and 7 Black buttons.</div></div>
             <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Hi-Opt I</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag lvl1">Level 1</span><span class="sys-tag ace-side">Ace Side Count</span></div></div><table class="val-table"><thead class="sr-only"><tr><th scope="col">Value</th><th scope="col">Cards</th></tr></thead><tbody><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">3, 4, 5, 6</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">2, 7, 8, 9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K</td></tr><tr><td><span class="val-badge ace">Ace</span></td><td class="val-cards">A — tracked separately</td></tr></tbody></table></div>
-            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Hi-Opt II</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag lvl2">Level 2</span><span class="sys-tag ace-side">Ace Side Count</span></div></div><table class="val-table"><thead class="sr-only"><tr><th scope="col">Value</th><th scope="col">Cards</th></tr></thead><tbody><tr><td><span class="val-badge p2">+2</span></td><td class="val-cards">4, 5</td></tr><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 6, 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">8, 9</td></tr><tr><td><span class="val-badge n2">−2</span></td><td class="val-cards">10, J, Q, K</td></tr><tr><td><span class="val-badge ace">Ace</span></td><td class="val-cards">A — tracked separately</td></tr></tbody></table></div>
+            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Hi-Opt II</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag lvl2">Level 2</span><span class="sys-tag ace-side">Ace Side Count</span></div></div><table class="val-table"><thead class="sr-only"><tr><th scope="col">Value</th><th scope="col">Cards</th></tr></thead><tbody><tr><td><span class="val-badge p2">+2</span></td><td class="val-cards">4, 5</td></tr><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 6, 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">8, 9</td></tr><tr><td><span class="val-badge n2">−2</span></td><td class="val-cards">10, J, Q, K</td></tr><tr><td><span class="val-badge ace">Ace</span></td><td class="val-cards">A — excluded from main count; tracked separately</td></tr></tbody></table></div>
             <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Zen Count</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag lvl2">Level 2</span></div></div><table class="val-table"><thead class="sr-only"><tr><th scope="col">Value</th><th scope="col">Cards</th></tr></thead><tbody><tr><td><span class="val-badge p2">+2</span></td><td class="val-cards">4, 5, 6</td></tr><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">8, 9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">A</td></tr><tr><td><span class="val-badge n2">−2</span></td><td class="val-cards">10, J, Q, K</td></tr></tbody></table><div class="sys-note">Aces are included in the main count at −1. No separate side counting needed.</div></div>
-            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Omega II</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag lvl2">Level 2</span><span class="sys-tag ace-side">Ace Side Count</span></div></div><table class="val-table"><thead class="sr-only"><tr><th scope="col">Value</th><th scope="col">Cards</th></tr></thead><tbody><tr><td><span class="val-badge p2">+2</span></td><td class="val-cards">4, 5, 6</td></tr><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">8</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">9</td></tr><tr><td><span class="val-badge n2">−2</span></td><td class="val-cards">10, J, Q, K</td></tr><tr><td><span class="val-badge ace">Ace</span></td><td class="val-cards">A — tracked separately</td></tr></tbody></table></div>
-            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Wong Halves</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag frac">Fractional</span></div></div><table class="val-table"><thead class="sr-only"><tr><th scope="col">Value</th><th scope="col">Cards</th></tr></thead><tbody><tr><td><span class="val-badge p15">+1.5</span></td><td class="val-cards">5</td></tr><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">3, 4, 6</td></tr><tr><td><span class="val-badge p05">+0.5</span></td><td class="val-cards">2, 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">8</td></tr><tr><td><span class="val-badge n05">−0.5</span></td><td class="val-cards">9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K, A</td></tr></tbody></table><div class="sys-note">Highest accuracy of all systems here. Values can be doubled mentally to keep whole numbers if preferred.</div></div>
+            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Omega II</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag lvl2">Level 2</span><span class="sys-tag ace-side">Ace Side Count</span></div></div><table class="val-table"><thead class="sr-only"><tr><th scope="col">Value</th><th scope="col">Cards</th></tr></thead><tbody><tr><td><span class="val-badge p2">+2</span></td><td class="val-cards">4, 5, 6</td></tr><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">2, 3, 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">8</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">9</td></tr><tr><td><span class="val-badge n2">−2</span></td><td class="val-cards">10, J, Q, K</td></tr><tr><td><span class="val-badge ace">Ace</span></td><td class="val-cards">A — excluded from main count; tracked separately</td></tr></tbody></table></div>
+            <div class="sys-card"><div class="sys-card-header"><div class="sys-card-name">Wong Halves</div><div class="sys-tags"><span class="sys-tag balanced">Balanced</span><span class="sys-tag frac">Fractional</span></div></div><table class="val-table"><thead class="sr-only"><tr><th scope="col">Value</th><th scope="col">Cards</th></tr></thead><tbody><tr><td><span class="val-badge p15">+1.5</span></td><td class="val-cards">5</td></tr><tr><td><span class="val-badge p1">+1</span></td><td class="val-cards">3, 4, 6</td></tr><tr><td><span class="val-badge p05">+0.5</span></td><td class="val-cards">2, 7</td></tr><tr><td><span class="val-badge z">0</span></td><td class="val-cards">8</td></tr><tr><td><span class="val-badge n05">−0.5</span></td><td class="val-cards">9</td></tr><tr><td><span class="val-badge n1">−1</span></td><td class="val-cards">10, J, Q, K, A</td></tr></tbody></table><div class="sys-note">Fractional tags distinguish more ranks. Values can be doubled mentally to keep whole numbers if preferred.</div></div>
           </div>
+          <div class="info-box"><strong>Starting counts:</strong> the six balanced systems start at 0 and sum to 0 over a complete deck. KO starts at <code>4 − 4 × decks</code> and Red 7 starts at <code>−2 × decks</code>; both unbalanced tag sets gain +4 or +2 per full deck counted, respectively. KO uses a key count and +4 pivot; Red 7 uses pivot 0 and its deck-specific running-count betting guide. The Betting section explains the implemented thresholds.</div>
         </div>
 
         <div id="bettingPanel" class="help-panel">
-          <p class="help-section-title">Betting Suggestion Ramp</p>
-          <div class="bet-ramp">
-            <div class="bet-row r-max"><div class="bet-count">TC ≥ +4</div><div class="bet-label-cell">Max</div><div class="bet-bar"><div class="bet-bar-fill"></div></div></div>
-            <div class="bet-row r-high"><div class="bet-count">TC = +3</div><div class="bet-label-cell">High</div><div class="bet-bar"><div class="bet-bar-fill"></div></div></div>
-            <div class="bet-row r-raise"><div class="bet-count">TC = +2</div><div class="bet-label-cell">Raise</div><div class="bet-bar"><div class="bet-bar-fill"></div></div></div>
-            <div class="bet-row r-slight"><div class="bet-count">TC = +1</div><div class="bet-label-cell">Slight Increase</div><div class="bet-bar"><div class="bet-bar-fill"></div></div></div>
-            <div class="bet-row r-std"><div class="bet-count">TC = 0</div><div class="bet-label-cell">Standard</div><div class="bet-bar"><div class="bet-bar-fill"></div></div></div>
-            <div class="bet-row r-min"><div class="bet-count">TC = −1</div><div class="bet-label-cell">Minimum</div><div class="bet-bar"><div class="bet-bar-fill"></div></div></div>
-            <div class="bet-row r-out"><div class="bet-count">TC ≤ −2</div><div class="bet-label-cell">Sit Out / Minimum</div><div class="bet-bar"><div class="bet-bar-fill"></div></div></div>
-          </div>
-          <div class="info-box"><strong>Unbalanced systems (KO, Red 7):</strong> the ramp uses the running count relative to the key count threshold rather than true count. Once you are above the key, conditions are favourable. The further above the key, the stronger the advantage.</div>
-          <div class="info-box"><strong>Ace density modifier:</strong> in systems with ace side counting (Hi-Opt I, Hi-Opt II, Omega II), the betting note shows whether the shoe is ace-rich or ace-poor. Ace-rich shoes are slightly more favourable and may justify pushing a bet one level higher.</div>
-          <div class="info-box"><strong>Balanced systems:</strong> the suggested ramp uses the true count calculated from the running count and actual decks remaining, with a 0.5-deck minimum calculation divisor near an empty shoe. The visible Decks Left value remains the actual shoe amount. Ace density notes are applied for Hi-Opt I, Hi-Opt II, and Omega II.</div>
-          <div class="info-box muted">This ramp is a practical training guide, not a bankroll-optimised professional spread. Real advantage play requires strict bet sizing discipline, risk-of-ruin calculations, and awareness of table bet limits.</div>
+          <p class="help-section-title">How Betting Suggestions Are Calculated</p>
+          <div class="info-box"><strong>Balanced systems — Hi-Lo, Hi-Opt I, Hi-Opt II, Zen, Omega II, Wong Halves:</strong> all six currently share this application-specific training ramp, using the unrounded True Count (TC = running count ÷ max(exact decks remaining, 0.5)). TC ≥ +4: <b>Max</b>; +3 ≤ TC &lt; +4: <b>High</b>; +2 ≤ TC &lt; +3: <b>Raise</b>; +1 ≤ TC &lt; +2: <b>Slight Increase</b>; 0 ≤ TC &lt; +1: <b>Standard</b>; −2 &lt; TC &lt; 0: <b>Minimum</b>; TC ≤ −2: <b>Sit Out / Minimum</b>. The common bands do not account for differences in betting correlation, rules, penetration, or bankroll, and are not a validated or optimized spread.</div>
+          <div class="info-box"><strong>KO:</strong> the standard KO IRC is 4 − 4 × starting decks and the pivot is +4. For the published key counts available for 1, 2, 4, 6, and 8 decks (+2, +1, −1, −4, −6), this app says <b>Minimum</b> below key, <b>Raise</b> from key up to but not including +4, and <b>Max</b> at +4 or above. KO Rookie starts increasing at the key; its source describes the maximum bet as at or near pivot. Standard published key counts were not established here for 3, 5, and 7 decks. For those sizes, this app uses an explicitly conservative fallback: Minimum below +4, Max at/above +4, with no key count claimed.</div>
+          <div class="info-box"><strong>Red 7:</strong> IRC = −2 × starting decks and pivot = 0. The app uses Arnold Snyder's published “Shoe” unit guide for 3–8 decks, and its 1-deck and 2-deck columns for those shoe sizes. At each listed RC threshold, the listed unit level applies until the next threshold: 1 deck: below 0 = 1 unit, 0 = 2, +2 = 4; 2 decks: below 0 = 1, 0 = 2, +4 = 3, +6 = 4, +8 = 6; 3–8 decks: below 0 = 1, 0 = 2, +6 = 3, +8 = 4, +12 = 6, +16 = 8. Zero is both the pivot and the first raise point in this convention; it is not a KO key count. The suggestion category labels summarize unit levels: 1 Minimum, 2 Slight Increase, 3 Raise, 4 High, 6 High (or Max where it is the selected table's highest level), and 8 Max. The note shows the exact unit count. The source calls these guidelines and explains that game rules, penetration, bankroll, limits, and spread constraints affect sizing.</div>
+          <div class="info-box"><strong>Examples:</strong> Hi-Lo RC +8 with 4 exact decks left gives TC +2 and <b>Raise</b>. Eight-deck KO at RC −6 is at its published key count and says <b>Raise</b>; at RC +4 it is at pivot and says <b>Max</b>. Six-deck Red 7 at RC 0 (IRC −12 plus 12 count points) is at its pivot and recommends <b>Slight Increase</b> with the published 2-unit shoe guide; at RC +8 it recommends <b>High</b> and shows 4 units.</div>
+          <div class="info-box"><strong>Category meanings:</strong> Minimum is the baseline 1-unit band; Slight Increase is the next small increase; Raise, High, and Max name progressively higher training bands. Standard and Sit Out / Minimum are produced by the balanced ramp. These labels are not dollar amounts or universal prescriptions.</div>
+          <div class="info-box"><strong>Advantage and aces:</strong> this tool does not calculate a casino-edge percentage. Count Position reports whether KO is below, at, or above its key count. Red 7 shows its first-raise threshold and pivot. Ace density is shown as additional information and does not automatically change the betting recommendation.</div>
+          <div class="info-box muted">These suggestions are educational signals, not bankroll-optimized advice. They do not account for table rules (including S17/H17, blackjack payout, doubling, splitting, or surrender), penetration, bankroll, risk tolerance, table limits, or camouflage. No recommendation guarantees a player edge or a win.</div>
         </div>
 
         <div id="expertPanel" class="help-panel">
           <p class="help-section-title">What Changes at Expert Level</p>
           <div class="compare-grid">
             <div class="compare-box"><h4>Beginner — Hi-Lo</h4><ul><li>Three card groups only</li><li>All values are +1, 0, or −1</li><li>Balanced — starts and ends at 0</li><li>True Count uses precise fractional decks remaining</li><li>No ace side count needed</li><li>Easiest to maintain under pressure</li></ul></div>
-            <div class="compare-box"><h4>Advanced — Level 2 Systems</h4><ul><li>More card groups with different weights</li><li>Values of ±2 require separate mental tracking</li><li>Fractional steps in Wong Halves</li><li>Ace side counting adds a parallel track</li><li>Higher accuracy over many decks</li><li>Significantly harder to maintain error-free</li></ul></div>
+            <div class="compare-box"><h4>Advanced — Multi-level Systems</h4><ul><li>More card groups with different weights</li><li>Values of ±2 require separate mental tracking</li><li>Fractional steps in Wong Halves</li><li>Ace side counting adds a parallel track where shown</li><li>Different tags emphasize different counting tasks</li><li>More mental work and more chances for counting errors</li></ul></div>
           </div>
           <div class="info-box"><strong>Index plays:</strong> advanced players deviate from basic strategy at certain count thresholds (index numbers). For example, standing on 16 vs dealer 10 when the count is sufficiently positive. This app focuses on the count and betting signal only — index plays are not implemented.</div>
           <div class="info-box"><strong>Half-deck estimation:</strong> blackjack players often estimate the remaining shoe in half-deck increments. The Decks Left indicator shows the interval containing the exact remaining amount: <code>=</code> marks an exact whole- or half-deck boundary, and <code>&lt;</code> means fewer decks remain than the next half-deck boundary. This avoids suggesting an exact amount when the shoe is between boundaries. Internally, remaining decks are calculated from the exact number of cards left (cards ÷ 52); the display rounding never changes True Count, which continues to use precise fractional decks remaining. Near an empty shoe, the calculation divisor has a 0.5-deck minimum for stability, while the indicator still reports the actual amount down to <code>= 0</code>.</div>
-          <div class="info-box"><strong>System efficiency:</strong> systems are evaluated on Betting Correlation (BC), Playing Efficiency (PE), and Insurance Correlation (IC). Hi-Lo has solid BC. Hi-Opt II and Omega II score higher across all three but at the cost of mental complexity.</div>
+          <div class="info-box"><strong>Balanced and unbalanced counts:</strong> balanced tags sum to zero across a complete deck, so their running count is converted to True Count by dividing by exact decks remaining. Hi-Lo, Hi-Opt I/II, Zen, Omega II, and Wong Halves use that path here. KO and Red 7 have a net positive tag total per deck, so the selected IRC offsets that natural drift; their running counts are read against their system's published key/pivot conventions without the app's balanced-count division.</div>
+          <div class="info-box"><strong>IRC, key count, and pivot:</strong> IRC is the starting running-count offset after a shuffle. A KO key count is its published first betting threshold; its +4 pivot is a separate reference where KO's running count corresponds to approximately TC +4 across shoe sizes. Red 7's adjusted IRC makes its pivot 0; the original guide describes this as about a 1% increase over the game's starting expectation and first raises the bet at zero. A key count and a pivot answer different questions and must not be substituted for one another. KO key-count data for 3, 5, and 7 decks was not established in the references used here, so the app shows no fabricated key and applies only the conservative +4 pivot fallback at those sizes.</div>
+          <div class="info-box"><strong>Betting correlation and limitations:</strong> systems differ in how well tag values track the remaining cards' effect on betting (betting correlation), playing decisions (playing efficiency), and insurance (insurance correlation). Different counts and true-count conventions can therefore give different signals. This app intentionally applies one simplified ramp to all six balanced systems and distinct sourced guidelines to KO and Red 7; it does not simulate a specific table's expected value or produce bankroll-sized bets. The bet suggestion does not account for table rules, penetration, bankroll, or risk tolerance. Index plays are not implemented.</div>
+          <div class="info-box"><strong>Ace side count:</strong> Ace density for Hi-Opt I, Hi-Opt II, and Omega II compares remaining aces with the number expected from exact remaining cards. Ace density is shown as additional information and does not automatically change the betting recommendation.</div>
         </div>
 
         <div id="disclaimerPanel" class="help-panel">
@@ -821,49 +804,49 @@
       },
       ko: {
         header:  'KO system loaded — unbalanced beginner-friendly running count',
-        details: 'Use running count; keep deck count selected because KO key points depend on shoe size',
+        details: 'IRC = 4 − 4 × decks; published key counts and the +4 pivot are separate running-count references',
         use:     b('+1') + ' for 2–7, ' + b('0') + ' for 8–9, ' + b('−1') + ' for 10–A',
         aceSideCount: false, usesRunningCountOnly: true,
         buttons: [{label:'-1',delta:-1},{label:'0',delta:0},{label:'+1',delta:1}]
       },
       red7: {
         header:  'Red 7 system loaded — unbalanced count with red-7 bonus',
-        details: 'Use running count; keep deck count selected because Red 7 key points depend on shoe size',
+        details: 'IRC = −2 × decks; running-count betting guide uses pivot 0, which is also its first-raise point',
         use:     b('+1') + ' for 2–6 & red 7, ' + b('0') + ' for black 7/8/9, ' + b('−1') + ' for 10–A',
         aceSideCount: false, usesRunningCountOnly: true,
         buttons: [{label:'-1',delta:-1},{label:'0',delta:0},{label:'+1',delta:1},{label:'7 Red',delta:1},{label:'7 Black',delta:0}]
       },
       hiopt1: {
         header:  'Hi-Opt I loaded — balanced bridge system before Hi-Opt II',
-        details: 'Balanced level-one count with separate ace tracking',
+        details: 'Balanced level-one count with Aces excluded from the main count and tracked separately',
         use:     b('+1') + ' for 3–6, ' + b('0') + ' for 2/7/8/9, ' + b('−1') + ' for 10–K, ' + b('Ace') + ' for A',
         aceSideCount: true, usesRunningCountOnly: false,
         buttons: [{label:'-1',delta:-1},{label:'0',delta:0},{label:'+1',delta:1},{label:'Ace',delta:0,ace:true}]
       },
       hiopt2: {
         header:  'Hi-Opt II system loaded — advanced accuracy with ace side count',
-        details: 'More precise pro system with separate ace tracking and ace-remaining awareness',
+        details: 'Balanced multi-level count with Aces excluded from the main count and tracked separately',
         use:     b('+1') + ' for 2/3/6/7, ' + b('+2') + ' for 4/5, ' + b('0') + ' for 8/9, ' + b('−2') + ' for 10–K, ' + b('Ace') + ' for A',
         aceSideCount: true, usesRunningCountOnly: false,
         buttons: [{label:'-2',delta:-2},{label:'+2',delta:2},{label:'+1',delta:1},{label:'0',delta:0},{label:'Ace',delta:0,ace:true}]
       },
       zen: {
         header:  'Zen Count loaded — stronger multi-level balanced count',
-        details: 'Higher precision than Hi-Lo; Aces count as −1 in the main count, no side counting needed',
+        details: 'Balanced multi-level count; Aces count as −1 in the main count, with no side count',
         use:     b('+2') + ' for 4/5/6, ' + b('+1') + ' for 2/3/7, ' + b('0') + ' for 8/9, ' + b('−1') + ' for A, ' + b('−2') + ' for 10–K',
         aceSideCount: false, usesRunningCountOnly: false,
         buttons: [{label:'-2',delta:-2},{label:'-1',delta:-1},{label:'0',delta:0},{label:'+1',delta:1},{label:'+2',delta:2}]
       },
       omega2: {
         header:  'Omega II loaded — advanced multi-level system with ace tracking',
-        details: 'High-efficiency count with separate ace tracking and ace-remaining awareness',
+        details: 'Balanced multi-level count with Aces excluded from the main count and tracked separately',
         use:     b('+1') + ' for 2/3/7, ' + b('+2') + ' for 4/5/6, ' + b('0') + ' for 8, ' + b('−1') + ' for 9, ' + b('−2') + ' for 10–K, ' + b('Ace') + ' for A',
         aceSideCount: true, usesRunningCountOnly: false,
         buttons: [{label:'-2',delta:-2},{label:'-1',delta:-1},{label:'0',delta:0},{label:'+2',delta:2},{label:'+1',delta:1},{label:'Ace',delta:0,ace:true}]
       },
       wonghalves: {
         header:  'Wong Halves loaded — high-efficiency fractional balanced count',
-        details: 'Very accurate count using half-point steps and true-count conversion',
+        details: 'Balanced fractional count using half-point steps and true-count conversion',
         use:     b('+1.5') + ' for 5, ' + b('+1') + ' for 3/4/6, ' + b('+0.5') + ' for 2/7, ' + b('0') + ' for 8, ' + b('−0.5') + ' for 9, ' + b('−1') + ' for 10–A',
         aceSideCount: false, usesRunningCountOnly: false,
         buttons: [{label:'-1',delta:-1},{label:'-0.5',delta:-0.5},{label:'0',delta:0},{label:'+0.5',delta:0.5},{label:'+1',delta:1},{label:'+1.5',delta:1.5}]
@@ -919,9 +902,19 @@
       if (name === 'red7') return -2 * decks;
       return 0;
     }
+    var BALANCED_BET_THRESHOLDS = { max: 4, high: 3, raise: 2, slightIncrease: 1, standard: 0, sitOut: -2 };
+    var KO_PIVOT = 4;
+    var RED7_PIVOT = 0;
+    var KO_KEY_COUNTS = {1:2, 2:1, 4:-1, 6:-4, 8:-6};
+    var RED7_BET_GUIDES = {
+      single: [{ threshold: RED7_PIVOT, units: 2 }, { threshold: 2, units: 4 }],
+      double: [{ threshold: RED7_PIVOT, units: 2 }, { threshold: 4, units: 3 }, { threshold: 6, units: 4 }, { threshold: 8, units: 6 }],
+      shoe: [{ threshold: RED7_PIVOT, units: 2 }, { threshold: 6, units: 3 }, { threshold: 8, units: 4 }, { threshold: 12, units: 6 }, { threshold: 16, units: 8 }]
+    };
     function getKeyCount(name, decks) {
-      if (name === 'ko') { var t = {1:2,2:0,3:-1,4:-2,5:-4,6:-5,7:-6,8:-6}; return t[decks] != null ? t[decks] : 0; }
-      return 0;
+      return name === 'ko' && Object.prototype.hasOwnProperty.call(KO_KEY_COUNTS, decks)
+        ? KO_KEY_COUNTS[decks]
+        : null;
     }
     function saveHistory(decksOverride) {
       history.push({
@@ -932,16 +925,57 @@
         actionLogEntries: actionLogEntries.slice()
       });
     }
-    function getBet(v, note) {
-      var s = 'Standard';
-      if      (v >= 4)            s = 'Max';
-      else if (v >= 3)            s = 'High';
-      else if (v >= 2)            s = 'Raise';
-      else if (v >= 1)            s = 'Slight Increase';
-      else if (v >= 0)            s = 'Standard';
-      else if (v > -2)            s = 'Minimum';
-      else                        s = 'Sit Out / Minimum';
-      return { suggestion: s, note: note || 'Based on count' };
+    function getBalancedBet(trueCount) {
+      if (trueCount >= BALANCED_BET_THRESHOLDS.max) return 'Max';
+      if (trueCount >= BALANCED_BET_THRESHOLDS.high) return 'High';
+      if (trueCount >= BALANCED_BET_THRESHOLDS.raise) return 'Raise';
+      if (trueCount >= BALANCED_BET_THRESHOLDS.slightIncrease) return 'Slight Increase';
+      if (trueCount >= BALANCED_BET_THRESHOLDS.standard) return 'Standard';
+      if (trueCount > BALANCED_BET_THRESHOLDS.sitOut) return 'Minimum';
+      return 'Sit Out / Minimum';
+    }
+    function getKOBet(runningCount, decks) {
+      var keyCount = getKeyCount('ko', decks);
+      if (keyCount == null) {
+        return {
+          suggestion: runningCount >= KO_PIVOT ? 'Max' : 'Minimum',
+          note: 'KO fallback: minimum below pivot +4; max at/above pivot'
+        };
+      }
+      return {
+        suggestion: runningCount >= KO_PIVOT ? 'Max' : runningCount >= keyCount ? 'Raise' : 'Minimum',
+        note: runningCount >= KO_PIVOT
+          ? 'KO: at/above +4 pivot; maximum training band'
+          : runningCount >= keyCount
+            ? 'KO: at/above key; raised training band'
+            : 'KO: below key; minimum training band'
+      };
+    }
+    function getRed7Bet(runningCount, decks) {
+      var guide = decks === 1 ? RED7_BET_GUIDES.single : decks === 2 ? RED7_BET_GUIDES.double : RED7_BET_GUIDES.shoe;
+      var units = 1;
+      var maxUnits = guide[guide.length - 1].units;
+      for (var i = 0; i < guide.length; i++) {
+        if (runningCount >= guide[i].threshold) units = guide[i].units;
+      }
+      var suggestion = units === 1 ? 'Minimum'
+        : units === maxUnits ? 'Max'
+          : units === 2 ? 'Slight Increase'
+            : units === 3 ? 'Raise'
+              : 'High';
+      return {
+        suggestion: suggestion,
+        units: units,
+        note: 'Red 7 guide: ' + units + (units === 1 ? ' unit' : ' units') + '; pivot / first raise RC ' + RED7_PIVOT
+      };
+    }
+    function getBetAssessment(name, runningCount, trueCount, decks) {
+      if (name === 'ko') return getKOBet(runningCount, decks);
+      if (name === 'red7') return getRed7Bet(runningCount, decks);
+      return {
+        suggestion: getBalancedBet(trueCount),
+        note: 'Balanced training ramp; TC ' + (trueCount >= 0 ? '+' : '') + trueCount.toFixed(2)
+      };
     }
     function ftime() {
       var n = new Date();
@@ -991,43 +1025,49 @@
       var displayDeckText = Number.isInteger(displayDecks) ? String(displayDecks) : displayDecks.toFixed(1);
       var safeDecksRemaining = Math.max(decksRemaining, 0.5);
       var acesRem  = Math.max(totalAces - acesPlayed, 0);
-      var metric   = systems[activeSystem].usesRunningCountOnly ? count : count / safeDecksRemaining;
-      var note     = systems[activeSystem].usesRunningCountOnly ? 'Based on running count' : 'Based on true count';
+      var system   = systems[activeSystem];
+      var trueCount = count / safeDecksRemaining;
+      var noteSuffix = '';
 
-      if (systems[activeSystem].aceSideCount && cardsRem > 0) {
+      if (system.aceSideCount && cardsRem > 0) {
         var exp     = (cardsRem / total) * totalAces;
         var surplus = acesRem - exp;
         var bias    = surplus / safeDecksRemaining;
-        note = bias >= 0.5 ? 'Aces rich' : bias <= -0.5 ? 'Aces poor' : 'Aces neutral';
+        noteSuffix = '; ace density ' + (bias >= 0.5 ? 'rich' : bias <= -0.5 ? 'poor' : 'neutral') + ' (info only)';
       }
 
-      var bet      = getBet(metric, note);
-      var isUnbal  = systems[activeSystem].usesRunningCountOnly;
+      var bet = getBetAssessment(activeSystem, count, trueCount, decks);
 
-      if (isUnbal) {
-        var kc   = getKeyCount(activeSystem, decks);
-        var diff = count - kc;
-        var st   = 'At Key', adv = 'Neutral', kt = 'At key';
-        if (diff < 0)      { st = 'Below Key'; adv = 'Negative'; kt = 'Need +' + Math.abs(diff); }
-        else if (diff > 0) { st = 'Above Key'; adv = 'Positive'; kt = 'Above key by ' + diff; }
-        countMetricLabel.textContent    = 'Key Count';
-        trueCountDisplay.textContent    = kt;
-        extraStatOneLabel.textContent   = 'Key Count Status';
-        extraStatOneDisplay.textContent = st;
-        extraStatTwoLabel.textContent   = 'Advantage';
-        extraStatTwoDisplay.textContent = adv;
+      if (system.usesRunningCountOnly) {
+        var kc = getKeyCount(activeSystem, decks);
+        var pivot = activeSystem === 'ko' ? KO_PIVOT : RED7_PIVOT;
+        var position;
+        countMetricLabel.textContent = activeSystem === 'ko' ? 'Key Count' : 'Running Count';
+        trueCountDisplay.textContent = activeSystem === 'ko' ? (kc == null ? 'Not published' : (kc > 0 ? '+' : '') + kc) : (count > 0 ? '+' : '') + count;
+        extraStatOneLabel.textContent = activeSystem === 'ko' ? 'Count Position' : 'First Raise';
+        if (activeSystem === 'ko') {
+          position = kc == null ? 'No published key' : count < kc ? 'Below Key' : count === kc ? 'At Key' : 'Above Key';
+          if (kc == null) position = count < pivot ? 'Below Pivot' : count === pivot ? 'At Pivot' : 'Above Pivot';
+          extraStatOneDisplay.textContent = position;
+          extraStatTwoLabel.textContent = 'Pivot';
+          extraStatTwoDisplay.textContent = '+4';
+        } else {
+          extraStatOneDisplay.textContent = 'RC 0';
+          extraStatTwoLabel.textContent = 'Pivot';
+          extraStatTwoDisplay.textContent = 'RC 0';
+        }
         extraStatOneBox.style.display   = 'block';
         extraStatTwoBox.style.display   = 'block';
       } else {
         countMetricLabel.textContent  = 'True Count';
-        trueCountDisplay.textContent  = metric.toFixed(2);
+        trueCountDisplay.textContent  = trueCount.toFixed(2);
         extraStatOneBox.style.display = 'none';
         extraStatTwoBox.style.display = 'none';
       }
 
       display.textContent                  = Number.isInteger(count) ? count : count.toFixed(1);
       bettingSuggestionDisplay.textContent = bet.suggestion;
-      bettingNoteDisplay.textContent       = bet.note;
+      bettingNoteDisplay.textContent       = bet.note + noteSuffix;
       cardsPlayedDisplay.textContent       = cardsPlayed;
       cardsRemainingDisplay.textContent    = cardsRem;
       decksRemainingDisplay.textContent    = deckBoundarySign + ' ' + displayDeckText;
@@ -1090,7 +1130,7 @@
       systemHeaderLine.textContent    = sys.header;
       systemHeaderDetails.textContent = sys.details;
       systemHeaderUse.innerHTML       = sys.use;   /* innerHTML for use-badge spans */
-      countMetricLabel.textContent    = sys.usesRunningCountOnly ? 'Key Count' : 'True Count';
+      countMetricLabel.textContent    = sys.usesRunningCountOnly ? (name === 'ko' ? 'Key Count' : 'Running Count') : 'True Count';
       shoeSelectorRow.style.display   = 'flex';
 
       /* Ace stat boxes */
